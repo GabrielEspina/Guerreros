@@ -13,5 +13,7 @@ public class MenuHabilidades extends MenuRaiz{
 	public void ir() {
 		MENU.menuHabilidades(this.getGuerrero());
 	}
+	
+	
 
 }

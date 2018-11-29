@@ -1,5 +1,7 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import java.util.Map;
+
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 import ar.edu.ub.testing.guerreros.vista.IMenu;
@@ -35,7 +37,7 @@ public class MenuController implements IMenuController {
 	
 	
 	@Override
-	public void menuCreacionDePersonaje(GuerreroJugador guerrero) {
+	public void menuCreacionDePersonaje() {
 		Consola.limpiarConsola();
 		getMenu().mostrarMenuCreacionPersonaje();
 		
@@ -45,9 +47,11 @@ public class MenuController implements IMenuController {
 	
 	
 	@Override
-	public void menuTienda(GuerreroJugador guerrero, EntidadesJuego entidades) {
-		Consola.limpiarConsola();
+	public void menuTienda(Map<Integer,IControlDeFlujo> tiendas,GuerreroJugador guerrero, EntidadesJuego entidades) {
+		//Consola.limpiarConsola();
 		getMenu().mostrarMenuTienda(guerrero, entidades);
+		Integer opcion = Consola.pedirNumero(1,3);
+		tiendas.get(opcion).ir();
 		
 	}
 
@@ -55,8 +59,10 @@ public class MenuController implements IMenuController {
 	
 	@Override
 	public void menuItems(GuerreroJugador guerrero) {
-		Consola.limpiarConsola();
+		//Consola.limpiarConsola();
 		getMenu().mostrarMenuTiendaItem(guerrero);
+		
+		
 	}
 
 	

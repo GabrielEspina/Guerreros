@@ -9,6 +9,13 @@ public abstract class MenuRaiz implements IControlDeFlujo {
 	private EntidadesJuego entidades;
 	
 	public MenuRaiz() {
+	}
+	
+	public MenuRaiz(EntidadesJuego entidades) {
+		setEntidades(entidades);
+	}
+	
+	public void ir(GuerreroJugador guerrero) {
 		
 	}
 	
