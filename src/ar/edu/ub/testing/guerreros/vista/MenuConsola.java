@@ -228,4 +228,12 @@ public class MenuConsola implements IMenu {
 		
 	}
 
+	@Override
+	public void mostrarMenuCreacionPersonaje() {
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println("X         Ingresar Nombre           X");
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		
+	}
+
 }
