@@ -24,5 +24,7 @@ public interface IMenu {
 	public void mostrarMenuTiendaItemsPasivos(GuerreroJugador guerrero);
 	
 	public void mostrarMenuAsignacionDePuntos(GuerreroJugador guerrero);
+	
+	public void mostrarMenuCreacionPersonaje();
 
 }
