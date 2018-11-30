@@ -1,10 +1,10 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import ar.edu.ub.testing.guerreros.control.IControlDeFlujo;
 import ar.edu.ub.testing.guerreros.control.MenuAsignacion;
 import ar.edu.ub.testing.guerreros.control.MenuPrincipal;
 import ar.edu.ub.testing.guerreros.control.MenuSeleccion;
+import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 

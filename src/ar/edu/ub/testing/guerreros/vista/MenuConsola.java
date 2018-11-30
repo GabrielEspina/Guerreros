@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.vista;
 
+import ar.edu.ub.testing.guerreros.control.interfaces.IMenu;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
