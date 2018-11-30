@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 

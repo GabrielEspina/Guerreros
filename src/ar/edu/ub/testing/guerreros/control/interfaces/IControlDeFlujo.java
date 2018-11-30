@@ -1,4 +1,6 @@
-package ar.edu.ub.testing.guerreros.control;
+package ar.edu.ub.testing.guerreros.control.interfaces;
+
+import ar.edu.ub.testing.guerreros.control.MenuController;
 
 public interface IControlDeFlujo {
 	

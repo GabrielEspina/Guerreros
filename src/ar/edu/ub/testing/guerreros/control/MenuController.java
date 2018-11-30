@@ -1,8 +1,9 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import ar.edu.ub.testing.guerreros.control.interfaces.IMenu;
+import ar.edu.ub.testing.guerreros.control.interfaces.IMenuController;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
-import ar.edu.ub.testing.guerreros.vista.IMenu;
 import ar.edu.ub.testing.guerreros.vista.MenuConsola;
 
 public class MenuController implements IMenuController {

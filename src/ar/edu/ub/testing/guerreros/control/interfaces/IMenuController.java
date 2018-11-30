@@ -1,4 +1,4 @@
-package ar.edu.ub.testing.guerreros.control;
+package ar.edu.ub.testing.guerreros.control.interfaces;
 
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
