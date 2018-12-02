@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.control;
 
+
 import ar.edu.ub.testing.guerreros.control.interfaces.IMenu;
 import ar.edu.ub.testing.guerreros.control.interfaces.IMenuController;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
@@ -10,8 +11,6 @@ public class MenuController implements IMenuController {
 	
 	private IMenu menu;
 	
-	
-	
 	public MenuController() {
 		this.setMenu(new MenuConsola());
 	}
@@ -20,7 +19,6 @@ public class MenuController implements IMenuController {
 	
 	@Override
 	public void menuPrincipal() {
-		Consola.limpiarConsola();
 		getMenu().mostrarMenuPrincipal();
 	}
 

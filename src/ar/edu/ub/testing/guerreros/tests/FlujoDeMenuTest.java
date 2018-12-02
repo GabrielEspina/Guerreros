@@ -53,7 +53,7 @@ public class FlujoDeMenuTest {
 		
 		menus.put(1, new MenuPrincipal());
 		menus.put(2, new MenuAsignacion(guerrero, entidades));
-		menus.put(3, new MenuSeleccion(guerrero, entidades));
+		menus.put(3, new MenuSeleccion());
 		menus.put(4, new MenuHabilidades(guerrero,entidades));
 		menus.put(5, new MenuTienda(guerrero, entidades));
 		menus.put(6, new MenuItems(guerrero, entidades));
