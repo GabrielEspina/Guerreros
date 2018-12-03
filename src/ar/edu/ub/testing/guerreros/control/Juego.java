@@ -15,42 +15,19 @@ public class Juego {
 	private Map<Integer, IControlDeFlujo> menus = new HashMap<>(); 
 	
 	private Map<Integer,Modo_Juego> modoJuego;
-	/*private Map<Integer,IHabilidadActiva> habildadesActivas;
-	private Map<Integer,IHabilidadPasiva> habildadesPasivas;*/
-	
+
 	public Juego() {
 		setEntidades(new EntidadesJuego());
 		setModoJuego(new HashMap<>());
 		
 		crearModos();
-		
-		//setHabildadesActivas(new HashMap<>());
-		
-		//setHabildadesPasivas(new HashMap<>());
-			
-		//crearHabilidades();
-		
-		//crearPartidas();
 		crearMenus();
 		menuPrincipal();
 		
 	}
 	
 	
-	/*private void crearHabilidades() {
-		//Se indican las habilidades activas que puede elegir el usuario
-		getHabildadesActivas().put(1, new HabilidadEnemigosPierdenTurno());
-		getHabildadesActivas().put(2, new HabilidadEnemigoFallaAtaque());
-		getHabildadesActivas().put(3, new HabilidadDaniarEnemigos());
-		getHabildadesActivas().put(4, new HabilidadDaniarEnemigoCincoTurnos());
-		
-		//Se indican las habilidades pasivas que puede elegir el usuario
-		getHabildadesPasivas().put(5, new Habilidad25PorcDobleDanio());
-		getHabildadesPasivas().put(6, new Habilidad20PorcEvadirAtaque());
-		getHabildadesPasivas().put(7, new Habilidad15PorcParalizarDosTurnos());
-	}
 
-*/
 	private void crearModos() {
 		getModoJuego().put(Modo_Juego.UN_JUGADOR.key(), Modo_Juego.UN_JUGADOR);
 		getModoJuego().put(Modo_Juego.MULTI_COOP.key(), Modo_Juego.MULTI_COOP);
@@ -58,12 +35,6 @@ public class Juego {
 	}
 
 
-	/*private void crearPartidas() {
-		getPartidas().put(1,new PartidaSingleplayer(getEntidades()));
-		getPartidas().put(2,new PartidaMultiplayerCoop(getEntidades()));
-		getPartidas().put(3,new PartidaMultiplayerVersus(getEntidades()));
-	}*/
-	
 	private void crearMenus() {
 		getMenus().put(1, new MenuPrincipal());
 		getMenus().put(2, new MenuSeleccion());
@@ -96,6 +67,7 @@ public class Juego {
 		int eleccionMenu = Consola.pedirNumero(1, 4);
 		switch(eleccionMenu) {
 		case 1:
+			Consola.limpiarConsola();
 			menuSeleccionJuego();
 			break;
 		case 2:
@@ -128,9 +100,9 @@ public class Juego {
 			break;
 		case 4:
 			Consola.limpiarConsola();
+			menuPrincipal();
 			break;
 		}
-		menuPrincipal();
 	}
 
 
@@ -173,32 +145,5 @@ public class Juego {
 	public void setEntidades(EntidadesJuego entidades) {
 		this.entidades = entidades;
 	}
-
-
-	/*public Map<Integer,IHabilidadActiva> getHabildadesActivas() {
-		return habildadesActivas;
-	}
-
-
-	public void setHabildadesActivas(Map<Integer,IHabilidadActiva> habildadesActivas) {
-		this.habildadesActivas = habildadesActivas;
-	}
-
-
-	public Map<Integer,IHabilidadPasiva> getHabildadesPasivas() {
-		return habildadesPasivas;
-	}
-
-
-	public void setHabildadesPasivas(Map<Integer,IHabilidadPasiva> habildadesPasivas) {
-		this.habildadesPasivas = habildadesPasivas;
-	}*/
-
-
- 
-
-
- 
-	
 
 }

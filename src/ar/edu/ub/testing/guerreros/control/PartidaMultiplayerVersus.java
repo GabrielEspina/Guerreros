@@ -19,7 +19,7 @@ public class PartidaMultiplayerVersus extends Partida {
 		super(entidadesExternas);
 		vista = new VistaCombateMultiplayerVersus(entidadesExternas);
 		print();
-		Jugar();
+		jugar();
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class PartidaMultiplayerVersus extends Partida {
 	}
 
 	@Override
-	public void Jugar() {
+	public void jugar() {
 		activarPasivos();
 		turnoJugador();
 	}

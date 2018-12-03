@@ -33,7 +33,7 @@ public class LaboratorioGuerreros {
 			enemigos[i] = guerrero;
 		}
 	}	
-	public static void mutarGuerreroManual(int puntos, GuerreroJugador guerrero, EntidadesJuego entidades){
+	/*public static void mutarGuerreroManual(int puntos, GuerreroJugador guerrero, EntidadesJuego entidades){
 		while (puntos > 0) {
 			
 			
@@ -59,7 +59,7 @@ public class LaboratorioGuerreros {
 			puntos--;
 			guerrero.setPuntos(puntos);
 		}
-	}
+	}*/
 	
 	public static void mutarGuerrero(int puntos, Guerrero guerrero) {
 		for (int i = 0; i < puntos; i ++) {

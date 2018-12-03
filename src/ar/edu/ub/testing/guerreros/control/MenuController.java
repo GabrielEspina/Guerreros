@@ -5,6 +5,8 @@ import ar.edu.ub.testing.guerreros.control.interfaces.IMenu;
 import ar.edu.ub.testing.guerreros.control.interfaces.IMenuController;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
+import ar.edu.ub.testing.guerreros.modelo.items.Item;
 import ar.edu.ub.testing.guerreros.vista.MenuConsola;
 
 public class MenuController implements IMenuController {
@@ -61,9 +63,9 @@ public class MenuController implements IMenuController {
 	
 	
 	@Override
-	public void menuHabilidades(GuerreroJugador guerrero) {
+	public void menuHabilidadesActivas(GuerreroJugador guerrero) {
 		Consola.limpiarConsola();
-		getMenu().mostrarMenuTiendaHabilidades(guerrero);
+		getMenu().mostrarMenuTiendaHabilidadesActivas(guerrero);
 		
 	}
 
@@ -83,6 +85,59 @@ public class MenuController implements IMenuController {
 
 	public void setMenu(IMenu menu) {
 		this.menu = menu;
+	}
+
+
+
+	@Override
+	public void menuHabilidadesPasivas(GuerreroJugador guerrero) {
+		Consola.limpiarConsola();
+		getMenu().mostrarMenuTiendaHabilidadesPasivas(guerrero);
+		
+	}
+
+
+
+	@Override
+	public void menuItemsActivos(GuerreroJugador guerrero) {
+		Consola.limpiarConsola();
+		getMenu().mostrarMenuTiendaItemsActivos(guerrero);
+		
+	}
+
+
+
+	@Override
+	public void menuItemsPasivos(GuerreroJugador guerrero) {
+		Consola.limpiarConsola();
+		getMenu().mostrarMenuTiendaItemsPasivos(guerrero);
+		
+	}
+
+
+
+	@Override
+	public void menuHabilidades(GuerreroJugador guerrero) {
+		Consola.limpiarConsola();
+		getMenu().mostrarMenuTiendaHabilidades(guerrero);
+		
+	}
+
+
+
+	@Override
+	public void menuCompraItem(Item item) {
+		Consola.limpiarConsola();
+		getMenu().mostrarMenuCompraItem(item);
+		
+	}
+
+
+
+	@Override
+	public void menuCompraHabilidad(IHabilidad habilidad) {
+		getMenu().mostrarMenuCompraHabilidad(habilidad);
+		
 	}
 
 }

@@ -2,6 +2,8 @@ package ar.edu.ub.testing.guerreros.control.interfaces;
 
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
+import ar.edu.ub.testing.guerreros.modelo.items.Item;
 
 public interface IMenu {
 	
@@ -26,5 +28,9 @@ public interface IMenu {
 	public void mostrarMenuAsignacionDePuntos(GuerreroJugador guerrero);
 	
 	public void mostrarMenuCreacionPersonaje();
+	
+	public void mostrarMenuCompraItem(Item item);
+	
+	public void mostrarMenuCompraHabilidad(IHabilidad item);
 
 }

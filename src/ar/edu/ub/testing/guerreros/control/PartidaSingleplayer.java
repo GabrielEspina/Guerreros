@@ -19,7 +19,7 @@ public class PartidaSingleplayer extends Partida{
 		super(entidadesExternas);
 		vista = new VistaCombateSingleplayer(entidadesExternas);
 		print();
-		Jugar();
+		jugar();
 	}
 
 	@Override
@@ -47,9 +47,8 @@ public class PartidaSingleplayer extends Partida{
 		vista = new VistaCombateSingleplayer(entidades);
 		turnoEnemigo = 0;
 		checkearCondicionesDeVictoria();
-		System.out.println(entidades.getJugador().getPuntos());
 		entidades.getJugador().setPuntos(entidades.getJugador().getPuntos() + 3);
-		System.out.println(entidades.getJugador().getPuntos());
+		jugar();
 	}
 
 	@Override
@@ -65,8 +64,9 @@ public class PartidaSingleplayer extends Partida{
 
 	}
 	@Override
-	public void Jugar() {
+	public void jugar() {
 		activarPasivos();
+		this.tienda(entidades.getJugador());
 		while(!checkearCondicionesDeVictoria()) {
 			if (getTurnoJugadorOEnemigo() == 1) {
 				turnoJugador();

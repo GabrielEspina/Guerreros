@@ -19,7 +19,7 @@ public class PartidaMultiplayerCoop extends Partida {
 		super(entidadesExternas);
 		vista = new VistaCombateMultiplayerCoop(entidades);
 		print();
-		Jugar();
+		jugar();
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class PartidaMultiplayerCoop extends Partida {
 		((GuerreroJugador) entidades.getJugador2()).setPuntos(((GuerreroJugador) entidades.getJugador2()).getPuntos() + 3);
 		//new VistaTiendaYEvolucion(entidades.getJugador(), entidades);
 		//new VistaTiendaYEvolucion((GuerreroJugador) entidades.getJugador2(), entidades);
-		Jugar();
+		jugar();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class PartidaMultiplayerCoop extends Partida {
 	}
 
 	@Override
-	public void Jugar() {
+	public void jugar() {
 		activarPasivos();
 		turnoJugador();
 		}
