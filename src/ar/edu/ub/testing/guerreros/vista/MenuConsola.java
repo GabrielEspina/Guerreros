@@ -165,13 +165,13 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
-			System.out.println("X Slot 1) Vacio                     X");
+			System.out.println("X 1) Vacio                          X");
 		}else {
 			System.out.println(this.mostrarNombreItem(0,guerrero));
 		}
 		
 		if (guerrero.getItems()[1] == null) {
-			System.out.println("X Slot 2) Vacio                     X");
+			System.out.println("X 2) Vacio                          X");
 		}else {
 			System.out.println(this.mostrarNombreItem(1,guerrero));
 		}
@@ -333,13 +333,13 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
-			System.out.println("X Slot 1) Vacio                     X");
+			System.out.println("X 1) Vacio                          X");
 		}else {
 			System.out.println(this.mostrarNombreItem(0, guerrero));
 		}
 		
 		if (guerrero.getItems()[1] == null) {
-			System.out.println("X Slot 2) Vacio                     X");
+			System.out.println("X 2) Vacio                          X");
 		}else {
 			System.out.println(this.mostrarNombreItem(1,guerrero));
 		}
