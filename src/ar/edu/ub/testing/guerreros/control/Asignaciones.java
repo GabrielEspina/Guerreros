@@ -23,6 +23,10 @@ public class Asignaciones {
 		generarAsignaciones(menus,guerrero);
 		
 	}
+	
+	public IAsignacionPuntos traer(Integer key) {
+		return getAsignaciones().get(key);
+	}
 
 	private void generarAsignaciones(Map<Integer, IControlDeFlujo> menus, GuerreroJugador guerrero) {
 		
@@ -35,7 +39,7 @@ public class Asignaciones {
 
 	}
 
-	public Map<Integer,IAsignacionPuntos> getAsignaciones() {
+	private Map<Integer,IAsignacionPuntos> getAsignaciones() {
 		return asignaciones;
 	}
 

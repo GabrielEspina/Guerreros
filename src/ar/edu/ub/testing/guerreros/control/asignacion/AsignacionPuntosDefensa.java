@@ -2,20 +2,21 @@ package ar.edu.ub.testing.guerreros.control.asignacion;
 
 import java.util.Map;
 
-import ar.edu.ub.testing.guerreros.control.interfaces.IAsignacionPuntos;
 import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
-public class AsignacionPuntosDefensa implements IAsignacionPuntos{
+public class AsignacionPuntosDefensa extends AsignacionPuntos{
 
 	public AsignacionPuntosDefensa(Map<Integer, IControlDeFlujo> menus, GuerreroJugador guerrero) {
-		// TODO Auto-generated constructor stub
+		super(menus,guerrero);
 	}
 
 	@Override
 	public boolean ejecutar() {
-		// TODO Auto-generated method stub
-		return false;
+		int puntosDefensa = pedirAsignacion(getGuerrero());
+		getGuerrero().setPuntos(getGuerrero().getPuntos() - puntosDefensa);
+		getGuerrero().getAtributos().setDefensa(getGuerrero().getAtributos().getDefensa() + puntosDefensa);
+		return true;
 	}
 
 }
