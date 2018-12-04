@@ -13,17 +13,16 @@ public class Juego {
 	private EntidadesJuego entidades;
 	private Partida partida;
 	private Map<Integer, IControlDeFlujo> menus = new HashMap<>(); 
-	
 	private Map<Integer,Modo_Juego> modoJuego;
 
-	public Juego() {
+	
+	public void ejecutar() {
 		setEntidades(new EntidadesJuego());
 		setModoJuego(new HashMap<>());
 		
 		crearModos();
 		crearMenus();
 		menuPrincipal();
-		
 	}
 	
 	
