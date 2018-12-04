@@ -48,6 +48,22 @@ public class MenuConsola implements IMenu {
 	public void mostrarMenuTienda(GuerreroJugador guerrero, EntidadesJuego entidades) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarNombreGuerrero(guerrero));
+		if (guerrero.getHabilidad() == null) {
+			System.out.println("X Habilidad = Vacia                 X");
+		}else {
+			System.out.println(mostrarNombreHabilidad(guerrero));
+		}
+		if (guerrero.getItems()[0] == null) {
+			System.out.println("X Item 1 =  Vacio                   X");
+		}else {
+			System.out.println(this.mostrarNombreItem(0,guerrero));
+		}
+		
+		if (guerrero.getItems()[1] == null) {
+			System.out.println("X Item 2 =  Vacio                   X");
+		}else {
+			System.out.println(this.mostrarNombreItem(1,guerrero));
+		}
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Tienda Items                   X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -165,13 +181,13 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
-			System.out.println("X 1) Vacio                          X");
+			System.out.println("X Item 1 =  Vacio                   X");
 		}else {
 			System.out.println(this.mostrarNombreItem(0,guerrero));
 		}
 		
 		if (guerrero.getItems()[1] == null) {
-			System.out.println("X 2) Vacio                          X");
+			System.out.println("X Item 2 =  Vacio                   X");
 		}else {
 			System.out.println(this.mostrarNombreItem(1,guerrero));
 		}
@@ -192,7 +208,7 @@ public class MenuConsola implements IMenu {
 	
 	private String mostrarNombreItem(int item, GuerreroJugador guerrero) {
 		
-		String s  ="X " + (item+1) + ") " + guerrero.getItems()[item].getNombre();
+		String s  ="X " + "Item " + (item+1) + " = " + guerrero.getItems()[item].getNombre();
 		int cantidadEspacios = 37 - s.length();
 		for(int i = 0; i<cantidadEspacios-2;i++) {
 			s += " ";
@@ -217,13 +233,13 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
-			System.out.println("X 1) Vacio                          X");
+			System.out.println("X Item 1 =  Vacio                   X");
 		}else {
 			System.out.println(this.mostrarNombreItem(0,guerrero));
 		}
 		
 		if (guerrero.getItems()[1] == null) {
-			System.out.println("X 2) Vacio                          X");
+			System.out.println("X Item 2 =  Vacio                   X");
 		}else {
 			System.out.println(this.mostrarNombreItem(1,guerrero));
 		}
@@ -333,13 +349,13 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
-			System.out.println("X 1) Vacio                          X");
+			System.out.println("X Item 1 =  Vacio                   X");
 		}else {
-			System.out.println(this.mostrarNombreItem(0, guerrero));
+			System.out.println(this.mostrarNombreItem(0,guerrero));
 		}
 		
 		if (guerrero.getItems()[1] == null) {
-			System.out.println("X 2) Vacio                          X");
+			System.out.println("X Item 2 =  Vacio                   X");
 		}else {
 			System.out.println(this.mostrarNombreItem(1,guerrero));
 		}
