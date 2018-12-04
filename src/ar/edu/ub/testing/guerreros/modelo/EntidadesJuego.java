@@ -2,6 +2,8 @@ package ar.edu.ub.testing.guerreros.modelo;
 
 import java.util.Stack;
 
+import ar.edu.ub.testing.guerreros.control.LaboratorioGuerreros;
+
 
 public class EntidadesJuego {
 	
@@ -70,12 +72,12 @@ public class EntidadesJuego {
 
 	public void setInteligenciaBot(Ai inteligenciaBot) {
 		this.inteligenciaBot = inteligenciaBot;
-	}**/
+	}*/
 	public int getRound() {
 		return round;
 	}
 
-	/*public void siguienteRound() {
+	public void siguienteRound() {
 		resetVidas();
 		this.round ++;
 		cruzarEnemigos();
@@ -97,7 +99,7 @@ public class EntidadesJuego {
 		for (GuerreroEnemigo g : this.getGuerrerosEnemigos()) {
 			LaboratorioGuerreros.mutarGuerrero(2, g);
 		}
-	}*/
+	}
 	
 	public void resetVidas() {
 		

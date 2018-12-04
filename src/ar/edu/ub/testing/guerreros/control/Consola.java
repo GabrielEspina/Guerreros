@@ -16,7 +16,6 @@ public class Consola {
 	}
 	
 	public static Integer pedirNumero() {
-		getScan().nextLine();
 		int numero;
 		try {
 			numero = getScan().nextInt();
@@ -59,6 +58,4 @@ public class Consola {
         catch(Exception e)
         {}  
 	 }
- 
-
 }

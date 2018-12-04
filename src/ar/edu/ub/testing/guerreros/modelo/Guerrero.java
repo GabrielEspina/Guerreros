@@ -3,10 +3,11 @@ package ar.edu.ub.testing.guerreros.modelo;
 
 import java.util.ArrayList;
 import java.util.Random;
+import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
+import ar.edu.ub.testing.guerreros.modelo.items.ItemPasivo;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
+import ar.edu.ub.testing.guerreros.modelo.items.Item;
 
-/*import ar.edu.ub.testing.guerros.modelo.items.Item;
-import ar.edu.ub.testing.guerros.modelo.items.ItemActivo;
-import ar.edu.ub.testing.guerros.modelo.items.ItemPasivo;*/
 
 
 public abstract class Guerrero {
@@ -15,6 +16,7 @@ public abstract class Guerrero {
 	private Atributos atributos;
 	private Cuerpo    cuerpo;
 	private Item[]    items;
+	private IHabilidad habilidad;
 	
 
 	public Guerrero(){
@@ -76,7 +78,7 @@ public abstract class Guerrero {
 		}
 	}
 	
-	/*public ArrayList<ItemPasivo> getItemsPasivos(){
+	public ArrayList<ItemPasivo> getItemsPasivos(){
 		
 		ArrayList<ItemPasivo> itemsPasivos = new ArrayList<>();
 		if (this.getItems()[0] != null && ItemActivo.class.isAssignableFrom(this.getItems()[0].getClass())) {
@@ -120,7 +122,7 @@ public abstract class Guerrero {
 			itemsActivos.add((ItemActivo)getItems()[1]);
 		}
 		return itemsActivos;
-	}*/
+	}
 
 	public Item[] getItems() {
 		return items;
@@ -128,6 +130,14 @@ public abstract class Guerrero {
 
 	public void setItems(Item[] items) {
 		this.items = items;
+	}
+
+	public IHabilidad getHabilidad() {
+		return habilidad;
+	}
+
+	public void setHabilidad(IHabilidad habilidad) {
+		this.habilidad = habilidad;
 	}
 }
 
