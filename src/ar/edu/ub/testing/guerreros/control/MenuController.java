@@ -36,7 +36,7 @@ public class MenuController implements IMenuController {
 	
 	
 	@Override
-	public void menuCreacionDePersonaje(GuerreroJugador guerrero) {
+	public void menuCreacionDePersonaje() {
 		Consola.limpiarConsola();
 		getMenu().mostrarMenuCreacionPersonaje();
 		

@@ -11,7 +11,7 @@ public interface IMenuController {
 	
 	public void menuSeleccion();
 	
-	public void menuCreacionDePersonaje(GuerreroJugador guerrero);
+	public void menuCreacionDePersonaje();
 	
 	public void menuTienda(GuerreroJugador guerrero, EntidadesJuego entidades);
 	

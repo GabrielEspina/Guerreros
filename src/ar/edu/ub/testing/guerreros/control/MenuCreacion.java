@@ -11,7 +11,7 @@ public class MenuCreacion extends MenuRaiz{
 
 	@Override
 	public void ir() {	
-		MENU.menuCreacionDePersonaje(this.getGuerrero());
+		MENU.menuCreacionDePersonaje();
 		
 	}
 

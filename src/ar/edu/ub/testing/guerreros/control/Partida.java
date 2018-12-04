@@ -13,6 +13,7 @@ import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadDaniarEnemigoCinc
 import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadDaniarEnemigos;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadEnemigoFallaAtaque;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadEnemigosPierdenTurno;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidadActiva;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidadPasiva;
 import ar.edu.ub.testing.guerreros.modelo.items.AnilloDeAtaque;
@@ -169,13 +170,18 @@ public abstract class Partida implements IPartida {
 	
 	private void menuTiendaItemsActivos(Map<Integer, IControlDeFlujo> menus,GuerreroJugador guerrero) {
 		Consola.limpiarConsola();
-		menus.get(2).ir();
+		menus.get(3).ir();
 		int eleccion = Consola.pedirNumero(1, 5);
-		switch(eleccion){
-		case 1:
-			
-			
+		if (eleccion <= 4) {
+			MenuCompraItem menuCompra = new MenuCompraItem();
+			menuCompra.setItem(this.getItemsPasivos().get(eleccion));
+			menuCompra.ir();
+			int confirmacion = Consola.pedirNumero(1, 2);
+			if (confirmacion == 1) {
+				
+			}
 		}
+		
 		
 	}
 	
@@ -187,6 +193,10 @@ public abstract class Partida implements IPartida {
 			MenuCompraItem menuCompra = new MenuCompraItem();
 			menuCompra.setItem(this.getItemsPasivos().get(eleccion));
 			menuCompra.ir();
+			int confirmacion = Consola.pedirNumero(1, 2);
+			if (confirmacion == 1) {
+				
+			}
 		}
 		
 	}
@@ -211,14 +221,27 @@ public abstract class Partida implements IPartida {
 	
 	private void menuTiendaHabilidadesPasivas(Map<Integer, IControlDeFlujo> menus,GuerreroJugador guerrero) {
 		Consola.limpiarConsola();
-		menus.get(5).ir();
+		menus.get(6).ir();
 		
 	}
 	
 	private void menuTiendaHabilidadesActivas(Map<Integer, IControlDeFlujo> menus,GuerreroJugador guerrero) {
 		Consola.limpiarConsola();
-		menus.get(6).ir();
-		
+		menus.get(5).ir();
+		int eleccion = Consola.pedirNumero(1, 5);
+		if (eleccion <= 4) {
+			MenuCompraHabilidad menuCompra = new MenuCompraHabilidad();
+			menuCompra.setHabilidad(this.getHabilidadesActivas().get(eleccion));
+			Consola.limpiarConsola();
+			menuCompra.ir();
+			int confirmacion = Consola.pedirNumero(1, 2);
+			if (confirmacion == 1) {
+				compraHabilidad(guerrero,this.getHabilidadesActivas().get(eleccion));
+			}
+			menuTiendaHabilidadesActivas(menus,guerrero);
+		}else {
+			menuTiendaHabilidades(menus,guerrero);
+		}
 	}
 	
 	private void menuTiendaAsignacion(Map<Integer, IControlDeFlujo> menus, GuerreroJugador guerrero) {
@@ -277,6 +300,21 @@ public abstract class Partida implements IPartida {
 			return pedirAsignacion(guerrero);
 		}
 	
+	}
+	
+	public void compraItem(Item item, GuerreroJugador guerrero) {
+		if (verificarAsignacion(guerrero.getPuntos() , item.getPrecio())) {
+			
+		}
+	}
+	
+	public void compraHabilidad(GuerreroJugador guerrero,IHabilidad habilidad) {
+		if (verificarAsignacion(guerrero.getPuntos() , 15)) {
+			guerrero.setPuntos(guerrero.getPuntos() - 15);
+			guerrero.setHabilidad(habilidad);
+		}else {
+			System.out.println("Puntos insuficientes");
+		}
 	}
 	
 	public Map<Integer,IHabilidadActiva> getHabilidadesActivas() {

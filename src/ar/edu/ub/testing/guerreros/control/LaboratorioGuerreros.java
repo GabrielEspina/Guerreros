@@ -17,9 +17,8 @@ public class LaboratorioGuerreros {
 		
 		GuerreroJugador jugador = new GuerreroJugador();
 		UtilidadesConsola.limpiarConsola();
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println("X         Ingresar Nombre           X");
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		MenuCreacionDePersonaje menuCreacion = new MenuCreacionDePersonaje();
+		menuCreacion.ir();
 		jugador.getAtributos().setNombre( Consola.pedirNombre() );
 		jugador.setPuntos(50);
 		return jugador;
