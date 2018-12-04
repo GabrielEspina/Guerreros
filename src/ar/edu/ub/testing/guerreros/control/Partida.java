@@ -34,6 +34,7 @@ public abstract class Partida implements IPartida {
 	private Map<Integer,IHabilidadPasiva> habilidadesPasivas = new HashMap<>();
 	private Map<Integer,ItemPasivo> itemsPasivos = new HashMap<>();
 	private Map<Integer,ItemActivo> itemsActivos = new HashMap<>();
+	private Asignaciones asignaciones;
 
 	public Partida(EntidadesJuego entidadesExternas) {
 		
