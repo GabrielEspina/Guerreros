@@ -118,7 +118,7 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(printNombreGuerrero(guerrero));
 		if (guerrero.getHabilidad() == null) {
-			System.out.println("X H = Vacia                   X");
+			System.out.println("X H = Vacia                         X");
 		}else {
 			System.out.println(mostrarNombreHabilidad(guerrero));
 		}
