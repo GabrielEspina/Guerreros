@@ -140,4 +140,12 @@ public class MenuController implements IMenuController {
 		
 	}
 
+
+
+	@Override
+	public void menuSeleccionSlot(Item item, GuerreroJugador guerrero) {
+		getMenu().mostrarMenuSeleccionSlot(item, guerrero);
+		
+	}
+
 }

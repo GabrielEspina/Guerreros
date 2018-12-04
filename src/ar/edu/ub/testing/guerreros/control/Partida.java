@@ -2,6 +2,7 @@ package ar.edu.ub.testing.guerreros.control;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
@@ -171,16 +172,26 @@ public abstract class Partida implements IPartida {
 	
 	private void menuTiendaItemsActivos(Map<Integer, IControlDeFlujo> menus,GuerreroJugador guerrero) {
 		Consola.limpiarConsola();
-		menus.get(3).ir();
+		menus.get(2).ir();
 		int eleccion = Consola.pedirNumero(1, 5);
 		if (eleccion <= 4) {
 			MenuCompraItem menuCompra = new MenuCompraItem();
-			menuCompra.setItem(this.getItemsPasivos().get(eleccion));
+			menuCompra.setItem(this.getItemsActivos().get(eleccion));
 			menuCompra.ir();
 			int confirmacion = Consola.pedirNumero(1, 2);
 			if (confirmacion == 1) {
-				
+				if(verificarAsignacion(guerrero.getPuntos(),this.getItemsActivos().get(eleccion).getPrecio())) {
+				menuSeleccionSlotItem(this.getItemsActivos().get(eleccion),guerrero,menus);
+				}else {
+					System.out.println("Puntos insuficientes");
+					wait(2);
+					menuTiendaItemsActivos(menus,guerrero);
+				}
+			}else {
+				menuTiendaItemsActivos(menus,guerrero);
 			}
+		}else {
+			menuTiendaItems(menus,guerrero);
 		}
 		
 		
@@ -196,9 +207,36 @@ public abstract class Partida implements IPartida {
 			menuCompra.ir();
 			int confirmacion = Consola.pedirNumero(1, 2);
 			if (confirmacion == 1) {
-				
+				if(verificarAsignacion(guerrero.getPuntos(),this.getItemsPasivos().get(eleccion).getPrecio())) {
+				menuSeleccionSlotItem(this.getItemsPasivos().get(eleccion),guerrero,menus);
+				}else {
+					System.out.println("Puntos insuficientes");
+					wait(2);
+					menuTiendaItemsPasivos(menus,guerrero);
+				}
+			}else {
+				menuTiendaItemsPasivos(menus,guerrero);
 			}
+		}else {
+			menuTiendaItems(menus,guerrero);
 		}
+		
+		
+	}
+
+	
+	private void menuSeleccionSlotItem(Item item, GuerreroJugador guerrero,Map<Integer, IControlDeFlujo> menus) {
+		Consola.limpiarConsola();
+		MenuSeleccionSlot menuSlot = new MenuSeleccionSlot(item,guerrero);
+		menuSlot.ir();
+		int seleccion = Consola.pedirNumero(1,3);
+		if (seleccion <=2) {
+			compraItem(item,guerrero,seleccion);
+			menuTiendaItems(menus,guerrero);
+		}else {
+			menuTiendaItems(menus,guerrero);
+		}
+		
 		
 	}
 	
@@ -281,7 +319,7 @@ public abstract class Partida implements IPartida {
 		return puntos >= puntosAsignados;
 	}
 	
-	private int pedirAsignacion(GuerreroJugador guerrero) {
+	/*private int pedirAsignacion(GuerreroJugador guerrero) {
 		int puntos = Consola.pedirNumero();
 		if (verificarAsignacion(guerrero.getPuntos(), puntos)) {
 			return puntos;
@@ -290,28 +328,20 @@ public abstract class Partida implements IPartida {
 			return pedirAsignacion(guerrero);
 		}
 	
+	}*/
+	
+	private void compraItem(Item item, GuerreroJugador guerrero,int slot) {
+		guerrero.setPuntos(guerrero.getPuntos() - item.getPrecio());
+		guerrero.getItems()[slot-1] = item;
 	}
 	
-	public void compraItem(Item item, GuerreroJugador guerrero) {
-		if (verificarAsignacion(guerrero.getPuntos() , item.getPrecio())) {
-			
-		}
-	}
-	
-	public void compraHabilidad(GuerreroJugador guerrero,IHabilidad habilidad) {
+	private void compraHabilidad(GuerreroJugador guerrero,IHabilidad habilidad) {
 		if (verificarAsignacion(guerrero.getPuntos() , 15)) {
 			guerrero.setPuntos(guerrero.getPuntos() - 15);
 			guerrero.setHabilidad(habilidad);
 		}else {
 			System.out.println("Puntos insuficientes");
-		}
-	}
-	
-	public void compraItem(GuerreroJugador guerrero,Item item) {
-		if (verificarAsignacion(guerrero.getPuntos() , item.getPrecio())) {
-			guerrero.setPuntos(guerrero.getPuntos() - item.getPrecio());
-		}else {
-			System.out.println("Puntos insuficientes");
+			wait(2);
 		}
 	}
 	
@@ -345,5 +375,13 @@ public abstract class Partida implements IPartida {
 
 	public void setItemsActivos(Map<Integer,ItemActivo> itemsActivos) {
 		this.itemsActivos = itemsActivos;
+	}
+	
+	public void wait(int segundos) {
+		try {
+			TimeUnit.SECONDS.sleep(segundos);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

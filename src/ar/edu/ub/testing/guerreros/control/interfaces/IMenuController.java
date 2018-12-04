@@ -32,5 +32,7 @@ public interface IMenuController {
 	public void menuCompraItem(Item item);
 	
 	public void menuCompraHabilidad(IHabilidad habilidad);
+	
+	public void menuSeleccionSlot(Item item, GuerreroJugador guerrero);
 
 }

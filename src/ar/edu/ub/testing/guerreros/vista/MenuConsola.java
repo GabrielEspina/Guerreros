@@ -47,7 +47,7 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuTienda(GuerreroJugador guerrero, EntidadesJuego entidades) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Tienda Items                   X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -61,7 +61,7 @@ public class MenuConsola implements IMenu {
 	}
 	
 	
-	private String printNombreGuerrero(GuerreroJugador guerrero) {
+	private String mostrarNombreGuerrero(GuerreroJugador guerrero) {
 		String s  ="X " + guerrero.getAtributos().getNombre().toUpperCase() + "    Puntos: " + guerrero.getPuntos();
 		int cantidadEspacios = 37 - s.length();
 		for(int i = 0; i<cantidadEspacios-2;i++) {
@@ -87,7 +87,7 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuTiendaItem(GuerreroJugador guerrero) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Items Activos                  X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -101,7 +101,7 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuTiendaHabilidades(GuerreroJugador guerrero) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Habilidades Activas            X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -116,9 +116,9 @@ public class MenuConsola implements IMenu {
 	public void mostrarMenuTiendaHabilidadesActivas(GuerreroJugador guerrero) {
 		
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getHabilidad() == null) {
-			System.out.println("X H = Vacia                         X");
+			System.out.println("X Habilidad = Vacia                 X");
 		}else {
 			System.out.println(mostrarNombreHabilidad(guerrero));
 		}
@@ -141,9 +141,9 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuTiendaHabilidadesPasivas(GuerreroJugador guerrero) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getHabilidad() == null) {
-			System.out.println("X H = Vacia                         X");
+			System.out.println("X Habilidad = Vacia                 X");
 		}else {
 			System.out.println(mostrarNombreHabilidad(guerrero));
 		}
@@ -163,7 +163,7 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuTiendaItemsActivos(GuerreroJugador guerrero) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
 			System.out.println("X Slot 1) Vacio                     X");
 		}else {
@@ -192,7 +192,7 @@ public class MenuConsola implements IMenu {
 	
 	private String mostrarNombreItem(int item, GuerreroJugador guerrero) {
 		
-		String s  ="X " + (item+1) + ")" + guerrero.getItems()[item].getNombre();
+		String s  ="X " + (item+1) + ") " + guerrero.getItems()[item].getNombre();
 		int cantidadEspacios = 37 - s.length();
 		for(int i = 0; i<cantidadEspacios-2;i++) {
 			s += " ";
@@ -203,7 +203,7 @@ public class MenuConsola implements IMenu {
 	
 	private String mostrarNombreHabilidad(GuerreroJugador guerrero) {
 		
-		String s  ="X " + guerrero.getHabilidad().nombre();
+		String s  ="X Habilidad = " + guerrero.getHabilidad().nombre();
 		int cantidadEspacios = 37 - s.length();
 		for(int i = 0; i<cantidadEspacios-2;i++) {
 			s += " ";
@@ -215,15 +215,15 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuTiendaItemsPasivos(GuerreroJugador guerrero) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		if (guerrero.getItems()[0] == null) {
-			System.out.println("X Slot 1) Vacio                     X");
+			System.out.println("X 1) Vacio                          X");
 		}else {
 			System.out.println(this.mostrarNombreItem(0,guerrero));
 		}
 		
 		if (guerrero.getItems()[1] == null) {
-			System.out.println("X Slot 2) Vacio                     X");
+			System.out.println("X 2) Vacio                          X");
 		}else {
 			System.out.println(this.mostrarNombreItem(1,guerrero));
 		}
@@ -257,7 +257,7 @@ public class MenuConsola implements IMenu {
 	@Override
 	public void mostrarMenuAsignacionDePuntos(GuerreroJugador guerrero) {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println(printNombreGuerrero(guerrero));
+		System.out.println(mostrarNombreGuerrero(guerrero));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(mostrarMenuAtributos(guerrero.getAtributos().getAtaque(), "Ataque", 1));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -328,8 +328,32 @@ public class MenuConsola implements IMenu {
 		
 	}
 
-	
+	@Override
+	public void mostrarMenuSeleccionSlot(Item item, GuerreroJugador guerrero) {
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println(mostrarNombreGuerrero(guerrero));
+		if (guerrero.getItems()[0] == null) {
+			System.out.println("X Slot 1) Vacio                     X");
+		}else {
+			System.out.println(this.mostrarNombreItem(0, guerrero));
+		}
+		
+		if (guerrero.getItems()[1] == null) {
+			System.out.println("X Slot 2) Vacio                     X");
+		}else {
+			System.out.println(this.mostrarNombreItem(1,guerrero));
+		}
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println("X        Seleccionar Slot           X");
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println("X 3) Cancelar                       X");
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+	}
 		
 }
+
+	
+		
+
 
 

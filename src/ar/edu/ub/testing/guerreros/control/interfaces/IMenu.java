@@ -32,5 +32,7 @@ public interface IMenu {
 	public void mostrarMenuCompraItem(Item item);
 	
 	public void mostrarMenuCompraHabilidad(IHabilidad item);
+	
+	public void mostrarMenuSeleccionSlot(Item item, GuerreroJugador guerrero);
 
 }
