@@ -8,7 +8,7 @@ public class Consola {
 
 	
 	public static String pedirNombre() {
-		String nombre = getScan().next();
+		String nombre = getScan().nextLine();
 		if(nombre.length() <= 15)
 			return nombre;
 		System.out.println("Error: Nombre muy largo");
@@ -16,14 +16,20 @@ public class Consola {
 	}
 	
 	public static Integer pedirNumero() {
-		int numero;
-		try {
-			numero = getScan().nextInt();
-			return numero;
-		}catch(Exception e) {
-			System.out.println("Error: Ingrese numeros");
-			return pedirNumero();
+		String input = "asd";
+		int eleccion = 11111;
+		boolean noEsNumero = true;
+		while(noEsNumero){
+		     input = getScan().nextLine();
+		     try{
+		    	 String numero = input.trim();
+		         eleccion = Integer.parseInt(numero);
+		         noEsNumero = false;
+		     }catch(Exception e){
+		         System.out.println("Error: Solo ingrese numeros validos");
+		     }
 		}
+		return eleccion;
 	}
 	
 	public static Integer pedirNumero( int min, int max ) {
@@ -58,4 +64,5 @@ public class Consola {
         catch(Exception e)
         {}  
 	 }
+	 
 }

@@ -365,6 +365,7 @@ public class MenuConsola implements IMenu {
 		System.out.println("X 3) Cancelar                       X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	}
+	
 		
 }
 
