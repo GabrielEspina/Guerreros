@@ -222,7 +222,21 @@ public abstract class Partida implements IPartida {
 	private void menuTiendaHabilidadesPasivas(Map<Integer, IControlDeFlujo> menus,GuerreroJugador guerrero) {
 		Consola.limpiarConsola();
 		menus.get(6).ir();
-		
+		int eleccion = Consola.pedirNumero(1, 4);
+		if (eleccion <= 3) {
+			MenuCompraHabilidad menuCompra = new MenuCompraHabilidad();
+			menuCompra.setHabilidad(this.getHabilidadesPasivas().get(eleccion));
+			Consola.limpiarConsola();
+			menuCompra.ir();
+			int confirmacion = Consola.pedirNumero(1, 2);
+			if (confirmacion == 1) {
+				compraHabilidad(guerrero,this.getHabilidadesPasivas().get(eleccion));
+			}
+			menuTiendaHabilidadesPasivas(menus,guerrero);
+		}else {
+			menuTiendaHabilidades(menus,guerrero);
+		}
+
 	}
 	
 	private void menuTiendaHabilidadesActivas(Map<Integer, IControlDeFlujo> menus,GuerreroJugador guerrero) {
@@ -312,6 +326,14 @@ public abstract class Partida implements IPartida {
 		if (verificarAsignacion(guerrero.getPuntos() , 15)) {
 			guerrero.setPuntos(guerrero.getPuntos() - 15);
 			guerrero.setHabilidad(habilidad);
+		}else {
+			System.out.println("Puntos insuficientes");
+		}
+	}
+	
+	public void compraItem(GuerreroJugador guerrero,Item item) {
+		if (verificarAsignacion(guerrero.getPuntos() , item.getPrecio())) {
+			guerrero.setPuntos(guerrero.getPuntos() - item.getPrecio());
 		}else {
 			System.out.println("Puntos insuficientes");
 		}
