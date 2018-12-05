@@ -303,16 +303,22 @@ public abstract class Partida implements IPartida {
 		
 		Asignaciones asignaciones = new Asignaciones(menus,guerrero);
 				
-		menus.get(7).ir();
-		
-		int eleccion = Consola.pedirNumero(1,6);
-		
-		System.out.println("Ingrese cantidad: ");
-		
-		if( asignaciones.traer(eleccion).ejecutar() ) 
-			menuTiendaAsignacion(menus,guerrero);
-		else
+		if(guerrero.getPuntos() >= 1) {
+			
+			menus.get(7).ir();
+			int eleccion = Consola.pedirNumero(1,6);
+			
+			System.out.println("Ingrese cantidad: ");
+			
+			if( asignaciones.traer(eleccion).ejecutar() ) 
+				menuTiendaAsignacion(menus,guerrero);
+			else
+				menuPrincipalTienda(menus,guerrero);
+		}else {
+			//System.out.println("No hay puntos para asignar");
+			//wait(2);
 			menuPrincipalTienda(menus,guerrero);
+		}
 	}
 	
 	private boolean verificarAsignacion(int puntos, int puntosAsignados) {

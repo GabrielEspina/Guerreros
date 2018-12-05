@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
+import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
 
 public class OpcionesHumano {
 	
@@ -44,7 +45,7 @@ public class OpcionesHumano {
 		wait(3);
 	}
 	
-	/*public void printPanelItems(ArrayList<ItemActivo> itemsActivos) {
+	public void printPanelItems(ArrayList<ItemActivo> itemsActivos) {
 		if(itemsActivos.isEmpty()) {
 			System.out.println("X  No se tienen items activos                                  X");
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -62,7 +63,7 @@ public class OpcionesHumano {
 			System.out.println(items);
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		}
-	}*/
+	}
 	
 	public void wait(int segundos) {
 		try {

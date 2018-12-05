@@ -82,14 +82,12 @@ public class PartidaSingleplayer extends Partida{
 	@Override
 	public void turnoJugador() {
 		print();
-		System.out.println("entre");
 		wait(2);
 	}
 
 	@Override
 	public void turnoEnemigo() {
 		print();
-		System.out.println("entre2");
 		wait(2);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
 		atacar(entidades.getGuerrerosEnemigos()[turnoEnemigo],entidades.getJugador());
