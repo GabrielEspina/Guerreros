@@ -16,10 +16,14 @@ public class Juego {
 	private Map<Integer,Modo_Juego> modoJuego;
 
 	
-	public void ejecutar() {
+	public Juego() {
 		setEntidades(new EntidadesJuego());
 		setModoJuego(new HashMap<>());
-		
+	}
+	
+	public void ejecutar() {
+		/*Se crean los modos de juego y los menus por donde el juego seguira su flujo
+		 *Se continua al menu principal*/
 		crearModos();
 		crearMenus();
 		menuPrincipal();
@@ -28,6 +32,8 @@ public class Juego {
 	
 
 	private void crearModos() {
+		/*Mediante un mapa de modos de juego se inicializan mediante un enum, los tipos
+		 * de juego que existiran en los guerreros*/
 		getModoJuego().put(Modo_Juego.UN_JUGADOR.key(), Modo_Juego.UN_JUGADOR);
 		getModoJuego().put(Modo_Juego.MULTI_COOP.key(), Modo_Juego.MULTI_COOP);
 		getModoJuego().put(Modo_Juego.MULTI_VS.key(), Modo_Juego.MULTI_VS);
@@ -35,25 +41,31 @@ public class Juego {
 
 
 	private void crearMenus() {
+		/*Por el momento solo se instancian en el mapa el menu principal
+		 * y un menu de seleccion*/
 		getMenus().put(1, new MenuPrincipal());
 		getMenus().put(2, new MenuSeleccion());
 	}
 
 
-	//AL SELECCIONAR UN NUEVO JUEGO
 	public void newSinglePlayer() {
+		//Se instancia la clase para single player enviando las entidades a intervenir
 		this.setPartida(new PartidaSingleplayer(getEntidades()));
 	}
 	
 	public void newMultiCoop() {
+		//Se instancia la clase para multi player cooperativo enviando las entidades a intervenir
 		this.setPartida(new PartidaMultiplayerCoop(getEntidades()));
 	}
 	
 	public void newMultiVersus() {
+		//Se instancia la clase para multi player versus enviando las entidades a intervenir
 		this.setPartida(new PartidaMultiplayerVersus(getEntidades()));
 	}
 	
 	public void printEntidades() {
+		/*Se piden las entidades del juego para ser mostradas durante el juego
+		 * y mediante un foreach se muestran los guerreros enemigos*/
 		getEntidades().getJugador().printAtributos();
 		System.out.println("Guerreros Enemigos: ");
 		for (GuerreroEnemigo g : getEntidades().getGuerrerosEnemigos()) {
@@ -62,6 +74,9 @@ public class Juego {
 	}
 	
 	public void menuPrincipal() {
+		/*Al iniciar el menu principal se llama al mapa de menu para mostrar el menu guardado con el key 1
+		 * luego se solicita al usuario un numero de opciones del mismo menu, y mediante un switch case
+		 * se continua por las demas opciones*/
 		getMenus().get(1).ir();
 		int eleccionMenu = Consola.pedirNumero(1, 4);
 		switch(eleccionMenu) {
@@ -81,6 +96,9 @@ public class Juego {
 	}
 	
 	public void menuSeleccionJuego() {
+		/*Se le envia un key al mapa para devolver un determinado menu e ir hasta el mismo
+		 * se le pide al usuario que elija una de las opciones (ENTRE 1 Y 4), y mediante un switch case
+		 * se determina el tipo de juego elegido*/
 		getMenus().get(2).ir();
 		int eleccionPartida = Consola.pedirNumero(1, 4);
 		switch(eleccionPartida) {
@@ -104,7 +122,7 @@ public class Juego {
 		}
 	}
 
-
+	//---GETTERS Y SETTERS PROPIOS DE LA CLASE---//
 	public Partida getPartida() {
 		return partida;
 	}
