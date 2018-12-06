@@ -1,11 +1,19 @@
 package ar.edu.ub.testing.guerreros.modelo.items;
 
+import ar.edu.ub.testing.guerreros.modelo.Guerrero;
+
 public abstract class Item {
+	
+	public Item() {
+		
+	}
+	
 	
 	private String nombre;
 	private String descripcion;
 	private int    precio;
 	private int    atributoOriginal;
+	private Guerrero jugador;
 	
 	public abstract void desactivarAccion();
 
@@ -32,6 +40,14 @@ public abstract class Item {
 	}
 	protected void setAtributoOriginal(int atributoOriginal) {
 		this.atributoOriginal = atributoOriginal;
+	}
+
+	public Guerrero getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Guerrero jugador) {
+		this.jugador = jugador;
 	}
 	
 	

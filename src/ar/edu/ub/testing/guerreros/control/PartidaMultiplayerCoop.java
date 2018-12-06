@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.vista.UtilidadesConsola;
 import ar.edu.ub.testing.guerreros.vista.VistaCombateMultiplayerCoop;
+import ar.edu.ub.testing.guerreros.vista.VistaCombateSingleplayer;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -12,27 +13,29 @@ import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 public class PartidaMultiplayerCoop extends Partida {
 	
 	private int turnoEnemigo = 0;
+	private int turnoJugadorOEnemigo = 1;
 	private int turnoJugador = 1;
 	private VistaCombateMultiplayerCoop vista;
+	private boolean jugando = true;
+	private boolean continuar = true;
 
 	public PartidaMultiplayerCoop(EntidadesJuego entidadesExternas) {
 		super(entidadesExternas);
 		vista = new VistaCombateMultiplayerCoop(entidades);
-		print();
 		jugar();
 	}
 
 	@Override
-	public boolean checkearCondicionesDeVictoria() {
-		if ((this.entidades.checkJugadorUnoMuerto()) && (this.entidades.checkJugadorDosMuerto())) {
-			this.victoriaEnemigos();
-			return true;
+	public void checkearCondicionesDeVictoria() {
+		if(this.getEntidades().checkJugadorUnoMuerto() && this.getEntidades().checkJugadorDosMuerto()) {
+			jugando = false;
+			continuar = false;
 		}
-		if(this.entidades.checkEnemigosMuertos()) {
-			this.victoriaJugadores();
-			return true;
+		if(this.getEntidades().checkEnemigosMuertos()) {
+			jugando = false;
+			continuar = true;
 		}
-		return false;
+		print();	
 	}
 	
 	public void victoriaJugadores() {
@@ -47,8 +50,6 @@ public class PartidaMultiplayerCoop extends Partida {
 		checkearCondicionesDeVictoria();
 		entidades.getJugador().setPuntos(entidades.getJugador().getPuntos() + 3);
 		((GuerreroJugador) entidades.getJugador2()).setPuntos(((GuerreroJugador) entidades.getJugador2()).getPuntos() + 3);
-		//new VistaTiendaYEvolucion(entidades.getJugador(), entidades);
-		//new VistaTiendaYEvolucion((GuerreroJugador) entidades.getJugador2(), entidades);
 		jugar();
 	}
 
@@ -70,37 +71,42 @@ public class PartidaMultiplayerCoop extends Partida {
 
 	@Override
 	public void jugar() {
+		setTurnoJugadorOEnemigo(1);
+		turnoJugador = 1;
+		jugando = true;
 		activarPasivos();
-		turnoJugador();
+		this.tienda(entidades.getJugador());
+		print();
+		while(jugando) {
+			
+			if (getTurnoJugadorOEnemigo() == 2) {
+				turnoEnemigo();
+				setTurnoJugadorOEnemigo(1);
+			}
+			if (getTurnoJugadorOEnemigo() == 1) {
+				turnoJugador();
+				setTurnoJugadorOEnemigo(2);
+			}
+			checkearCondicionesDeVictoria();
 		}
+		if (continuar) {
+			victoriaJugadorUno();
+		}else {
+			victoriaEnemigos();
+		}
+	}
 
 	@Override
 	public void turnoJugador() {
 		
-		checkearCondicionesDeVictoria();
-		print();
-		if(this.turnoJugador == 1) {
-			if(this.getEntidades().getJugador().murio()) {
-				turnoJugador++;
-			}else {
-				//new ControladorHumano(this.getEntidades().getJugador(), entidades, vista);
-			}
-		}
-		if (this.turnoJugador == 2) {
-			if(this.getEntidades().getJugador2().murio()) {
-				turnoJugador = 1;
-				turnoJugador();
-			}else {
-				//new ControladorHumano(this.getEntidades().getJugador2(), entidades, vista);
-			}
-		}
-		this.turnoJugador++;
-		
-		if(this.turnoJugador > 2) {
-			this.turnoJugador = 1;
-		}
-		if(!checkearCondicionesDeVictoria()) {
-			turnoEnemigo();
+		if(turnoJugador == 2 ) {
+			new ControladorHumano(entidades.getJugador2(), entidades, vista);
+			print();
+			turnoJugador = 1;
+		}else {
+			new ControladorHumano(entidades.getJugador(), entidades, vista);
+			print();
+			turnoJugador = 2;
 		}
 	}
 
@@ -210,6 +216,14 @@ public class PartidaMultiplayerCoop extends Partida {
 		}
 		UtilidadesConsola.apretarEnterParaContinuar();
 		turnoJugador();
+	}
+
+	public int getTurnoJugadorOEnemigo() {
+		return turnoJugadorOEnemigo;
+	}
+
+	public void setTurnoJugadorOEnemigo(int turnoJugadorOEnemigo) {
+		this.turnoJugadorOEnemigo = turnoJugadorOEnemigo;
 	}
 	
 

@@ -299,12 +299,11 @@ public abstract class Partida implements IPartida {
 	
 	private void menuTiendaAsignacion(Map<Integer, IControlDeFlujo> menus, GuerreroJugador guerrero) {
 		
-		Consola.limpiarConsola();
-		
 		Asignaciones asignaciones = new Asignaciones(menus,guerrero);
 				
 		if(guerrero.getPuntos() >= 1) {
 			
+			Consola.limpiarConsola();
 			menus.get(7).ir();
 			int eleccion = Consola.pedirNumero(1,6);
 			
@@ -315,8 +314,6 @@ public abstract class Partida implements IPartida {
 			else
 				menuPrincipalTienda(menus,guerrero);
 		}else {
-			//System.out.println("No hay puntos para asignar");
-			//wait(2);
 			menuPrincipalTienda(menus,guerrero);
 		}
 	}
@@ -325,20 +322,11 @@ public abstract class Partida implements IPartida {
 		return puntos >= puntosAsignados;
 	}
 	
-	/*private int pedirAsignacion(GuerreroJugador guerrero) {
-		int puntos = Consola.pedirNumero();
-		if (verificarAsignacion(guerrero.getPuntos(), puntos)) {
-			return puntos;
-		}else {
-			System.out.println("Puntos insuficientes");
-			return pedirAsignacion(guerrero);
-		}
-	
-	}*/
-	
 	private void compraItem(Item item, GuerreroJugador guerrero,int slot) {
 		guerrero.setPuntos(guerrero.getPuntos() - item.getPrecio());
-		guerrero.getItems()[slot-1] = item;
+		Item nuevoItem = item;
+		nuevoItem.setJugador(guerrero);
+		guerrero.getItems()[slot-1] = nuevoItem;
 	}
 	
 	private void compraHabilidad(GuerreroJugador guerrero,IHabilidad habilidad) {

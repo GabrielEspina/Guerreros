@@ -14,26 +14,26 @@ public class PartidaSingleplayer extends Partida{
 	private int turnoEnemigo = 0;
 	private int turnoJugadorOEnemigo = 1;
 	private VistaCombateSingleplayer vista;
+	private boolean jugando = true;
+	private boolean continuar = true;
 
 	public PartidaSingleplayer(EntidadesJuego entidadesExternas) {
 		super(entidadesExternas);
 		vista = new VistaCombateSingleplayer(entidadesExternas);
-		print();
 		jugar();
 	}
 
 	@Override
-	public boolean checkearCondicionesDeVictoria() {
+	public void checkearCondicionesDeVictoria() {
 		if(this.getEntidades().checkJugadorUnoMuerto()) {
-			this.victoriaEnemigos();
-			return true;
+			jugando = false;
+			continuar = false;
 		}
 		if(this.getEntidades().checkEnemigosMuertos()) {
-			this.victoriaJugadorUno();
-			return true;
+			jugando = false;
+			continuar = true;
 		}
-		return false;
-		
+		print();	
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class PartidaSingleplayer extends Partida{
 		vista.mostrarMensajeEnConsola(" Ganador: " + this.getEntidades().getJugador().getAtributos().getNombre());
 		vista.mostrarMensajeEnConsola(" Comenzando nivel: " + (this.getEntidades().getRound() + 1));
 		print();
-		wait(5);
+		wait(3);
 		entidades.siguienteRound();
 		vista = new VistaCombateSingleplayer(entidades);
 		turnoEnemigo = 0;
@@ -60,42 +60,54 @@ public class PartidaSingleplayer extends Partida{
 		vista.mostrarMensajeEnConsola(" Jugador derrotado por generacion #" + this.getEntidades().getRound());
 		print();
 		wait(5);
-		new Juego();
+		new Juego().ejecutar();
 
 	}
 	@Override
 	public void jugar() {
+		jugando = true;
+		setTurnoJugadorOEnemigo(1);
 		activarPasivos();
 		this.tienda(entidades.getJugador());
-		while(!checkearCondicionesDeVictoria()) {
-			if (getTurnoJugadorOEnemigo() == 1) {
-				turnoJugador();
-				setTurnoJugadorOEnemigo(2);
-			}
+		print();
+		while(jugando) {
+			
 			if (getTurnoJugadorOEnemigo() == 2) {
 				turnoEnemigo();
 				setTurnoJugadorOEnemigo(1);
 			}
+			if (getTurnoJugadorOEnemigo() == 1) {
+				turnoJugador();
+				setTurnoJugadorOEnemigo(2);
+			}
+			checkearCondicionesDeVictoria();
+		}
+		if (continuar) {
+			victoriaJugadorUno();
+		}else {
+			victoriaEnemigos();
 		}
 	}
 
 	@Override
 	public void turnoJugador() {
+		new ControladorHumano(entidades.getJugador(), entidades, vista);
+		System.out.println("Saliendo del turno jugador");
 		print();
-		wait(2);
 	}
 
 	@Override
 	public void turnoEnemigo() {
-		print();
-		wait(2);
+		wait(1);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
 		atacar(entidades.getGuerrerosEnemigos()[turnoEnemigo],entidades.getJugador());
 		turnoEnemigo ++;
-		wait(2);
+		wait(1);
+		System.out.println(entidades.getJugador().getAtributos().getVida());
 	}
 	
 	public void print() {
+		
 		vista.print(entidades);
 	}
 	
@@ -105,6 +117,8 @@ public class PartidaSingleplayer extends Partida{
 		}
 		int siguienteTurno = turno;
 			while (entidades.getGuerrerosEnemigos()[siguienteTurno].checkEnemigoNoDisponible()) {
+				
+				System.out.println("Estoy buscando enemigos vivos como un terrible pajero");
 				
 				if(entidades.getGuerrerosEnemigos()[siguienteTurno].checkNocked()) {
 					vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[siguienteTurno].getAtributos().getNombre() + " se encuentra incapacitado por " + entidades.getGuerrerosEnemigos()[siguienteTurno].getContTurnosPausados() + " turnos ");
