@@ -92,7 +92,6 @@ public class PartidaSingleplayer extends Partida{
 	@Override
 	public void turnoJugador() {
 		new ControladorHumano(entidades.getJugador(), entidades, vista);
-		System.out.println("Saliendo del turno jugador");
 		print();
 	}
 
@@ -117,8 +116,6 @@ public class PartidaSingleplayer extends Partida{
 		}
 		int siguienteTurno = turno;
 			while (entidades.getGuerrerosEnemigos()[siguienteTurno].checkEnemigoNoDisponible()) {
-				
-				System.out.println("Estoy buscando enemigos vivos como un terrible pajero");
 				
 				if(entidades.getGuerrerosEnemigos()[siguienteTurno].checkNocked()) {
 					vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[siguienteTurno].getAtributos().getNombre() + " se encuentra incapacitado por " + entidades.getGuerrerosEnemigos()[siguienteTurno].getContTurnosPausados() + " turnos ");

@@ -1,7 +1,5 @@
 package ar.edu.ub.testing.guerreros.control;
 
-
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.vista.UtilidadesConsola;
