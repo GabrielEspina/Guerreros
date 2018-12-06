@@ -1,9 +1,11 @@
 package ar.edu.ub.testing.guerreros.control;
 
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
+import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
 
@@ -27,9 +29,19 @@ public class Juego {
 		crearModos();
 		crearMenus();
 		menuPrincipal();
+		guardarRecords();
 	}
 	
 	
+
+	private void guardarRecords() {
+		try {
+			Records.guardar( getEntidades() );
+		} catch (IOException e) {
+			System.out.println("Error en guardar records");
+		}
+		
+	}
 
 	private void crearModos() {
 		/*Mediante un mapa de modos de juego se inicializan mediante un enum, los tipos
