@@ -76,11 +76,15 @@ public abstract class Guerrero {
 		int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
 		if (1 <= chanceCritico && chanceCritico <= this.getAtributos().getPresicion() ) {
 			daño = daño * 2;
-			msg = "Critico! ";
+			msg = " Critico! ";
 		}
 		if(enemigo.isDenfendiendo()) {
-			enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
-			msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+			if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
+				enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
+				msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+			}else {
+			msg += " El ataque de " + this.getAtributos().getNombre() + " is desviado por la defensa de " + enemigo.getAtributos().getNombre();
+			}
 		}else {
 			enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
 			msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";

@@ -45,6 +45,13 @@ public class OpcionesHumano {
 		wait(3);
 	}
 	
+	public void printErrorDefensaYaActiva() {
+		printCabezera(humano);
+		System.out.println("X  Tu defensa ya se encuentra activa                           X");
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		wait(3);
+	}
+	
 	public void printPanelItems(ArrayList<ItemActivo> itemsActivos) {
 		if(itemsActivos.isEmpty()) {
 			System.out.println("X  No se tienen items activos                                  X");

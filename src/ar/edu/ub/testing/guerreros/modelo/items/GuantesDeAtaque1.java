@@ -4,8 +4,6 @@ import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 
 public class GuantesDeAtaque1 extends ItemActivo{
-	
-	private Guerrero jugador;
 
 	public GuantesDeAtaque1(Guerrero jugador) {
 		this.setEnergiaNecesaria(3);
@@ -14,24 +12,20 @@ public class GuantesDeAtaque1 extends ItemActivo{
 		this.setPrecio(10);
 	}
 	
-	public void setDueño(Guerrero jugador) {
-		this.jugador = jugador;
-	}
-	
 	
 	
 	@Override
 	public String ejecutarAccionActiva(EntidadesJuego entidades, int objetivo) {
-		this.setAtributoOriginal(jugador.getAtributos().getAtaque());
-		jugador.getAtributos().setAtaque(jugador.getAtributos().getAtaque() + 3);
-		jugador.atacar(entidades.getGuerrerosEnemigos()[objetivo]);
+		this.setAtributoOriginal(getJugador().getAtributos().getAtaque());
+		getJugador().getAtributos().setAtaque(getJugador().getAtributos().getAtaque() + 3);
+		getJugador().atacar(entidades.getGuerrerosEnemigos()[objetivo]);
 		desactivarAccion();
-		return " " + jugador.getAtributos().getNombre() + " aumenta su daño en +3 con guantes de ataque";
+		return " " + getJugador().getAtributos().getNombre() + " aumenta su daño en +3 con guantes de ataque";
 	}
 
 	@Override
 	public void desactivarAccion() {
-		jugador.getAtributos().setAtaque(this.getAtributoOriginal());
+		getJugador().getAtributos().setAtaque(this.getAtributoOriginal());
 	}
 
 

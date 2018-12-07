@@ -36,6 +36,7 @@ public class ControladorHumano {
 		case 1:
 			vista.print(entidades);
 			if (checkEnergiaSuficiente(humano, 2)) {
+				humano.getAtributos().setEnergia(humano.getAtributos().getEnergia()- 2);
 				menuAtacar(this.humano,entidades.getGuerrerosEnemigos());
 			}else {
 				vista.print(entidades);
@@ -45,15 +46,21 @@ public class ControladorHumano {
 			break;
 		case 2:
 			vista.print(entidades);
-			if (checkEnergiaSuficiente(humano, 3)) {
+			if (checkEnergiaSuficiente(humano, 3) && !humano.isDenfendiendo()) {
+				humano.getAtributos().setEnergia(humano.getAtributos().getEnergia()- 3);
 				humano.setDenfendiendo(true);
 				vista.mostrarMensajeEnConsola(" " + humano.getAtributos().getNombre() + " se posicona defensivamente");
 				vista.print(entidades);
 				menuPrincipal();
 			}else {
 				vista.print(entidades);
-				opciones.printErrorEnergiaInsuficiente();
-				menuPrincipal();
+				if(humano.isDenfendiendo()) {
+					opciones.printErrorDefensaYaActiva();
+					menuPrincipal();
+				}else {
+					opciones.printErrorEnergiaInsuficiente();
+					menuPrincipal();
+				}
 			}
 			 break;
 		case 3:
@@ -61,7 +68,6 @@ public class ControladorHumano {
 		case 4:
 			vista.print(entidades);
 			menuUsarItems(humano,entidades);
-			menuPrincipal();
 			break;
 		case 5:
 			descansar();
@@ -83,10 +89,11 @@ public class ControladorHumano {
 		}else {
 			int eleccion = Consola.pedirNumero(1, items.size());
 			if (checkEnergiaSuficiente(humano,items.get(eleccion-1).getEnergiaNecesaria())) {
-			vista.print(entidades);
-			opciones.printPanelAtacar();
-			int eleccionObjectivo = Consola.pedirNumero(1, entidades.getGuerrerosEnemigos().length);
-			vista.mostrarMensajeEnConsola(items.get(eleccion-1).ejecutarAccionActiva(entidades, eleccionObjectivo-1));
+				humano.getAtributos().setEnergia(humano.getAtributos().getEnergia()- items.get(eleccion-1).getEnergiaNecesaria());
+				vista.print(entidades);
+				opciones.printPanelAtacar();
+				int eleccionObjectivo = Consola.pedirNumero(1, entidades.getGuerrerosEnemigos().length);
+				vista.mostrarMensajeEnConsola(items.get(eleccion-1).ejecutarAccionActiva(entidades, eleccionObjectivo-1));
 			}else {
 				vista.print(entidades);
 				opciones.printErrorEnergiaInsuficiente();
@@ -119,7 +126,6 @@ public class ControladorHumano {
 		if ((guerrero.getAtributos().getEnergia() - energiaAGastar) < 0) {
 			return false;
 		}else {
-			guerrero.getAtributos().setEnergia(guerrero.getAtributos().getEnergia()- energiaAGastar);
 			return true;
 		}
 	}
