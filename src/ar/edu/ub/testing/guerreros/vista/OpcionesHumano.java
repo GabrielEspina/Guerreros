@@ -78,7 +78,7 @@ public class OpcionesHumano {
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 			wait(3);
 		}else {
-			String habilidad = "X " + humano.getHabilidad().nombre();
+			String habilidad = "X " + humano.getHabilidad().nombre() + "(" + humano.getHabilidadActiva().consumeEnergia() + ")";
 			int cantidadEspacios = 64 - habilidad.length();
 			for (int i = 0; i < cantidadEspacios-2; i++) {
 				habilidad += " ";

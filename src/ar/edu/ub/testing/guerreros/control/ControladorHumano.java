@@ -115,11 +115,12 @@ public class ControladorHumano {
 	
 	public void menuUsarHabilidad(Guerrero guerrero, EntidadesJuego entidades) {
 		opciones.printPanelHabilidad(guerrero);
-		if (guerrero.getHabilidadActiva() != null) {
+		if (guerrero.getHabilidadActiva() != null && checkEnergiaSuficiente(guerrero, guerrero.getHabilidadActiva().consumeEnergia())) {
 			int eleccion = Consola.pedirNumero(1,2);
 			if(eleccion == 1) {
 			guerrero.getHabilidadActiva().ejecutar(guerrero, entidades.getGuerrerosEnemigos());
 			vista.mostrarMensajeEnConsola(guerrero.getHabilidadActiva().getMensaje());
+			guerrero.getAtributos().setEnergia(guerrero.getAtributos().getEnergia() - guerrero.getHabilidadActiva().consumeEnergia());
 			}else {
 				menuPrincipal();
 			}
