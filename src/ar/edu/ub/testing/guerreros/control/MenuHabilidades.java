@@ -4,7 +4,7 @@ import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
 public class MenuHabilidades extends MenuRaiz{
-
+	
 	public MenuHabilidades(GuerreroJugador guerrero, EntidadesJuego entidades) {
 		super(guerrero, entidades);
 	}
@@ -12,6 +12,7 @@ public class MenuHabilidades extends MenuRaiz{
 	@Override
 	public void ir() {
 		MENU.menuHabilidades(this.getGuerrero());
+		
 	}
 
 }

@@ -3,10 +3,12 @@ package ar.edu.ub.testing.guerreros.modelo;
 
 import java.util.ArrayList;
 import java.util.Random;
+import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
+import ar.edu.ub.testing.guerreros.modelo.items.ItemPasivo;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadActiva;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
+import ar.edu.ub.testing.guerreros.modelo.items.Item;
 
-/*import ar.edu.ub.testing.guerros.modelo.items.Item;
-import ar.edu.ub.testing.guerros.modelo.items.ItemActivo;
-import ar.edu.ub.testing.guerros.modelo.items.ItemPasivo;*/
 
 
 public abstract class Guerrero {
@@ -15,6 +17,8 @@ public abstract class Guerrero {
 	private Atributos atributos;
 	private Cuerpo    cuerpo;
 	private Item[]    items;
+	private IHabilidad habilidad;
+	private boolean    denfendiendo;
 	
 
 	public Guerrero(){
@@ -67,16 +71,34 @@ public abstract class Guerrero {
 			return false;
 		}
 	}
-	public void atacar(Guerrero enemigo) {
+	public String atacar(Guerrero enemigo) {
+		int daño = this.getAtributos().getAtaque();
+		if(isDenfendiendo()) {
+			daño = daño - (daño/3);
+		}
+		String msg = "";
 		int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
 		if (1 <= chanceCritico && chanceCritico <= this.getAtributos().getPresicion() ) {
-			enemigo.dañar((this.getAtributos().getAtaque()*2) - (enemigo.getAtributos().getDefensa()/2));
-		}else {
-		enemigo.dañar(this.getAtributos().getAtaque() - (enemigo.getAtributos().getDefensa()/2));	
+			daño = daño * 2;
+			msg = " Critico! ";
 		}
+		if(enemigo.isDenfendiendo()) {
+			if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
+				enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
+				msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+			}else {
+			msg += " El ataque de " + this.getAtributos().getNombre() + " is desviado por la defensa de " + enemigo.getAtributos().getNombre();
+			}
+		}else {
+			enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
+			msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+		}
+		
+		return msg;
+		
 	}
 	
-	/*public ArrayList<ItemPasivo> getItemsPasivos(){
+	public ArrayList<ItemPasivo> getItemsPasivos(){
 		
 		ArrayList<ItemPasivo> itemsPasivos = new ArrayList<>();
 		if (this.getItems()[0] != null && ItemActivo.class.isAssignableFrom(this.getItems()[0].getClass())) {
@@ -120,7 +142,15 @@ public abstract class Guerrero {
 			itemsActivos.add((ItemActivo)getItems()[1]);
 		}
 		return itemsActivos;
-	}*/
+	}
+	
+	public HabilidadActiva getHabilidadActiva() {
+		HabilidadActiva habilidad = null;
+		if (!(this.getHabilidad() == null) && HabilidadActiva.class.isAssignableFrom(this.getHabilidad().getClass())) {
+			habilidad = (HabilidadActiva) this.getHabilidad();
+		}
+		return habilidad;
+	}
 
 	public Item[] getItems() {
 		return items;
@@ -128,6 +158,22 @@ public abstract class Guerrero {
 
 	public void setItems(Item[] items) {
 		this.items = items;
+	}
+
+	public IHabilidad getHabilidad() {
+		return habilidad;
+	}
+
+	public void setHabilidad(IHabilidad habilidad) {
+		this.habilidad = habilidad;
+	}
+
+	public boolean isDenfendiendo() {
+		return denfendiendo;
+	}
+
+	public void setDenfendiendo(boolean denfendiendo) {
+		this.denfendiendo = denfendiendo;
 	}
 }
 

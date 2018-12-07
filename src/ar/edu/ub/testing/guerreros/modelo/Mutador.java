@@ -8,6 +8,12 @@ public enum Mutador {
 		public void asignarPunto(Guerrero guerrero) {
 			guerrero.getAtributos().setAtaque(guerrero.getAtributos().getAtaque() + 1);
 		}
+
+		@Override
+		public void asignarPuntos(Guerrero guerrero, int puntos) {
+			guerrero.getAtributos().setAtaque(guerrero.getAtributos().getAtaque() + puntos);
+			
+		}
 		
 	},
 	MUTAR_DEFENSA {
@@ -15,11 +21,23 @@ public enum Mutador {
 		public void asignarPunto(Guerrero guerrero) {
 			guerrero.getAtributos().setDefensa(guerrero.getAtributos().getDefensa() + 1);
 		}
+
+		@Override
+		public void asignarPuntos(Guerrero guerrero, int puntos) {
+			guerrero.getAtributos().setDefensa(guerrero.getAtributos().getDefensa() + puntos);
+			
+		}
 	},
 	MUTAR_PRESICION {
 		@Override
 		public void asignarPunto(Guerrero guerrero) {
 			guerrero.getAtributos().setPresicion(guerrero.getAtributos().getPresicion() + 1);
+			
+		}
+
+		@Override
+		public void asignarPuntos(Guerrero guerrero, int puntos) {
+			guerrero.getAtributos().setPresicion(guerrero.getAtributos().getPresicion() + puntos);
 			
 		}
 	},
@@ -29,6 +47,12 @@ public enum Mutador {
 			guerrero.getAtributos().setVida(guerrero.getAtributos().getVida() + 1);
 			
 		}
+
+		@Override
+		public void asignarPuntos(Guerrero guerrero, int puntos) {
+			guerrero.getAtributos().setVida(guerrero.getAtributos().getVida() + puntos);
+			
+		}
 	},
 	MUTAR_ENERGIA {
 		@Override
@@ -36,7 +60,13 @@ public enum Mutador {
 			guerrero.getAtributos().setEnergia(guerrero.getAtributos().getEnergia() + 1);
 			
 		}
+
+		@Override
+		public void asignarPuntos(Guerrero guerrero, int puntos) {
+			guerrero.getAtributos().setEnergia(guerrero.getAtributos().getEnergia() + puntos);
+		}
 	};
 	
 	public abstract void asignarPunto(Guerrero guerrero);
+	public abstract void asignarPuntos(Guerrero guerrero, int puntos);
 }
