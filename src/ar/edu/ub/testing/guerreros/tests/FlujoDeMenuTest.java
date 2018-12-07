@@ -1,6 +1,6 @@
 package ar.edu.ub.testing.guerreros.tests;
 
-import static org.junit.Assert.*;
+ 
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.ub.testing.guerreros.control.MenuAsignacion;
-import ar.edu.ub.testing.guerreros.control.MenuController;
+ 
 import ar.edu.ub.testing.guerreros.control.MenuCreacion;
 import ar.edu.ub.testing.guerreros.control.MenuError;
 import ar.edu.ub.testing.guerreros.control.MenuHabilidadesActivas;
