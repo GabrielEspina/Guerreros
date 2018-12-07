@@ -65,6 +65,24 @@ public class OpcionesHumano {
 		}
 	}
 	
+	public void printPanelHabilidad(Guerrero humano) {
+		if(humano.getHabilidad() == null) {
+			System.out.println("X  No se tiene ninguna habilidad equipada                      X");
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+			wait(3);
+		}else {
+			String habilidad = "X " + humano.getHabilidad().nombre();
+			int cantidadEspacios = 64 - habilidad.length();
+			for (int i = 0; i < cantidadEspacios-2; i++) {
+				habilidad += " ";
+			}
+			habilidad += " X";
+			System.out.println(habilidad);
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		}
+	}
+		
+	
 	public void wait(int segundos) {
 		try {
 			TimeUnit.SECONDS.sleep(segundos);

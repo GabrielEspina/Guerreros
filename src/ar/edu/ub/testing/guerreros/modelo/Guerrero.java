@@ -17,6 +17,7 @@ public abstract class Guerrero {
 	private Cuerpo    cuerpo;
 	private Item[]    items;
 	private IHabilidad habilidad;
+	private boolean    denfendiendo;
 	
 
 	public Guerrero(){
@@ -69,13 +70,24 @@ public abstract class Guerrero {
 			return false;
 		}
 	}
-	public void atacar(Guerrero enemigo) {
+	public String atacar(Guerrero enemigo) {
+		int daño = this.getAtributos().getAtaque();
+		String msg = "";
 		int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
 		if (1 <= chanceCritico && chanceCritico <= this.getAtributos().getPresicion() ) {
-			enemigo.dañar((this.getAtributos().getAtaque()*2) - (enemigo.getAtributos().getDefensa()/2));
-		}else {
-		enemigo.dañar(this.getAtributos().getAtaque() - (enemigo.getAtributos().getDefensa()/2));	
+			daño = daño * 2;
+			msg = "Critico! ";
 		}
+		if(enemigo.isDenfendiendo()) {
+			enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
+			msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+		}else {
+			enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
+			msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+		}
+		
+		return msg;
+		
 	}
 	
 	public ArrayList<ItemPasivo> getItemsPasivos(){
@@ -138,6 +150,14 @@ public abstract class Guerrero {
 
 	public void setHabilidad(IHabilidad habilidad) {
 		this.habilidad = habilidad;
+	}
+
+	public boolean isDenfendiendo() {
+		return denfendiendo;
+	}
+
+	public void setDenfendiendo(boolean denfendiendo) {
+		this.denfendiendo = denfendiendo;
 	}
 }
 

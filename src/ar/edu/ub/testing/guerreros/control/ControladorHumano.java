@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
+import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
 import ar.edu.ub.testing.guerreros.vista.OpcionesHumano;
 import ar.edu.ub.testing.guerreros.vista.Vista;
@@ -23,6 +24,7 @@ public class ControladorHumano {
 		this.entidades = entidades;
 		this.vista = vista;
 		this.opciones = new OpcionesHumano(jugador);
+		this.humano.setDenfendiendo(false);
 		menuPrincipal();
 	}
 
@@ -42,12 +44,24 @@ public class ControladorHumano {
 			}
 			break;
 		case 2:
+			vista.print(entidades);
+			if (checkEnergiaSuficiente(humano, 3)) {
+				humano.setDenfendiendo(true);
+				vista.mostrarMensajeEnConsola(" " + humano.getAtributos().getNombre() + " se posicona defensivamente");
+				vista.print(entidades);
+				menuPrincipal();
+			}else {
+				vista.print(entidades);
+				opciones.printErrorEnergiaInsuficiente();
+				menuPrincipal();
+			}
 			 break;
 		case 3:
 			break;
 		case 4:
 			vista.print(entidades);
 			menuUsarItems(humano,entidades);
+			menuPrincipal();
 			break;
 		case 5:
 			descansar();
@@ -86,9 +100,19 @@ public class ControladorHumano {
 		if (daño < 0) {
 			daño = 0;
 		}
-		atacante.atacar(atacado);
-		vista.mostrarMensajeEnConsola(" " + atacante.getAtributos().getNombre() + " ataco a " + atacado.getAtributos().getNombre() + " por " + daño + " puntos de daño");
+		vista.mostrarMensajeEnConsola(atacante.atacar(atacado));
 		
+	}
+	
+	public void menuUsarHabilidad(GuerreroJugador guerrero, EntidadesJuego entidades) {
+		opciones.printPanelHabilidad(guerrero);
+		int limite = entidades.getGuerrerosEnemigos().length + 1;
+		int eleccion = Consola.pedirNumero(1,limite);
+		if (eleccion == limite) {
+			vista.print(entidades);
+			menuPrincipal();
+		}else {
+		}
 	}
 	
 	public boolean checkEnergiaSuficiente(Guerrero guerrero, int energiaAGastar) {

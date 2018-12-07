@@ -71,13 +71,13 @@ public class PartidaSingleplayer extends Partida{
 		this.tienda(entidades.getJugador());
 		print();
 		while(jugando) {
-			
 			if (getTurnoJugadorOEnemigo() == 2) {
 				turnoEnemigo();
+				print();
 				setTurnoJugadorOEnemigo(1);
-			}
-			if (getTurnoJugadorOEnemigo() == 1) {
+			}else {
 				turnoJugador();
+				print();
 				setTurnoJugadorOEnemigo(2);
 			}
 			checkearCondicionesDeVictoria();
@@ -103,6 +103,7 @@ public class PartidaSingleplayer extends Partida{
 		turnoEnemigo ++;
 		wait(1);
 		System.out.println(entidades.getJugador().getAtributos().getVida());
+		print();
 	}
 	
 	public void print() {
@@ -134,12 +135,8 @@ public class PartidaSingleplayer extends Partida{
 	}
 	
 	public void atacar(Guerrero atacante, Guerrero atacado){
-		int daño = atacante.getAtributos().getAtaque() - (atacado.getAtributos().getDefensa()/2);
-		if (daño < 0) {
-			daño = 0;
-		}
-		atacante.atacar(atacado);
-		vista.mostrarMensajeEnConsola(" " + atacante.getAtributos().getNombre() + " ataco a " + atacado.getAtributos().getNombre() + " por " + daño + " puntos de daño");
+		vista.mostrarMensajeEnConsola(atacante.atacar(atacado));
+		print();
 		
 	}
 	
