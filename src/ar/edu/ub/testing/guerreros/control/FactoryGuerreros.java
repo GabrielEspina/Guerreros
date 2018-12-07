@@ -9,7 +9,7 @@ import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 import ar.edu.ub.testing.guerreros.modelo.Mutador;
 import ar.edu.ub.testing.guerreros.vista.UtilidadesConsola;
 
-public class LaboratorioGuerreros {
+public class FactoryGuerreros {
 	
 	static Random  rand = new Random();
 	
@@ -20,7 +20,7 @@ public class LaboratorioGuerreros {
 		MenuCreacionDePersonaje menuCreacion = new MenuCreacionDePersonaje();
 		menuCreacion.ir();
 		jugador.getAtributos().setNombre( Consola.pedirNombre() );
-		jugador.setPuntos(50);
+		jugador.setPuntos(100);
 		return jugador;
 	}
 	
@@ -32,33 +32,6 @@ public class LaboratorioGuerreros {
 			enemigos[i] = guerrero;
 		}
 	}	
-	/*public static void mutarGuerreroManual(int puntos, GuerreroJugador guerrero, EntidadesJuego entidades){
-		while (puntos > 0) {
-			
-			
-			UtilidadesConsola.limpiarConsola();
-			System.out.println("Puntos restantes =" + puntos);
-			System.out.println("----------------------------");
-			System.out.println("1) Ataque ->\t"     + guerrero.getAtributos().getAtaque());
-			System.out.println("2) Defensa ->\t"    + guerrero.getAtributos().getDefensa());
-			System.out.println("3) Presicion ->\t"  + guerrero.getAtributos().getPresicion());
-			System.out.println("4) Vida ->\t"       + guerrero.getAtributos().getVida());
-			System.out.println("5) Energia ->\t"    + guerrero.getAtributos().getEnergia());
-			System.out.println("----------------------------");
-			System.out.println("6) Regresar");
-			System.out.println("Seleccionar campo a asignar");
-			
-			int eleccion = Consola.pedirNumero(1, 6);
-			
-			if(eleccion == 6) {
-				//new VistaTiendaYEvolucion((GuerreroJugador) guerrero,entidades);
-			}
-			
-			Mutador.values()[eleccion - 1 ].asignarPunto(guerrero);  //SE ASIGNA MANUALMENTE EL TIPO DE MUTACION DESDE EL ENUM MUTADOR
-			puntos--;
-			guerrero.setPuntos(puntos);
-		}
-	}*/
 	
 	public static void mutarGuerrero(int puntos, Guerrero guerrero) {
 		for (int i = 0; i < puntos; i ++) {

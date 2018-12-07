@@ -22,8 +22,9 @@ public class CabezeraSingleplayer extends Cabezera {
 		bloque[1][2] = "X 3)" + entidades.getGuerrerosEnemigos()[2].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[2].getAtributos().getVida() + "  ";
 		bloque[1][2] += " 4)"+ entidades.getGuerrerosEnemigos()[3].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[3].getAtributos().getVida() + " X";
 		int cantidadEspacios = 64 - (bloque[0][0].length() + bloque[0][2].length());
+		int cantidadEspacios2 = 64 - (bloque[1][0].length() + bloque[1][2].length());
 		bloque[0][1] = construirEspacios(cantidadEspacios-1);
-		bloque[1][1] = construirEspacios((cantidadEspacios-2) + bloque[0][0].length());
+		bloque[1][1] = construirEspacios((cantidadEspacios2-1));
 		titulo = generarTitulo(entidades);
 
 	}

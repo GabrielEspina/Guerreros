@@ -89,6 +89,7 @@ public class Juego {
 		/*Al iniciar el menu principal se llama al mapa de menu para mostrar el menu guardado con el key 1
 		 * luego se solicita al usuario un numero de opciones del mismo menu, y mediante un switch case
 		 * se continua por las demas opciones*/
+		Consola.limpiarConsola();
 		getMenus().get(1).ir();
 		int eleccionMenu = Consola.pedirNumero(1, 4);
 		switch(eleccionMenu) {

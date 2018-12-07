@@ -2,7 +2,7 @@ package ar.edu.ub.testing.guerreros.modelo;
 
 import java.util.Stack;
 
-import ar.edu.ub.testing.guerreros.control.LaboratorioGuerreros;
+import ar.edu.ub.testing.guerreros.control.FactoryGuerreros;
 
 
 public class EntidadesJuego {
@@ -90,14 +90,14 @@ public class EntidadesJuego {
 		GuerreroEnemigo madre = this.enemigosACruzar.pop();
 		for(int i = 0; i < this.getGuerrerosEnemigos().length; i++) {
 			String nombre = "Enemigo " + (i + 1);
-			this.getGuerrerosEnemigos()[i] = LaboratorioGuerreros.cruzarGuerreros(padre, madre, nombre);
+			this.getGuerrerosEnemigos()[i] = FactoryGuerreros.cruzarGuerreros(padre, madre, nombre);
 		}
 		this.enemigosACruzar.clear();
 	}
 	
 	public void MutarEnemigos() {
 		for (GuerreroEnemigo g : this.getGuerrerosEnemigos()) {
-			LaboratorioGuerreros.mutarGuerrero(2, g);
+			FactoryGuerreros.mutarGuerrero(2, g);
 		}
 	}
 	

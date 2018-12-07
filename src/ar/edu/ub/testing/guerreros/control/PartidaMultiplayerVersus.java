@@ -1,7 +1,5 @@
 package ar.edu.ub.testing.guerreros.control;
 
-
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.vista.UtilidadesConsola;
@@ -23,16 +21,16 @@ public class PartidaMultiplayerVersus extends Partida {
 	}
 
 	@Override
-	public boolean checkearCondicionesDeVictoria() {
+	public void checkearCondicionesDeVictoria() {
 		if (this.getEntidades().checkJugadorUnoMuerto()) {
 			this.victoriaJugadorDos();
-			return true;
+	
 		}
 		if (this.getEntidades().checkJugadorDosMuerto()) {
 			this.victoriaJugadorUno();
-			return true;
+	
 		}
-		return false;
+	
 	}
 
 	@Override
@@ -78,9 +76,8 @@ public class PartidaMultiplayerVersus extends Partida {
 		if(this.turnoJugador > 2) {
 			this.turnoJugador = 1;
 		}
-		if(!checkearCondicionesDeVictoria()) {
-			turnoJugador();
-		}
+
+	
 	}
 
 	@Override

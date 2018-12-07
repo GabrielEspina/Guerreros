@@ -18,12 +18,17 @@ public class HabilidadDaniarEnemigos extends HabilidadActiva{
 
 	@Override
 	public String descripcion() {
-		return "Enemigos Daniados !";
+		return "3 de daño a todos los enemigos";
 	}
 
 	@Override
 	public String nombre() {
 		return "Onda expansiva";
+	}
+
+	@Override
+	public String getMensaje() {
+		return " Una onda expansiva daña por 3 a todos los enemigos";
 	}
 
 }

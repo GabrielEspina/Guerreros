@@ -2,7 +2,7 @@ package ar.edu.ub.testing.guerreros.control;
 
 public interface IPartida {
 	
-	public boolean checkearCondicionesDeVictoria();
+	public void checkearCondicionesDeVictoria();
 	public void victoriaJugadorUno();
 	public void victoriaJugadorDos();
 	public void victoriaEnemigos();

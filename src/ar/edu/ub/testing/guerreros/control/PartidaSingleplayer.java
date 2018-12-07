@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
@@ -11,29 +12,30 @@ import ar.edu.ub.testing.guerreros.vista.VistaCombateSingleplayer;
 
 public class PartidaSingleplayer extends Partida{
 	
+	static Random  rand = new Random();
 	private int turnoEnemigo = 0;
 	private int turnoJugadorOEnemigo = 1;
 	private VistaCombateSingleplayer vista;
+	private boolean jugando = true;
+	private boolean continuar = true;
 
 	public PartidaSingleplayer(EntidadesJuego entidadesExternas) {
 		super(entidadesExternas);
 		vista = new VistaCombateSingleplayer(entidadesExternas);
-		print();
 		jugar();
 	}
 
 	@Override
-	public boolean checkearCondicionesDeVictoria() {
+	public void checkearCondicionesDeVictoria() {
 		if(this.getEntidades().checkJugadorUnoMuerto()) {
-			this.victoriaEnemigos();
-			return true;
+			jugando = false;
+			continuar = false;
 		}
 		if(this.getEntidades().checkEnemigosMuertos()) {
-			this.victoriaJugadorUno();
-			return true;
+			jugando = false;
+			continuar = true;
 		}
-		return false;
-		
+		print();	
 	}
 
 	@Override
@@ -42,7 +44,7 @@ public class PartidaSingleplayer extends Partida{
 		vista.mostrarMensajeEnConsola(" Ganador: " + this.getEntidades().getJugador().getAtributos().getNombre());
 		vista.mostrarMensajeEnConsola(" Comenzando nivel: " + (this.getEntidades().getRound() + 1));
 		print();
-		wait(5);
+		wait(3);
 		entidades.siguienteRound();
 		vista = new VistaCombateSingleplayer(entidades);
 		turnoEnemigo = 0;
@@ -60,42 +62,53 @@ public class PartidaSingleplayer extends Partida{
 		vista.mostrarMensajeEnConsola(" Jugador derrotado por generacion #" + this.getEntidades().getRound());
 		print();
 		wait(5);
-		new Juego();
+		new Juego().ejecutar();
 
 	}
 	@Override
 	public void jugar() {
+		jugando = true;
+		setTurnoJugadorOEnemigo(1);
 		activarPasivos();
 		this.tienda(entidades.getJugador());
-		while(!checkearCondicionesDeVictoria()) {
-			if (getTurnoJugadorOEnemigo() == 1) {
-				turnoJugador();
-				setTurnoJugadorOEnemigo(2);
-			}
+		print();
+		while(jugando) {
 			if (getTurnoJugadorOEnemigo() == 2) {
 				turnoEnemigo();
+				print();
 				setTurnoJugadorOEnemigo(1);
+			}else {
+				turnoJugador();
+				print();
+				setTurnoJugadorOEnemigo(2);
 			}
+			checkearCondicionesDeVictoria();
+		}
+		if (continuar) {
+			victoriaJugadorUno();
+		}else {
+			victoriaEnemigos();
 		}
 	}
 
 	@Override
 	public void turnoJugador() {
+		new ControladorHumano(entidades.getJugador(), entidades, vista);
 		print();
-		wait(2);
 	}
 
 	@Override
 	public void turnoEnemigo() {
-		print();
-		wait(2);
+		wait(1);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
-		atacar(entidades.getGuerrerosEnemigos()[turnoEnemigo],entidades.getJugador());
+		controladorEnemigo(entidades.getGuerrerosEnemigos()[turnoEnemigo]);
 		turnoEnemigo ++;
-		wait(2);
+		wait(1);
+		print();
 	}
 	
 	public void print() {
+		
 		vista.print(entidades);
 	}
 	
@@ -123,12 +136,8 @@ public class PartidaSingleplayer extends Partida{
 	}
 	
 	public void atacar(Guerrero atacante, Guerrero atacado){
-		int daño = atacante.getAtributos().getAtaque() - (atacado.getAtributos().getDefensa()/2);
-		if (daño < 0) {
-			daño = 0;
-		}
-		atacante.atacar(atacado);
-		vista.mostrarMensajeEnConsola(" " + atacante.getAtributos().getNombre() + " ataco a " + atacado.getAtributos().getNombre() + " por " + daño + " puntos de daño");
+		vista.mostrarMensajeEnConsola(atacante.atacar(atacado));
+		print();
 		
 	}
 	
@@ -167,6 +176,17 @@ public class PartidaSingleplayer extends Partida{
 
 	public void setTurnoJugadorOEnemigo(int turnoJugadorOEnemigo) {
 		this.turnoJugadorOEnemigo = turnoJugadorOEnemigo;
+	}
+	
+	public void controladorEnemigo(GuerreroEnemigo guerrero) {
+		guerrero.setDenfendiendo(false);
+		int defiende = 1 + rand.nextInt((3 - 1) + 1);
+		if(defiende == 1) {
+			guerrero.setDenfendiendo(true);
+			vista.mostrarMensajeEnConsola(" " + guerrero.getAtributos().getNombre() + " se posicona defensivamente");
+		}
+		atacar(guerrero, getEntidades().getJugador());
+		
 	}
 	
 }

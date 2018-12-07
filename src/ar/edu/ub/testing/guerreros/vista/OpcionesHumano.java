@@ -45,6 +45,13 @@ public class OpcionesHumano {
 		wait(3);
 	}
 	
+	public void printErrorDefensaYaActiva() {
+		printCabezera(humano);
+		System.out.println("X  Tu defensa ya se encuentra activa                           X");
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		wait(3);
+	}
+	
 	public void printPanelItems(ArrayList<ItemActivo> itemsActivos) {
 		if(itemsActivos.isEmpty()) {
 			System.out.println("X  No se tienen items activos                                  X");
@@ -64,6 +71,25 @@ public class OpcionesHumano {
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		}
 	}
+	
+	public void printPanelHabilidad(Guerrero humano) {
+		if(humano.getHabilidadActiva() == null) {
+			System.out.println("X  No se tiene ninguna habilidad activa equipada               X");
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+			wait(3);
+		}else {
+			String habilidad = "X " + humano.getHabilidad().nombre() + "(" + humano.getHabilidadActiva().consumeEnergia() + ")";
+			int cantidadEspacios = 64 - habilidad.length();
+			for (int i = 0; i < cantidadEspacios-2; i++) {
+				habilidad += " ";
+			}
+			habilidad += " X";
+			System.out.println(habilidad);
+			System.out.println("X  1) Confirmar            2) Cancelar                         X");
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		}
+	}
+		
 	
 	public void wait(int segundos) {
 		try {

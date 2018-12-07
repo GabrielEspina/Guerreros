@@ -24,12 +24,18 @@ public class HabilidadDaniarEnemigoCincoTurnos extends HabilidadActiva{
 
 	@Override
 	public String descripcion() {
-		return "Hace daño al enemigo por 5 turnos";
+		return "Hace daño a un enemigo aleatorio por 5 turnos";
 	}
 
 	@Override
 	public String nombre() {
 		return "Herida sangrante";
+	}
+
+	@Override
+	public String getMensaje() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
