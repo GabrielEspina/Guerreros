@@ -7,10 +7,10 @@ public class Bomba2 extends ItemActivo{
 	
 
 	public Bomba2(Guerrero jugador) {
-		this.setEnergiaNecesaria(6);
+		this.setEnergiaNecesaria(10);
 		this.setNombre("Gran Bomba" + "(" + this.getEnergiaNecesaria() +  ")");
 		this.setDescripcion("Ataca a cuatro enemigos(-7 daño)");
-		this.setPrecio(15);
+		this.setPrecio(40);
 	}
 	
 	@Override

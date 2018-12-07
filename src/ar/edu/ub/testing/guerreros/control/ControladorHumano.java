@@ -64,6 +64,8 @@ public class ControladorHumano {
 			}
 			 break;
 		case 3:
+			vista.print(entidades);
+			menuUsarHabilidad(humano, entidades);
 			break;
 		case 4:
 			vista.print(entidades);
@@ -111,14 +113,19 @@ public class ControladorHumano {
 		
 	}
 	
-	public void menuUsarHabilidad(GuerreroJugador guerrero, EntidadesJuego entidades) {
+	public void menuUsarHabilidad(Guerrero guerrero, EntidadesJuego entidades) {
 		opciones.printPanelHabilidad(guerrero);
-		int limite = entidades.getGuerrerosEnemigos().length + 1;
-		int eleccion = Consola.pedirNumero(1,limite);
-		if (eleccion == limite) {
-			vista.print(entidades);
-			menuPrincipal();
+		if (guerrero.getHabilidadActiva() != null) {
+			int eleccion = Consola.pedirNumero(1,2);
+			if(eleccion == 1) {
+			guerrero.getHabilidadActiva().ejecutar(guerrero, entidades.getGuerrerosEnemigos());
+			vista.mostrarMensajeEnConsola(guerrero.getHabilidadActiva().getMensaje());
+			}else {
+				menuPrincipal();
+			}
+		
 		}else {
+			menuPrincipal();
 		}
 	}
 	

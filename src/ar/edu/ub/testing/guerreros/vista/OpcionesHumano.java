@@ -73,8 +73,8 @@ public class OpcionesHumano {
 	}
 	
 	public void printPanelHabilidad(Guerrero humano) {
-		if(humano.getHabilidad() == null) {
-			System.out.println("X  No se tiene ninguna habilidad equipada                      X");
+		if(humano.getHabilidadActiva() == null) {
+			System.out.println("X  No se tiene ninguna habilidad activa equipada               X");
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 			wait(3);
 		}else {
@@ -85,6 +85,7 @@ public class OpcionesHumano {
 			}
 			habilidad += " X";
 			System.out.println(habilidad);
+			System.out.println("X  1) Confirmar            2) Cancelar                         X");
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		}
 	}

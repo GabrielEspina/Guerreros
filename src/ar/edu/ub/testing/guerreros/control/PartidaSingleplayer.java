@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
@@ -11,6 +12,7 @@ import ar.edu.ub.testing.guerreros.vista.VistaCombateSingleplayer;
 
 public class PartidaSingleplayer extends Partida{
 	
+	static Random  rand = new Random();
 	private int turnoEnemigo = 0;
 	private int turnoJugadorOEnemigo = 1;
 	private VistaCombateSingleplayer vista;
@@ -99,10 +101,9 @@ public class PartidaSingleplayer extends Partida{
 	public void turnoEnemigo() {
 		wait(1);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
-		atacar(entidades.getGuerrerosEnemigos()[turnoEnemigo],entidades.getJugador());
+		controladorEnemigo(entidades.getGuerrerosEnemigos()[turnoEnemigo]);
 		turnoEnemigo ++;
 		wait(1);
-		System.out.println(entidades.getJugador().getAtributos().getVida());
 		print();
 	}
 	
@@ -175,6 +176,17 @@ public class PartidaSingleplayer extends Partida{
 
 	public void setTurnoJugadorOEnemigo(int turnoJugadorOEnemigo) {
 		this.turnoJugadorOEnemigo = turnoJugadorOEnemigo;
+	}
+	
+	public void controladorEnemigo(GuerreroEnemigo guerrero) {
+		guerrero.setDenfendiendo(false);
+		int defiende = 1 + rand.nextInt((3 - 1) + 1);
+		if(defiende == 1) {
+			guerrero.setDenfendiendo(true);
+			vista.mostrarMensajeEnConsola(" " + guerrero.getAtributos().getNombre() + " se posicona defensivamente");
+		}
+		atacar(guerrero, getEntidades().getJugador());
+		
 	}
 	
 }

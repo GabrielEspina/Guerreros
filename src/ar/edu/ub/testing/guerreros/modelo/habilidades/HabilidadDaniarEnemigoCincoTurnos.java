@@ -32,4 +32,10 @@ public class HabilidadDaniarEnemigoCincoTurnos extends HabilidadActiva{
 		return "Herida sangrante";
 	}
 
+	@Override
+	public String getMensaje() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

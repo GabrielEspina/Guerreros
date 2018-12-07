@@ -142,7 +142,7 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Herida sangrante           15P X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println("X 2) Honda Expansiva            15P X");
+		System.out.println("X 2) Onda Expansiva             15P X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 3) Cortina de Humo            15P X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -197,9 +197,9 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 2) Guantes de Ataque +5       15P X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println("X 3) Bomba                      10P X");
+		System.out.println("X 3) Bomba                      20P X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println("X 4) Gran Bomba                 15P X");
+		System.out.println("X 4) Gran Bomba                 40P X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 5) Atras                          X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
 import ar.edu.ub.testing.guerreros.modelo.items.ItemPasivo;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadActiva;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
 import ar.edu.ub.testing.guerreros.modelo.items.Item;
 
@@ -72,6 +73,9 @@ public abstract class Guerrero {
 	}
 	public String atacar(Guerrero enemigo) {
 		int daño = this.getAtributos().getAtaque();
+		if(isDenfendiendo()) {
+			daño = daño - (daño/3);
+		}
 		String msg = "";
 		int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
 		if (1 <= chanceCritico && chanceCritico <= this.getAtributos().getPresicion() ) {
@@ -138,6 +142,14 @@ public abstract class Guerrero {
 			itemsActivos.add((ItemActivo)getItems()[1]);
 		}
 		return itemsActivos;
+	}
+	
+	public HabilidadActiva getHabilidadActiva() {
+		HabilidadActiva habilidad = null;
+		if (!(this.getHabilidad() == null) && HabilidadActiva.class.isAssignableFrom(this.getHabilidad().getClass())) {
+			habilidad = (HabilidadActiva) this.getHabilidad();
+		}
+		return habilidad;
 	}
 
 	public Item[] getItems() {

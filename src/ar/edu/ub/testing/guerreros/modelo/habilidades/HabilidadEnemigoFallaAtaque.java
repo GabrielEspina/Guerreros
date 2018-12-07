@@ -25,4 +25,10 @@ public class HabilidadEnemigoFallaAtaque extends HabilidadActiva{
 		return "Cortina de humo";
 	}
 
+	@Override
+	public String getMensaje() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -8,10 +8,10 @@ public class Bomba1 extends ItemActivo{
 
 
 	public Bomba1(Guerrero jugador) {
-		this.setEnergiaNecesaria(5);
+		this.setEnergiaNecesaria(7);
 		this.setNombre("Bomba" + "(" + this.getEnergiaNecesaria() +  ")");
 		this.setDescripcion("Ataca a dos enemigos(-5 daño)");
-		this.setPrecio(10);
+		this.setPrecio(20);
 	}
 	
 	public void setDueño(Guerrero jugador) {

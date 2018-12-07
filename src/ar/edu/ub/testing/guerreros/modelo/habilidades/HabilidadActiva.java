@@ -21,4 +21,6 @@ public abstract class HabilidadActiva implements IHabilidadActiva{
 	private void setRand(Random rand) {
 		this.rand = rand;
 	}
+	
+	public abstract String getMensaje();
 }

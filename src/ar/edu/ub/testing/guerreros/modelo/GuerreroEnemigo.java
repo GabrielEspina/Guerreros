@@ -11,7 +11,7 @@ public class GuerreroEnemigo extends Guerrero {
 		this.getAtributos().setDefensa(4);
 		this.getAtributos().setEnergia(4);
 		this.getAtributos().setPresicion(4);
-		this.getAtributos().setVida(4);
+		this.getAtributos().setVida(10);
 	}
 	
 	public void nockear(int pausarTurnos) {
