@@ -23,7 +23,6 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 4) Salir                          X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		
 	}
 
 	@Override
@@ -35,9 +34,7 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 2) MultiPlayer Cooperativo        X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println("X 3) MultiPlayer Versus             X");
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		System.out.println("X 4) Atras                          X");
+		System.out.println("X 3) Atras                          X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		
 	}

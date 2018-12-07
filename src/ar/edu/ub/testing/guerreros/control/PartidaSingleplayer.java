@@ -1,8 +1,10 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -19,7 +21,7 @@ public class PartidaSingleplayer extends Partida{
 	private boolean jugando = true;
 	private boolean continuar = true;
 
-	public PartidaSingleplayer(EntidadesJuego entidadesExternas) {
+	public PartidaSingleplayer(EntidadesJuego entidadesExternas) throws ClassNotFoundException, IOException {
 		super(entidadesExternas);
 		vista = new VistaCombateSingleplayer(entidadesExternas);
 		jugar();
@@ -39,7 +41,7 @@ public class PartidaSingleplayer extends Partida{
 	}
 
 	@Override
-	public void victoriaJugadorUno() {
+	public void victoriaJugadorUno() throws ClassNotFoundException, IOException {
 		desactivarPasivos();
 		vista.mostrarMensajeEnConsola(" Ganador: " + this.getEntidades().getJugador().getAtributos().getNombre());
 		vista.mostrarMensajeEnConsola(" Comenzando nivel: " + (this.getEntidades().getRound() + 1));
@@ -58,15 +60,17 @@ public class PartidaSingleplayer extends Partida{
 	}
 
 	@Override
-	public void victoriaEnemigos() {
+	public void victoriaEnemigos() throws ClassNotFoundException, IOException {
 		vista.mostrarMensajeEnConsola(" Jugador derrotado por generacion #" + this.getEntidades().getRound());
 		print();
 		wait(5);
+		Consola.limpiarConsola();
+		Records.guardarSP(getEntidades());
 		new Juego().ejecutar();
 
 	}
 	@Override
-	public void jugar() {
+	public void jugar() throws ClassNotFoundException, IOException {
 		jugando = true;
 		setTurnoJugadorOEnemigo(1);
 		this.tienda(entidades.getJugador());
