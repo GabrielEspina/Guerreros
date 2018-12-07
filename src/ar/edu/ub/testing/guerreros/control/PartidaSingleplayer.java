@@ -69,8 +69,8 @@ public class PartidaSingleplayer extends Partida{
 	public void jugar() {
 		jugando = true;
 		setTurnoJugadorOEnemigo(1);
-		activarPasivos();
 		this.tienda(entidades.getJugador());
+		activarPasivos();
 		print();
 		while(jugando) {
 			if (getTurnoJugadorOEnemigo() == 2) {
@@ -101,7 +101,17 @@ public class PartidaSingleplayer extends Partida{
 	public void turnoEnemigo() {
 		wait(1);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
+		if(entidades.getGuerrerosEnemigos()[turnoEnemigo].checkheridaSangrante()) {
+			entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().setVida(entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getVida() - 1);
+			vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getNombre() + " sangra por 1 de daño( turnos restantes: " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getContHeridaSangrante() + " )");
+			wait(1);
+			print();
+		}
+		if(entidades.getGuerrerosEnemigos()[turnoEnemigo].checkNocked() && !entidades.getGuerrerosEnemigos()[turnoEnemigo].murio() ) {
+			vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getNombre() + " se encuentra incapacitado( turnos restantes: " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getContTurnosPausados() + " )");
+		}else {
 		controladorEnemigo(entidades.getGuerrerosEnemigos()[turnoEnemigo]);
+		}
 		turnoEnemigo ++;
 		wait(1);
 		print();
@@ -117,12 +127,8 @@ public class PartidaSingleplayer extends Partida{
 			turno = 0;
 		}
 		int siguienteTurno = turno;
-			while (entidades.getGuerrerosEnemigos()[siguienteTurno].checkEnemigoNoDisponible()) {
-				
-				if(entidades.getGuerrerosEnemigos()[siguienteTurno].checkNocked()) {
-					vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[siguienteTurno].getAtributos().getNombre() + " se encuentra incapacitado por " + entidades.getGuerrerosEnemigos()[siguienteTurno].getContTurnosPausados() + " turnos ");
-				}
-				
+			while (entidades.getGuerrerosEnemigos()[siguienteTurno].murio()) {
+
 				if (siguienteTurno == 3) {
 					siguienteTurno = 0;
 					

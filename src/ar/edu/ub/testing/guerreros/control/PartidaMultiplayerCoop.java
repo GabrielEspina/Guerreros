@@ -137,7 +137,7 @@ public class PartidaMultiplayerCoop extends Partida {
 			turno = 0;
 		}
 		int siguienteTurno = turno;
-			while (entidades.getGuerrerosEnemigos()[siguienteTurno].checkEnemigoNoDisponible()) {
+			while (entidades.getGuerrerosEnemigos()[siguienteTurno].murio()) {
 				if(entidades.getGuerrerosEnemigos()[siguienteTurno].checkNocked()) {
 					vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[siguienteTurno].getAtributos().getNombre() + " se encuentra incapacitado por " + entidades.getGuerrerosEnemigos()[siguienteTurno].getContTurnosPausados() + " turnos ");
 				}

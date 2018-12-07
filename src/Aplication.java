@@ -13,6 +13,8 @@
 
 
 import ar.edu.ub.testing.guerreros.control.Juego;
+import ar.edu.ub.testing.guerreros.control.Modo_Juego;
+import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 
 
 public class Aplication {
@@ -21,5 +23,7 @@ public class Aplication {
 		//Se crea una nueva instancia de Juego, y se llama al metodo ejecutar, para dar comienzo al mismo
 		new Juego().ejecutar();
 	}
+	
+
 
 }

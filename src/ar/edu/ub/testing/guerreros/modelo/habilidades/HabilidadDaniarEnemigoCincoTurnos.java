@@ -5,12 +5,7 @@ import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
 
 public class HabilidadDaniarEnemigoCincoTurnos extends HabilidadActiva{
 	
-	public static Integer ENEMIGO_RANDOM;
-	
-	@SuppressWarnings("static-access")
-	public HabilidadDaniarEnemigoCincoTurnos() {
-		this.ENEMIGO_RANDOM = enemigoRandom(4)-1;
-	}
+	private String msg = "";
 
 	@Override
 	public Integer consumeEnergia() {
@@ -19,12 +14,14 @@ public class HabilidadDaniarEnemigoCincoTurnos extends HabilidadActiva{
 
 	@Override
 	public void ejecutar(Guerrero jugador, GuerreroEnemigo[] enemigos) {
-		enemigos[ENEMIGO_RANDOM].getAtributos().setVida(enemigos[ENEMIGO_RANDOM].getAtributos().getVida()-1);
+		int objetivo = enemigoRandom(enemigos.length);
+		enemigos[objetivo].HeridaSangrante(5);
+		msg = " " + enemigos[objetivo].getAtributos().getNombre() + " sufre una herida sangrante";
 	}
 
 	@Override
 	public String descripcion() {
-		return "Hace daño a un enemigo aleatorio por 5 turnos";
+		return "1 de daño por 5 turnos";
 	}
 
 	@Override
@@ -34,8 +31,7 @@ public class HabilidadDaniarEnemigoCincoTurnos extends HabilidadActiva{
 
 	@Override
 	public String getMensaje() {
-		// TODO Auto-generated method stub
-		return null;
+		return msg;
 	}
 
 }

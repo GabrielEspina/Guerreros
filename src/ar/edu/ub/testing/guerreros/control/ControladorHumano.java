@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
-import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
 import ar.edu.ub.testing.guerreros.vista.OpcionesHumano;
 import ar.edu.ub.testing.guerreros.vista.Vista;

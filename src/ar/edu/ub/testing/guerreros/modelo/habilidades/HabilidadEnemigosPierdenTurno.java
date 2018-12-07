@@ -40,8 +40,7 @@ public class HabilidadEnemigosPierdenTurno extends HabilidadActiva{
 
 	@Override
 	public String getMensaje() {
-		// TODO Auto-generated method stub
-		return null;
+		return " Una confusion inevitable se apodera de los enemigos";
 	}
 
 }

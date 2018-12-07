@@ -6,6 +6,7 @@ import java.util.Random;
 import ar.edu.ub.testing.guerreros.modelo.items.ItemActivo;
 import ar.edu.ub.testing.guerreros.modelo.items.ItemPasivo;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadActiva;
+import ar.edu.ub.testing.guerreros.modelo.habilidades.HabilidadPasiva;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.IHabilidad;
 import ar.edu.ub.testing.guerreros.modelo.items.Item;
 
@@ -18,9 +19,16 @@ public abstract class Guerrero {
 	private Cuerpo    cuerpo;
 	private Item[]    items;
 	private IHabilidad habilidad;
-	private boolean    denfendiendo;
+	private boolean    denfendiendo = false;
+	private boolean    chanceParalizar = false;
+	private boolean    chanceDobleDaño = false;
+	private boolean    chanceEvadir = false;
+	private boolean turnoPausado;
+	private int contTurnosPausados;
+	private boolean heridaSangrante;
+	private int contHeridaSangrante;
+	private boolean     fallaAtaque;
 	
-
 	public Guerrero(){
 		this.atributos = new Atributos();
 		this.cuerpo = new Cuerpo();
@@ -72,31 +80,92 @@ public abstract class Guerrero {
 		}
 	}
 	public String atacar(Guerrero enemigo) {
-		int daño = this.getAtributos().getAtaque();
-		if(isDenfendiendo()) {
-			daño = daño - (daño/3);
-		}
-		String msg = "";
-		int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
-		if (1 <= chanceCritico && chanceCritico <= this.getAtributos().getPresicion() ) {
-			daño = daño * 2;
-			msg = " Critico! ";
-		}
-		if(enemigo.isDenfendiendo()) {
-			if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
-				enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
-				msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+		if(!this.isFallaAtaque()) {
+			if(enemigo.isChanceEvadir()) {
+				int chanceDeEvadir = 1 + rand.nextInt((100 - 1) + 1);
+				System.out.println(chanceDeEvadir);
+				if(!(chanceDeEvadir <= 20)) {
+					int daño = this.getAtributos().getAtaque();
+					if(isDenfendiendo()) {
+						daño = daño - (daño/3);
+					}
+					String msg = "";
+					int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
+					int chance = this.getAtributos().getPresicion();
+					if(chanceDobleDaño) {
+						chance += 25;
+					}
+					if (1 <= chanceCritico && chanceCritico <= chance ) {
+						daño = daño * 2;
+						msg = " Critico! ";
+					}
+					if(enemigo.isDenfendiendo()) {
+						if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
+							enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
+							msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+						}else {
+							msg = "";
+							msg += " El ataque de " + this.getAtributos().getNombre() + " is desviado por la defensa de " + enemigo.getAtributos().getNombre();
+						}
+					}else {
+						enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
+						msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+						if(chanceParalizar) {
+							int chanceParalizar = 1 + rand.nextInt((100 - 1) + 1);
+							if(chanceParalizar <= 15) {
+								enemigo.nockear(2);
+								msg += " y lo paraliza (2 turnos)";
+							}
+						}
+					}
+					
+					return msg;
+				}else {
+					return " " +  enemigo.getAtributos().getNombre() + " esquiva el ataque de " + this.getAtributos().getNombre(); 
+				}
 			}else {
-			msg += " El ataque de " + this.getAtributos().getNombre() + " is desviado por la defensa de " + enemigo.getAtributos().getNombre();
+				int daño = this.getAtributos().getAtaque();
+				if(isDenfendiendo()) {
+					daño = daño - (daño/3);
+				}
+				String msg = "";
+				int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
+				int chance = this.getAtributos().getPresicion();
+				if(chanceDobleDaño) {
+					chance += 25;
+				}
+				if (1 <= chanceCritico && chanceCritico <= chance ) {
+					daño = daño * 2;
+					msg = " Critico! ";
+				}
+				if(enemigo.isDenfendiendo()) {
+					if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
+						enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
+						msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+					}else {
+						msg = "";
+						msg += " El ataque de " + this.getAtributos().getNombre() + " es desviado por la defensa de " + enemigo.getAtributos().getNombre();
+					}
+				}else {
+					enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
+					msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+					if(chanceParalizar) {
+						int chanceParalizar = 1 + rand.nextInt((100 - 1) + 1);
+						if(chanceParalizar <= 15) {
+							enemigo.nockear(2);
+							msg += " y lo paraliza (2 turnos)";
+						}
+					}
+				}
+				
+				return msg;
 			}
 		}else {
-			enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
-			msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+			this.setFallaAtaque(false);
+			return " " + this.getAtributos().getNombre() + " falla su ataque!";
 		}
-		
-		return msg;
-		
 	}
+	
 	
 	public ArrayList<ItemPasivo> getItemsPasivos(){
 		
@@ -132,6 +201,19 @@ public abstract class Guerrero {
 		}
 	}
 	
+	public void activarHabilidadPasiva() {
+		if (this.getHabilidadPasiva()!= null) {
+			this.getHabilidadPasiva().ejecutar(this);
+		}
+	}
+	
+	public void desactivarHabilidadPasiva() {
+		if (this.getHabilidadPasiva()!= null) {
+			this.getHabilidadPasiva().desactivarPasivo((GuerreroJugador) this);
+		}
+	}
+	
+	
 	public ArrayList<ItemActivo> getItemsActivos(){
 		
 		ArrayList<ItemActivo> itemsActivos = new ArrayList<>();
@@ -148,6 +230,14 @@ public abstract class Guerrero {
 		HabilidadActiva habilidad = null;
 		if (!(this.getHabilidad() == null) && HabilidadActiva.class.isAssignableFrom(this.getHabilidad().getClass())) {
 			habilidad = (HabilidadActiva) this.getHabilidad();
+		}
+		return habilidad;
+	}
+	
+	public HabilidadPasiva getHabilidadPasiva() {
+		HabilidadPasiva habilidad = null;
+		if (!(this.getHabilidad() == null) && HabilidadPasiva.class.isAssignableFrom(this.getHabilidad().getClass())) {
+			habilidad = (HabilidadPasiva) this.getHabilidad();
 		}
 		return habilidad;
 	}
@@ -175,5 +265,96 @@ public abstract class Guerrero {
 	public void setDenfendiendo(boolean denfendiendo) {
 		this.denfendiendo = denfendiendo;
 	}
+
+	public boolean isChanceParalizar() {
+		return chanceParalizar;
+	}
+
+	public void setChanceParalizar(boolean chanceParalizar) {
+		this.chanceParalizar = chanceParalizar;
+	}
+
+	public boolean isChanceDobleDaño() {
+		return chanceDobleDaño;
+	}
+
+	public void setChanceDobleDaño(boolean chanceDobleDaño) {
+		this.chanceDobleDaño = chanceDobleDaño;
+	}
+
+	public boolean isChanceEvadir() {
+		return chanceEvadir;
+	}
+
+	public void setChanceEvadir(boolean chanceEvadir) {
+		this.chanceEvadir = chanceEvadir;
+	}
+	public void nockear(int pausarTurnos) {
+		setTurnoPausado(true);
+		setContTurnosPausados(pausarTurnos);
+	}
+
+	public boolean checkNocked() {
+		if (this.getContTurnosPausados() == 0) {
+			this.setTurnoPausado(false);
+		}
+		this.setContTurnosPausados(this.getContTurnosPausados()-1);
+		return this.isTurnoPausado();
+	}
+	
+	public boolean isTurnoPausado() {
+		return turnoPausado;
+	}
+
+	public void setTurnoPausado(boolean turnoPausado) {
+		this.turnoPausado = turnoPausado;
+	}
+
+	public int getContTurnosPausados() {
+		return contTurnosPausados;
+	}
+
+	public void setContTurnosPausados(int contTurnosPausados) {
+		this.contTurnosPausados = contTurnosPausados;
+	}
+	
+	public void HeridaSangrante(int turnos) {
+		this.setHeridaSangrante(true);
+		this.setContHeridaSangrante(turnos);
+	}
+	
+	public boolean checkheridaSangrante() {
+		if(this.contHeridaSangrante == 0) {
+			this.heridaSangrante = false;
+		}
+		this.setContHeridaSangrante(getContHeridaSangrante() - 1);
+		return this.isHeridaSangrante();
+	}
+
+	public boolean isHeridaSangrante() {
+		return heridaSangrante;
+	}
+
+	public void setHeridaSangrante(boolean heridaSangrante) {
+		this.heridaSangrante = heridaSangrante;
+	}
+
+	public int getContHeridaSangrante() {
+		return contHeridaSangrante;
+	}
+
+	public void setContHeridaSangrante(int contHeridaSangrante) {
+		this.contHeridaSangrante = contHeridaSangrante;
+	}
+
+	public boolean isFallaAtaque() {
+		return fallaAtaque;
+	}
+
+	public void setFallaAtaque(boolean fallaAtaque) {
+		this.fallaAtaque = fallaAtaque;
+	}
+	
+	
 }
 

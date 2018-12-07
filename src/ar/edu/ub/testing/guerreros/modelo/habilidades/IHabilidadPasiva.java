@@ -6,6 +6,6 @@ public interface IHabilidadPasiva extends IHabilidad{
 	
 	public boolean probar();
 	
-	public void ejecutar(Guerrero jugador, Guerrero enemigo);
+	public void ejecutar(Guerrero jugador);
 	
 }

@@ -1,6 +1,7 @@
 package ar.edu.ub.testing.guerreros.modelo.habilidades;
 
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
+import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
 public class Habilidad20PorcEvadirAtaque extends HabilidadPasiva{
 	
@@ -11,10 +12,10 @@ public class Habilidad20PorcEvadirAtaque extends HabilidadPasiva{
 	}
 	
 	@Override
-	public void ejecutar(Guerrero jugador, Guerrero enemigo) {
-		
-		jugador.getAtributos().setVida( jugador.getAtributos().getVida() +  enemigo.getAtributos().getAtaque() );
+	public void ejecutar(Guerrero jugador) {
+		jugador.setChanceEvadir(true);
 	}
+	
 	
 	@Override
 	public boolean probar() {
@@ -27,6 +28,11 @@ public class Habilidad20PorcEvadirAtaque extends HabilidadPasiva{
 	@Override
 	public String nombre() {
 		return "Movimiento agil";
+	}
+
+	@Override
+	public void desactivarPasivo(GuerreroJugador guerrero) {
+		guerrero.setChanceEvadir(false);
 	}
 
 }
