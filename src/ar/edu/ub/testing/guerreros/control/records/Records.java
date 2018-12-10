@@ -26,7 +26,6 @@ public class Records implements Serializable {
 		ArrayList<String> record = obtenerAtributosSP(entidades);
 		System.out.println("Entre");
 		if(!compararRecords(record,recordSP)) {
-			System.out.println("Entendi que tengo que guardar");
 			ruta = recordSP;
 	        File archivo = new File(ruta);
 	        BufferedWriter bw;
@@ -40,7 +39,6 @@ public class Records implements Serializable {
 	        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	        wait(4);
 		}
-		System.out.println("Si entendi, guarde");
 	}
 	
 	public static void guardarMP(EntidadesJuego entidades  ) throws IOException, ClassNotFoundException {

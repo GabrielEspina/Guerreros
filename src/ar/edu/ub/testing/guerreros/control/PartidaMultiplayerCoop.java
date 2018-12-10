@@ -72,6 +72,7 @@ public class PartidaMultiplayerCoop extends Partida {
 		print();
 		wait(5);
 		Consola.limpiarConsola();
+		getEntidades().resetVidas();
 		Records.guardarMP(getEntidades());
 		new Juego().ejecutar();
 	}

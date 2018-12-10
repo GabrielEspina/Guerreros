@@ -65,6 +65,7 @@ public class PartidaSingleplayer extends Partida{
 		print();
 		wait(5);
 		Consola.limpiarConsola();
+		getEntidades().resetVidas();
 		Records.guardarSP(getEntidades());
 		new Juego().ejecutar();
 
