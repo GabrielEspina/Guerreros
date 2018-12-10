@@ -1,8 +1,10 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -19,7 +21,7 @@ public class PartidaSingleplayer extends Partida{
 	private boolean jugando = true;
 	private boolean continuar = true;
 
-	public PartidaSingleplayer(EntidadesJuego entidadesExternas) {
+	public PartidaSingleplayer(EntidadesJuego entidadesExternas) throws ClassNotFoundException, IOException {
 		super(entidadesExternas);
 		vista = new VistaCombateSingleplayer(entidadesExternas);
 		jugar();
@@ -39,7 +41,7 @@ public class PartidaSingleplayer extends Partida{
 	}
 
 	@Override
-	public void victoriaJugadorUno() {
+	public void victoriaJugadorUno() throws ClassNotFoundException, IOException {
 		desactivarPasivos();
 		vista.mostrarMensajeEnConsola(" Ganador: " + this.getEntidades().getJugador().getAtributos().getNombre());
 		vista.mostrarMensajeEnConsola(" Comenzando nivel: " + (this.getEntidades().getRound() + 1));
@@ -58,19 +60,21 @@ public class PartidaSingleplayer extends Partida{
 	}
 
 	@Override
-	public void victoriaEnemigos() {
+	public void victoriaEnemigos() throws ClassNotFoundException, IOException {
 		vista.mostrarMensajeEnConsola(" Jugador derrotado por generacion #" + this.getEntidades().getRound());
 		print();
 		wait(5);
+		Consola.limpiarConsola();
+		Records.guardarSP(getEntidades());
 		new Juego().ejecutar();
 
 	}
 	@Override
-	public void jugar() {
+	public void jugar() throws ClassNotFoundException, IOException {
 		jugando = true;
 		setTurnoJugadorOEnemigo(1);
-		activarPasivos();
 		this.tienda(entidades.getJugador());
+		activarPasivos();
 		print();
 		while(jugando) {
 			if (getTurnoJugadorOEnemigo() == 2) {
@@ -101,7 +105,17 @@ public class PartidaSingleplayer extends Partida{
 	public void turnoEnemigo() {
 		wait(1);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
+		if(entidades.getGuerrerosEnemigos()[turnoEnemigo].checkheridaSangrante()) {
+			entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().setVida(entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getVida() - 1);
+			vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getNombre() + " sangra por 1 de daño( turnos restantes: " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getContHeridaSangrante() + " )");
+			wait(1);
+			print();
+		}
+		if(entidades.getGuerrerosEnemigos()[turnoEnemigo].checkNocked() && !entidades.getGuerrerosEnemigos()[turnoEnemigo].murio() ) {
+			vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getNombre() + " se encuentra incapacitado( turnos restantes: " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getContTurnosPausados() + " )");
+		}else {
 		controladorEnemigo(entidades.getGuerrerosEnemigos()[turnoEnemigo]);
+		}
 		turnoEnemigo ++;
 		wait(1);
 		print();
@@ -117,12 +131,8 @@ public class PartidaSingleplayer extends Partida{
 			turno = 0;
 		}
 		int siguienteTurno = turno;
-			while (entidades.getGuerrerosEnemigos()[siguienteTurno].checkEnemigoNoDisponible()) {
-				
-				if(entidades.getGuerrerosEnemigos()[siguienteTurno].checkNocked()) {
-					vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[siguienteTurno].getAtributos().getNombre() + " se encuentra incapacitado por " + entidades.getGuerrerosEnemigos()[siguienteTurno].getContTurnosPausados() + " turnos ");
-				}
-				
+			while (entidades.getGuerrerosEnemigos()[siguienteTurno].murio()) {
+
 				if (siguienteTurno == 3) {
 					siguienteTurno = 0;
 					

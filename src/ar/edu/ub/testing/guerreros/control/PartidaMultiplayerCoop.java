@@ -1,10 +1,12 @@
 package ar.edu.ub.testing.guerreros.control;
 
+import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.vista.UtilidadesConsola;
 import ar.edu.ub.testing.guerreros.vista.VistaCombateMultiplayerCoop;
-import ar.edu.ub.testing.guerreros.vista.VistaCombateSingleplayer;
+import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -12,6 +14,7 @@ import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
 public class PartidaMultiplayerCoop extends Partida {
 	
+	static Random  rand = new Random();
 	private int turnoEnemigo = 0;
 	private int turnoJugadorOEnemigo = 1;
 	private int turnoJugador = 1;
@@ -19,7 +22,7 @@ public class PartidaMultiplayerCoop extends Partida {
 	private boolean jugando = true;
 	private boolean continuar = true;
 
-	public PartidaMultiplayerCoop(EntidadesJuego entidadesExternas) {
+	public PartidaMultiplayerCoop(EntidadesJuego entidadesExternas) throws ClassNotFoundException, IOException {
 		super(entidadesExternas);
 		vista = new VistaCombateMultiplayerCoop(entidades);
 		jugar();
@@ -38,7 +41,7 @@ public class PartidaMultiplayerCoop extends Partida {
 		print();	
 	}
 	
-	public void victoriaJugadores() {
+	public void victoriaJugadores() throws ClassNotFoundException, IOException {
 		desactivarPasivos();
 		vista.mostrarMensajeEnConsola(" Ganadores: " + this.getEntidades().getJugador().getAtributos().getNombre() + " y " + this.getEntidades().getJugador2().getAtributos().getNombre());
 		vista.mostrarMensajeEnConsola(" Comenzando nivel: " + (this.getEntidades().getRound() + 1));
@@ -47,6 +50,8 @@ public class PartidaMultiplayerCoop extends Partida {
 		entidades.siguienteRound();
 		vista = new VistaCombateMultiplayerCoop(entidades);
 		turnoEnemigo = 0;
+		turnoJugadorOEnemigo = 1;
+		turnoJugador = 1;
 		checkearCondicionesDeVictoria();
 		entidades.getJugador().setPuntos(entidades.getJugador().getPuntos() + 3);
 		((GuerreroJugador) entidades.getJugador2()).setPuntos(((GuerreroJugador) entidades.getJugador2()).getPuntos() + 3);
@@ -62,20 +67,23 @@ public class PartidaMultiplayerCoop extends Partida {
 	}
 
 	@Override
-	public void victoriaEnemigos() {
+	public void victoriaEnemigos() throws ClassNotFoundException, IOException {
 		vista.mostrarMensajeEnConsola(" Jugadores derrotados por generacion #" + this.getEntidades().getRound());
 		print();
 		wait(5);
-		new Juego();
+		Consola.limpiarConsola();
+		Records.guardarMP(getEntidades());
+		new Juego().ejecutar();
 	}
 
 	@Override
-	public void jugar() {
+	public void jugar() throws ClassNotFoundException, IOException {
 		setTurnoJugadorOEnemigo(1);
 		turnoJugador = 1;
 		jugando = true;
-		activarPasivos();
 		this.tienda(entidades.getJugador());
+		this.tienda((GuerreroJugador)entidades.getJugador2());
+		activarPasivos();
 		print();
 		while(jugando) {
 			
@@ -90,7 +98,7 @@ public class PartidaMultiplayerCoop extends Partida {
 			checkearCondicionesDeVictoria();
 		}
 		if (continuar) {
-			victoriaJugadorUno();
+			victoriaJugadores();
 		}else {
 			victoriaEnemigos();
 		}
@@ -112,13 +120,22 @@ public class PartidaMultiplayerCoop extends Partida {
 
 	@Override
 	public void turnoEnemigo() {
-		print();
-		checkearCondicionesDeVictoria();
-		wait(2);
+		wait(1);
 		turnoEnemigo =  buscarSiguienteEnemigoNoMuerto(turnoEnemigo);
-		atacar(entidades.getGuerrerosEnemigos()[turnoEnemigo],entidades.getJugador());
+		if(entidades.getGuerrerosEnemigos()[turnoEnemigo].checkheridaSangrante()) {
+			entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().setVida(entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getVida() - 1);
+			vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getNombre() + " sangra por 1 de daño( turnos restantes: " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getContHeridaSangrante() + " )");
+			wait(1);
+			print();
+		}
+		if(entidades.getGuerrerosEnemigos()[turnoEnemigo].checkNocked() && !entidades.getGuerrerosEnemigos()[turnoEnemigo].murio() ) {
+			vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getAtributos().getNombre() + " se encuentra incapacitado( turnos restantes: " + entidades.getGuerrerosEnemigos()[turnoEnemigo].getContTurnosPausados() + " )");
+		}else {
+		controladorEnemigo(entidades.getGuerrerosEnemigos()[turnoEnemigo]);
+		}
 		turnoEnemigo ++;
-		turnoJugador();
+		wait(1);
+		print();
 	}
 
 	@Override
@@ -137,56 +154,20 @@ public class PartidaMultiplayerCoop extends Partida {
 			turno = 0;
 		}
 		int siguienteTurno = turno;
-			while (entidades.getGuerrerosEnemigos()[siguienteTurno].checkEnemigoNoDisponible()) {
-				if(entidades.getGuerrerosEnemigos()[siguienteTurno].checkNocked()) {
-					vista.mostrarMensajeEnConsola(" " + entidades.getGuerrerosEnemigos()[siguienteTurno].getAtributos().getNombre() + " se encuentra incapacitado por " + entidades.getGuerrerosEnemigos()[siguienteTurno].getContTurnosPausados() + " turnos ");
-				}
-				if (siguienteTurno == 7) {
-					siguienteTurno = 0;
-					
-				}else {
-					
-					siguienteTurno++;
-					
-				}
+		while (entidades.getGuerrerosEnemigos()[siguienteTurno].murio()) {
+
+			if (siguienteTurno == 7) {
+				siguienteTurno = 0;
+				
+			}else {
+				
+				siguienteTurno++;
+				
 			}
+		}
 		return siguienteTurno;
 	}
-	
-	/*public void controladorHumano(Guerrero guerrero) {
-		Scanner scan = new Scanner(System.in);
-		int eleccion = scan.nextInt();
-		while( esEleccionValida(eleccion) ) {
-			eleccion = scan.nextInt();
-		}
-		switch(eleccion) {
-		case 1:
-			humanoAtaca(entidades,guerrero);	
-			break;
-		case 2:
-			 break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			verAtributos();
-			break;
-		}
-	}
-	
-	private boolean esEleccionValida(int eleccion) {
-		return !(1<= eleccion && eleccion <= 5);
-	}
 
-	public void humanoAtaca(EntidadesJuego entidades,Guerrero guerrero) {
-		Scanner scan = new Scanner(System.in);
-		int eleccion = scan.nextInt();
-		while(!(1<= eleccion && eleccion <= entidades.getGuerrerosEnemigos().length)) {
-			eleccion = scan.nextInt();
-		}
-		atacar(guerrero,entidades.getGuerrerosEnemigos()[eleccion-1]);
-	}*/
 	public void print() {
 		vista.print(entidades);
 	}
@@ -224,6 +205,34 @@ public class PartidaMultiplayerCoop extends Partida {
 
 	public void setTurnoJugadorOEnemigo(int turnoJugadorOEnemigo) {
 		this.turnoJugadorOEnemigo = turnoJugadorOEnemigo;
+	}
+	
+	public void controladorEnemigo(GuerreroEnemigo guerrero) {
+		guerrero.setDenfendiendo(false);
+		int defiende = 1 + rand.nextInt((3 - 1) + 1);
+		if(defiende == 1) {
+			guerrero.setDenfendiendo(true);
+			vista.mostrarMensajeEnConsola(" " + guerrero.getAtributos().getNombre() + " se posicona defensivamente");
+		}
+		atacar(guerrero, getObjetivoEnemigo());
+		
+	}
+	
+	public Guerrero getObjetivoEnemigo() {
+		int objetivo = 1 + rand.nextInt((2 - 1) + 1);
+		if(objetivo == 1) {
+			if(!getEntidades().getJugador().murio()) {
+				return getEntidades().getJugador();
+			}else {
+				return getEntidades().getJugador2();
+			}
+		}else {
+			if(!getEntidades().getJugador2().murio()) {
+				return getEntidades().getJugador2();
+			}else {
+				return getEntidades().getJugador();
+			}
+		}
 	}
 	
 

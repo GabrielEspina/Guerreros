@@ -1,6 +1,7 @@
 package ar.edu.ub.testing.guerreros.modelo.habilidades;
 
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
+import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
 public class Habilidad25PorcDobleDanio extends HabilidadPasiva{
 
@@ -12,8 +13,8 @@ public class Habilidad25PorcDobleDanio extends HabilidadPasiva{
 	}
 
 	@Override
-	public void ejecutar(Guerrero jugador, Guerrero enemigo) {
-		jugador.atacar(enemigo);
+	public void ejecutar(Guerrero jugador) {
+		jugador.setChanceDobleDaño(true);
 	}
 
 	@Override
@@ -30,6 +31,12 @@ public class Habilidad25PorcDobleDanio extends HabilidadPasiva{
 	@Override
 	public String nombre() {
 		return "Golpe critico";
+	}
+
+	@Override
+	public void desactivarPasivo(GuerreroJugador guerrero) {
+		guerrero.setChanceDobleDaño(false);
+		
 	}
 
 }

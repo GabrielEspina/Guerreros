@@ -2,6 +2,8 @@ package ar.edu.ub.testing.guerreros.modelo.habilidades;
 
 import java.util.Random;
 
+import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
+
 public abstract class HabilidadPasiva implements IHabilidadPasiva{
 	
  
@@ -24,5 +26,7 @@ public abstract class HabilidadPasiva implements IHabilidadPasiva{
 	private void setRand(Random rand) {
 		this.rand = rand;
 	}
+	
+	public abstract void desactivarPasivo(GuerreroJugador guerrero);
 	
 }

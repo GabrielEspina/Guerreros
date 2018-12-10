@@ -12,14 +12,19 @@
  */
 
 
+import java.io.IOException;
+
 import ar.edu.ub.testing.guerreros.control.Juego;
+
 
 
 public class Aplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		//Se crea una nueva instancia de Juego, y se llama al metodo ejecutar, para dar comienzo al mismo
 		new Juego().ejecutar();
 	}
+	
+
 
 }

@@ -95,17 +95,25 @@ public abstract class Partida implements IPartida {
 	}
 	
 	public void activarPasivos() {
-		if (entidades.getJugador() != null)
-		//entidades.getJugador().activarItemsPasivos();
-		if (entidades.getJugador2() != null) {}
-		//entidades.getJugador2().activarItemsPasivos();
+		if (!(entidades.getJugador() == null)) {
+		entidades.getJugador().activarItemsPasivos();
+		entidades.getJugador().activarHabilidadPasiva();
+		}
+		if (!(entidades.getJugador2() == null)) {
+		entidades.getJugador2().activarItemsPasivos();
+		entidades.getJugador2().activarHabilidadPasiva();
+		}
 	}
 	
 	public void desactivarPasivos() {
-		if (entidades.getJugador() != null)
-		//entidades.getJugador().desactivarItemsPasivos();
-		if (entidades.getJugador2() != null) {}
-		//entidades.getJugador2().desactivarItemsPasivos();
+		if (!(entidades.getJugador() == null)) {
+		entidades.getJugador().desactivarItemsPasivos();
+		entidades.getJugador().desactivarHabilidadPasiva();
+		}
+		if (!(entidades.getJugador2() == null)) {
+		entidades.getJugador2().desactivarItemsPasivos();
+		entidades.getJugador2().desactivarHabilidadPasiva();
+		}
 	}
 	
 	public EntidadesJuego getEntidades() {

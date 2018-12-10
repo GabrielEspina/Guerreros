@@ -1,6 +1,7 @@
 package ar.edu.ub.testing.guerreros.modelo.habilidades;
 
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
+import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 
 public class Habilidad15PorcParalizarDosTurnos extends HabilidadPasiva{
 
@@ -10,8 +11,8 @@ public class Habilidad15PorcParalizarDosTurnos extends HabilidadPasiva{
 	}
 
 	@Override
-	public void ejecutar(Guerrero jugador, Guerrero enemigo) {
-		// TODO Auto-generated method stub
+	public void ejecutar(Guerrero jugador) {
+		jugador.setChanceParalizar(true);
 		
 	}
 
@@ -24,6 +25,12 @@ public class Habilidad15PorcParalizarDosTurnos extends HabilidadPasiva{
 	@Override
 	public String nombre() {
 		return "Golpe paralizador";
+	}
+
+	@Override
+	public void desactivarPasivo(GuerreroJugador guerrero) {
+		guerrero.setChanceParalizar(false);
+		
 	}
 
 }

@@ -26,7 +26,6 @@ public class Consola {
 		         eleccion = Integer.parseInt(numero);
 		         noEsNumero = false;
 		     }catch(Exception e){
-		         System.out.println("Error: Solo ingrese numeros validos");
 		     }
 		}
 		return eleccion;
@@ -54,9 +53,6 @@ public class Consola {
 	
 	 public static void apretarEnterParaContinuar()
 	 { 
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        System.out.println("X Presione Enter Para Regresar X");
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         try
         {
             System.in.read();

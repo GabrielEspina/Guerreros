@@ -20,21 +20,6 @@ public enum Modo_Juego {
 		}
 
 	},
-	MULTI_VS {
-
-		@Override
-		public EntidadesJuego generarEntidades(EntidadesJuego entidades) {
-			entidades.setJugador(FactoryGuerreros.nuevoJugador(entidades));
-			entidades.setJugador2(FactoryGuerreros.nuevoJugador(entidades));
-			return entidades;
-		}
-
-		@Override
-		public Integer key() {
-			return 3;
-		}
-		
-	},
 	MULTI_COOP{
 		@Override
 		public EntidadesJuego generarEntidades(EntidadesJuego entidades) {

@@ -8,6 +8,8 @@ import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
 import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
+import ar.edu.ub.testing.guerreros.vista.MenuRecords;
+import ar.edu.ub.testing.guerreros.vista.MenuTutorial;
 
 
 public class Juego {
@@ -23,24 +25,12 @@ public class Juego {
 		setModoJuego(new HashMap<>());
 	}
 	
-	public void ejecutar() {
+	public void ejecutar() throws ClassNotFoundException, IOException {
 		/*Se crean los modos de juego y los menus por donde el juego seguira su flujo
 		 *Se continua al menu principal*/
 		crearModos();
 		crearMenus();
 		menuPrincipal();
-		guardarRecords();
-	}
-	
-	
-
-	private void guardarRecords() {
-		try {
-			Records.guardar( getEntidades() );
-		} catch (IOException e) {
-			System.out.println("Error en guardar records");
-		}
-		
 	}
 
 	private void crearModos() {
@@ -48,7 +38,6 @@ public class Juego {
 		 * de juego que existiran en los guerreros*/
 		getModoJuego().put(Modo_Juego.UN_JUGADOR.key(), Modo_Juego.UN_JUGADOR);
 		getModoJuego().put(Modo_Juego.MULTI_COOP.key(), Modo_Juego.MULTI_COOP);
-		getModoJuego().put(Modo_Juego.MULTI_VS.key(), Modo_Juego.MULTI_VS);
 	}
 
 
@@ -60,19 +49,14 @@ public class Juego {
 	}
 
 
-	public void newSinglePlayer() {
+	public void newSinglePlayer() throws ClassNotFoundException, IOException {
 		//Se instancia la clase para single player enviando las entidades a intervenir
 		this.setPartida(new PartidaSingleplayer(getEntidades()));
 	}
 	
-	public void newMultiCoop() {
+	public void newMultiCoop() throws ClassNotFoundException, IOException {
 		//Se instancia la clase para multi player cooperativo enviando las entidades a intervenir
 		this.setPartida(new PartidaMultiplayerCoop(getEntidades()));
-	}
-	
-	public void newMultiVersus() {
-		//Se instancia la clase para multi player versus enviando las entidades a intervenir
-		this.setPartida(new PartidaMultiplayerVersus(getEntidades()));
 	}
 	
 	public void printEntidades() {
@@ -85,7 +69,7 @@ public class Juego {
 		}
 	}
 	
-	public void menuPrincipal() {
+	public void menuPrincipal() throws ClassNotFoundException, IOException {
 		/*Al iniciar el menu principal se llama al mapa de menu para mostrar el menu guardado con el key 1
 		 * luego se solicita al usuario un numero de opciones del mismo menu, y mediante un switch case
 		 * se continua por las demas opciones*/
@@ -98,22 +82,49 @@ public class Juego {
 			menuSeleccionJuego();
 			break;
 		case 2:
-			System.out.println("A implementar");
+			Consola.limpiarConsola();
+			menuRecords();
 			break;
 		case 3:
-			System.out.println("A implementar");
+			menuTutorial();
+			menuPrincipal();
 			break;
 		case 4:
 			break;
 		}
 	}
 	
-	public void menuSeleccionJuego() {
+	public void menuRecords() throws ClassNotFoundException, IOException {
+		Consola.limpiarConsola();
+		MenuRecords menu = new MenuRecords();
+		menu.mostrarMenuRecords();
+		int eleccionMenu = Consola.pedirNumero(1, 3);
+		switch(eleccionMenu) {
+		case 1:
+			Consola.limpiarConsola();
+			menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
+			Consola.apretarEnterParaContinuar();
+			menuRecords();
+			break;
+		case 2:
+			Consola.limpiarConsola();
+			menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
+			Consola.apretarEnterParaContinuar();
+			menuRecords();
+			break;
+		case 3:
+			Consola.limpiarConsola();
+			menuPrincipal();
+			break;
+		}
+	}
+	
+	public void menuSeleccionJuego() throws ClassNotFoundException, IOException {
 		/*Se le envia un key al mapa para devolver un determinado menu e ir hasta el mismo
 		 * se le pide al usuario que elija una de las opciones (ENTRE 1 Y 4), y mediante un switch case
 		 * se determina el tipo de juego elegido*/
 		getMenus().get(2).ir();
-		int eleccionPartida = Consola.pedirNumero(1, 4);
+		int eleccionPartida = Consola.pedirNumero(1, 3);
 		switch(eleccionPartida) {
 		case 1:
 			setEntidades(getModoJuego().get(eleccionPartida).generarEntidades(getEntidades()));
@@ -121,18 +132,28 @@ public class Juego {
 			Consola.limpiarConsola();
 			break;
 		case 2:
+			setEntidades(getModoJuego().get(eleccionPartida).generarEntidades(getEntidades()));
 			newMultiCoop();
 			Consola.limpiarConsola();
 			break;
 		case 3:
-			newMultiVersus();
-			Consola.limpiarConsola();
-			break;
-		case 4:
 			Consola.limpiarConsola();
 			menuPrincipal();
 			break;
 		}
+	}
+	
+	public void menuTutorial() {
+		MenuTutorial menu = new MenuTutorial();
+		Consola.limpiarConsola();
+		menu.printPagina1();
+		Consola.pedirNumero(1,1);
+		Consola.limpiarConsola();
+		menu.printPagina2();
+		Consola.pedirNumero(1,1);
+		Consola.limpiarConsola();
+		menu.printPagina3();
+		Consola.pedirNumero(1,1);
 	}
 
 	//---GETTERS Y SETTERS PROPIOS DE LA CLASE---//
