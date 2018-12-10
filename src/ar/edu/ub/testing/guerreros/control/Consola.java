@@ -60,5 +60,11 @@ public class Consola {
         catch(Exception e)
         {}  
 	 }
+
+	public static void imprimirMensaje( String msg ) {
+		
+		System.out.println(msg);
+		
+	}
 	 
 }

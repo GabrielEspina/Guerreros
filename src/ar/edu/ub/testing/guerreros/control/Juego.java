@@ -31,6 +31,11 @@ public class Juego {
 		crearModos();
 		crearMenus();
 		menuPrincipal();
+		salida();
+	}
+
+	private void salida() {
+		Consola.imprimirMensaje(">> Fin del juego <<");
 	}
 
 	private void crearModos() {
