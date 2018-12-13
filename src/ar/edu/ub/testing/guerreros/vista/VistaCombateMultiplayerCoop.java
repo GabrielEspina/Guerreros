@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.vista;
 
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 
 public class VistaCombateMultiplayerCoop extends Vista{
@@ -9,9 +10,12 @@ public class VistaCombateMultiplayerCoop extends Vista{
 	private Cabezera cabezera;
 
 	public VistaCombateMultiplayerCoop(EntidadesJuego entidades) {
+		
+		try {
 		combate = new CombateMultiplayerCoop(entidades);
 		consola = new ConsolaJuego();
 		cabezera = new CabezeraMultiplayerCoop(entidades);
+		}catch(EntidadesNoEncontradasException e) {}
 	}
 	
 	@Override

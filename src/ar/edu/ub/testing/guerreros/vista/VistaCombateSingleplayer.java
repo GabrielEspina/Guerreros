@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.vista;
 
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 
 public class VistaCombateSingleplayer extends Vista{
@@ -8,12 +9,13 @@ public class VistaCombateSingleplayer extends Vista{
 	private ConsolaJuego consola;
 	private Cabezera cabezera;
 	
-	public VistaCombateSingleplayer(EntidadesJuego entidades) {
+	public VistaCombateSingleplayer(EntidadesJuego entidades) throws EntidadesNoEncontradasException {
 		
+		try {
 		combate = new CombateSingleplayer(entidades);
 		consola = new ConsolaJuego();
 		cabezera = new CabezeraSingleplayer(entidades);
-		
+		}catch(EntidadesNoEncontradasException e) {}
 	}
 	
 	public void mostrarMensajeEnConsola(String mensaje) {

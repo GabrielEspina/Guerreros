@@ -1,5 +1,6 @@
 package ar.edu.ub.testing.guerreros.vista;
 
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 
 public class CabezeraMultiplayerCoop extends Cabezera{
@@ -10,7 +11,9 @@ public class CabezeraMultiplayerCoop extends Cabezera{
 	String[][] bloque = new String[4][3];
 	
 	public CabezeraMultiplayerCoop(EntidadesJuego entidades) {
+		try {
 		construirCabezeraSinglePlayer(entidades);
+		}catch(EntidadesNoEncontradasException e) {}
 	}
 	
 	

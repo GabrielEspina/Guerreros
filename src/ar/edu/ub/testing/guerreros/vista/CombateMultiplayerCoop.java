@@ -2,6 +2,7 @@ package ar.edu.ub.testing.guerreros.vista;
 
 import java.util.ArrayList;
 
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 
@@ -15,7 +16,9 @@ public class CombateMultiplayerCoop implements IVista{
 	private String[][]            bloqueCuatro = new String[4][64];
 	
 	public CombateMultiplayerCoop(EntidadesJuego entidades) {
+		try {
 		generarBloques(entidades);
+		}catch(EntidadesNoEncontradasException e) {}
 	}
 
 	@Override

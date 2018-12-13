@@ -23,6 +23,17 @@ class GuerreroTest {
 	}
 	
 	@Test
+	
+	void testGuerreroAtaque() {
+		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
+		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
+		guerreroDePrueba1.getAtributos().setVida(5);
+		guerreroDePrueba2.getAtributos().setAtaque(5);
+		guerreroDePrueba2.atacar(guerreroDePrueba1);
+		assertEquals(0,guerreroDePrueba1.getAtributos().getVida());
+	}
+	
+	@Test
 	void testGuerreroFallaAtaque() {
 		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
 		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
