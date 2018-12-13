@@ -35,7 +35,6 @@ public class Juego implements IJuego{
 		crearModos();
 		crearMenus();
 		menuPrincipal();
-		salida();
 	}
 
 	private void salida() {
@@ -86,25 +85,27 @@ public class Juego implements IJuego{
 		Consola.limpiarConsola();
 		getMenus().get( MENU_PRINCIPAL ).ir();
 		Integer eleccionMenu = Consola.pedirNumero(1, 4);
-		switch(eleccionMenu) {
 		
-		case MENU_SELECCION_JUEGO :
-			Consola.limpiarConsola();
-			menuSeleccionJuego();
-			break;
-			
-		case MENU_RECORDS:
-			Consola.limpiarConsola();
-			menuRecords();
-			break;
-			
-		case MENU_TUTORIAL:
-			menuTutorial();
-			menuPrincipal();
-			break;
-			
-		case SALIR:
-			break;
+		switch( eleccionMenu ) {
+		
+			case MENU_SELECCION_JUEGO :
+				Consola.limpiarConsola();
+				menuSeleccionJuego();
+				break;
+				
+			case MENU_RECORDS:
+				Consola.limpiarConsola();
+				menuRecords();
+				break;
+				
+			case MENU_TUTORIAL:
+				menuTutorial();
+				menuPrincipal();
+				break;
+				
+			case SALIR:
+				salida();
+				break;
 		}
 	}
 	
@@ -113,23 +114,27 @@ public class Juego implements IJuego{
 		MenuRecords menu = new MenuRecords();
 		menu.mostrarMenuRecords();
 		int eleccionMenu = Consola.pedirNumero(1, 3);
+		
 		switch(eleccionMenu) {
-		case 1:
-			Consola.limpiarConsola();
-			menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
-			Consola.apretarEnterParaContinuar();
-			menuRecords();
-			break;
-		case 2:
-			Consola.limpiarConsola();
-			menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
-			Consola.apretarEnterParaContinuar();
-			menuRecords();
-			break;
-		case 3:
-			Consola.limpiarConsola();
-			menuPrincipal();
-			break;
+		
+			case MENU_RECORDS_SINGLEPLAYER:
+				Consola.limpiarConsola();
+				menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
+				Consola.apretarEnterParaContinuar();
+				menuRecords();
+				break;
+				
+			case MENU_RECORDS_MULTIPLAYER:
+				Consola.limpiarConsola();
+				menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
+				Consola.apretarEnterParaContinuar();
+				menuRecords();
+				break;
+				
+			case MENU_RECORDS_VOLVER:
+				Consola.limpiarConsola();
+				menuPrincipal();
+				break;
 		}
 	}
 	
