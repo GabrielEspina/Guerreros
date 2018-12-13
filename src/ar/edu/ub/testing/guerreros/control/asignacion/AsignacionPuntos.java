@@ -19,10 +19,15 @@ public abstract class AsignacionPuntos implements IAsignacionPuntos{
 
 	protected int pedirAsignacion(GuerreroJugador guerrero) {
 		int puntos = Consola.pedirNumero();
-		if (verificarAsignacion(guerrero.getPuntos(), puntos)) {
-			return puntos;
+		if(puntos >= 0) {
+			if (verificarAsignacion(guerrero.getPuntos(), puntos)) {
+				return puntos;
+			}else {
+				System.out.println("Puntos insuficientes");
+				return pedirAsignacion(guerrero);
+			}
 		}else {
-			System.out.println("Puntos insuficientes");
+			System.out.println("Ingrese valores postivos");
 			return pedirAsignacion(guerrero);
 		}
 	
