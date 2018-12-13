@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.control.records.Records;
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -22,9 +23,11 @@ public class PartidaSingleplayer extends Partida{
 	private boolean continuar = true;
 
 	public PartidaSingleplayer(EntidadesJuego entidadesExternas) throws ClassNotFoundException, IOException {
+
 		super(entidadesExternas);
 		vista = new VistaCombateSingleplayer(entidadesExternas);
 		jugar();
+
 	}
 
 	@Override

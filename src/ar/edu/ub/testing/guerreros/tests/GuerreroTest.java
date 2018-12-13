@@ -89,5 +89,24 @@ class GuerreroTest {
 		guerreroDePrueba2.getAtributos().resetVida();
 		assertEquals(15,guerreroDePrueba2.getAtributos().getVida());
 	}
+	
+	@Test
+	void testGuerreroChanceDeParalizar() {
+		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
+		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
+		guerreroDePrueba2.setChanceParalizar(true);
+		
+		boolean paralizo = false;
+		for (int i = 1; i <= 100; i++) {
+			guerreroDePrueba2.atacar(guerreroDePrueba1);
+			if(guerreroDePrueba1.isTurnoPausado()) {
+				paralizo = true;
+			}
+		}
+		
+		assertTrue(paralizo);
+		
+	}
+	
 
 }

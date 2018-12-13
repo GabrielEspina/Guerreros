@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroJugador;
 import ar.edu.ub.testing.guerreros.modelo.habilidades.Habilidad15PorcParalizarDosTurnos;
@@ -40,7 +41,11 @@ public abstract class Partida implements IPartida {
 
 	public Partida(EntidadesJuego entidadesExternas) {
 		
+		try {
 		this.entidades = entidadesExternas;
+		}catch(EntidadesNoEncontradasException e){
+			
+		}
 		
 		
 	}
