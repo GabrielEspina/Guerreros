@@ -21,14 +21,22 @@ public class CabezeraSingleplayer extends Cabezera {
 	
 
 	public void construirCabezeraSinglePlayer(EntidadesJuego entidades) {
-			linea1 = construirLinea(entidades.getJugador().getAtributos().getNombre() + ": " + entidades.getJugador().getAtributos().getVida(),("1)" + entidades.getGuerrerosEnemigos()[0].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[0].getAtributos().getVida() + "  " + "2)"+ entidades.getGuerrerosEnemigos()[1].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[1].getAtributos().getVida() ));
-			linea2 = construirLinea(" ",("3)" + entidades.getGuerrerosEnemigos()[2].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[2].getAtributos().getVida() + "  " + "4)"+ entidades.getGuerrerosEnemigos()[3].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[3].getAtributos().getVida() ));
+			linea1 = construirLinea(entidades.getJugador().getAtributos().getNombre() + ": " + entidades.getJugador().getAtributos().getVida(),("1)" + entidades.getGuerrerosEnemigos()[0].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[0].getAtributos().getVida() + " | " + "2)"+ entidades.getGuerrerosEnemigos()[1].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[1].getAtributos().getVida() ));
+			linea2 = construirLinea(" ",("3)" + entidades.getGuerrerosEnemigos()[2].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[2].getAtributos().getVida() + " | " + "4)"+ entidades.getGuerrerosEnemigos()[3].getAtributos().getNombre() + ": " + entidades.getGuerrerosEnemigos()[3].getAtributos().getVida() ));
 			titulo = generarTitulo(entidades);
 		}
 	
 	public String construirLinea(String adelante, String atras) {
-		int espacios = 59 - (adelante.length() + atras.length());
-		String linea = "X " + adelante + construirEspacios(espacios) + atras + " X";
+		String[] atrasSplit = atras.split("\\| ");
+		if(atrasSplit[0].length() < 16) {
+			atrasSplit[0] = (atrasSplit[0]+" ");
+		}
+		if(atrasSplit[1].length() < 15) {
+			atrasSplit[1] = (atrasSplit[1]+" ");
+		}
+		String nuevoAtras = (atrasSplit[0] + " | " + atrasSplit[1]);
+		int espacios = 59 - (adelante.length() + nuevoAtras.length());
+		String linea = "X " + adelante + construirEspacios(espacios) + nuevoAtras + " X";
 		return linea;
 	}
 
