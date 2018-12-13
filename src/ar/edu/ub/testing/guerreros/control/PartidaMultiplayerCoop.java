@@ -109,13 +109,17 @@ public class PartidaMultiplayerCoop extends Partida {
 	public void turnoJugador() {
 		
 		if(turnoJugador == 2 ) {
-			new ControladorHumano(entidades.getJugador2(), entidades, vista);
-			print();
-			turnoJugador = 1;
+			if(!entidades.getJugador2().murio()) {
+				new ControladorHumano(entidades.getJugador2(), entidades, vista);
+				print();
+				turnoJugador = 1;
+			}
 		}else {
-			new ControladorHumano(entidades.getJugador(), entidades, vista);
-			print();
-			turnoJugador = 2;
+			if(!entidades.getJugador().murio()) {
+				new ControladorHumano(entidades.getJugador(), entidades, vista);
+				print();
+				turnoJugador = 2;
+			}
 		}
 	}
 
