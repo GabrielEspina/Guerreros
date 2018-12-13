@@ -84,11 +84,14 @@ public abstract class Guerrero {
 			if(!this.isFallaAtaque()) {
 				if(enemigo.isChanceEvadir()) {
 					int chanceDeEvadir = 1 + rand.nextInt((100 - 1) + 1);
-					System.out.println(chanceDeEvadir);
 					if(!(chanceDeEvadir <= 20)) {
 						int daño = this.getAtributos().getAtaque();
 						if(isDenfendiendo()) {
+							if(daño <= 0) {
+								daño = 0;
+							}else {
 							daño = daño - (daño/3);
+							}
 						}
 						String msg = "";
 						int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);

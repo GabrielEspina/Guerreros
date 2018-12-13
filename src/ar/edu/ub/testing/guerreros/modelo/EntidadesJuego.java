@@ -8,7 +8,6 @@ import ar.edu.ub.testing.guerreros.control.FactoryGuerreros;
 public class EntidadesJuego {
 	
 	private int               round;
-	//private Ai                inteligenciaBot;
 	private GuerreroEnemigo[] guerrerosEnemigos;
 	private GuerreroJugador   jugador1;
 	private GuerreroJugador   jugador2;
