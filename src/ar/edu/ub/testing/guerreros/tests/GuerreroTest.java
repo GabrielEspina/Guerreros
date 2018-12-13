@@ -89,6 +89,7 @@ class GuerreroTest {
 		guerreroDePrueba2.getAtributos().resetVida();
 		assertEquals(15,guerreroDePrueba2.getAtributos().getVida());
 	}
+	
 	@Test
 	void testGuerreroChanceDeParalizar() {
 		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
