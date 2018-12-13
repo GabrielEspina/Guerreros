@@ -84,7 +84,7 @@ public class Juego implements IJuego{
 		 
 		Consola.limpiarConsola();
 		getMenus().get( MENU_PRINCIPAL ).ir();
-		Integer eleccionMenu = Consola.pedirNumero(1, 4);
+		Integer eleccionMenu = Consola.pedirNumero(MP_MIN, MP_MAX);
 		
 		switch( eleccionMenu ) {
 		
@@ -113,7 +113,7 @@ public class Juego implements IJuego{
 		Consola.limpiarConsola();
 		MenuRecords menu = new MenuRecords();
 		menu.mostrarMenuRecords();
-		int eleccionMenu = Consola.pedirNumero(1, 3);
+		int eleccionMenu = Consola.pedirNumero(MR_MIN, MR_MAX);
 		
 		switch(eleccionMenu) {
 		
