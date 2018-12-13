@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
+import ar.edu.ub.testing.guerreros.control.interfaces.IJuego;
 import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -12,8 +13,10 @@ import ar.edu.ub.testing.guerreros.vista.MenuRecords;
 import ar.edu.ub.testing.guerreros.vista.MenuTutorial;
 
 
-public class Juego {
+public class Juego implements IJuego{
 
+	
+	
 	private EntidadesJuego entidades;
 	private Partida partida;
 	private Map<Integer, IControlDeFlujo> menus = new HashMap<>(); 
@@ -25,6 +28,7 @@ public class Juego {
 		setModoJuego(new HashMap<>());
 	}
 	
+	@Override
 	public void ejecutar() throws ClassNotFoundException, IOException {
 		/*Se crean los modos de juego y los menus por donde el juego seguira su flujo
 		 *Se continua al menu principal*/
@@ -78,23 +82,28 @@ public class Juego {
 		/*Al iniciar el menu principal se llama al mapa de menu para mostrar el menu guardado con el key 1
 		 * luego se solicita al usuario un numero de opciones del mismo menu, y mediante un switch case
 		 * se continua por las demas opciones*/
+		 
 		Consola.limpiarConsola();
-		getMenus().get(1).ir();
-		int eleccionMenu = Consola.pedirNumero(1, 4);
+		getMenus().get( MENU_PRINCIPAL ).ir();
+		Integer eleccionMenu = Consola.pedirNumero(1, 4);
 		switch(eleccionMenu) {
-		case 1:
+		
+		case MENU_SELECCION_JUEGO :
 			Consola.limpiarConsola();
 			menuSeleccionJuego();
 			break;
-		case 2:
+			
+		case MENU_RECORDS:
 			Consola.limpiarConsola();
 			menuRecords();
 			break;
-		case 3:
+			
+		case MENU_TUTORIAL:
 			menuTutorial();
 			menuPrincipal();
 			break;
-		case 4:
+			
+		case SALIR:
 			break;
 		}
 	}
