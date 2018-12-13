@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import ar.edu.ub.testing.guerreros.control.interfaces.IControlDeFlujo;
+import ar.edu.ub.testing.guerreros.control.interfaces.IJuego;
 import ar.edu.ub.testing.guerreros.control.records.Records;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
@@ -12,8 +13,10 @@ import ar.edu.ub.testing.guerreros.vista.MenuRecords;
 import ar.edu.ub.testing.guerreros.vista.MenuTutorial;
 
 
-public class Juego {
+public class Juego implements IJuego{
 
+	
+	
 	private EntidadesJuego entidades;
 	private Partida partida;
 	private Map<Integer, IControlDeFlujo> menus = new HashMap<>(); 
@@ -25,13 +28,13 @@ public class Juego {
 		setModoJuego(new HashMap<>());
 	}
 	
+	@Override
 	public void ejecutar() throws ClassNotFoundException, IOException {
 		/*Se crean los modos de juego y los menus por donde el juego seguira su flujo
 		 *Se continua al menu principal*/
 		crearModos();
 		crearMenus();
 		menuPrincipal();
-		salida();
 	}
 
 	private void salida() {
@@ -78,24 +81,31 @@ public class Juego {
 		/*Al iniciar el menu principal se llama al mapa de menu para mostrar el menu guardado con el key 1
 		 * luego se solicita al usuario un numero de opciones del mismo menu, y mediante un switch case
 		 * se continua por las demas opciones*/
+		 
 		Consola.limpiarConsola();
-		getMenus().get(1).ir();
-		int eleccionMenu = Consola.pedirNumero(1, 4);
-		switch(eleccionMenu) {
-		case 1:
-			Consola.limpiarConsola();
-			menuSeleccionJuego();
-			break;
-		case 2:
-			Consola.limpiarConsola();
-			menuRecords();
-			break;
-		case 3:
-			menuTutorial();
-			menuPrincipal();
-			break;
-		case 4:
-			break;
+		getMenus().get( MENU_PRINCIPAL ).ir();
+		Integer eleccionMenu = Consola.pedirNumero(MP_MIN, MP_MAX);
+		
+		switch( eleccionMenu ) {
+		
+			case MENU_SELECCION_JUEGO :
+				Consola.limpiarConsola();
+				menuSeleccionJuego();
+				break;
+				
+			case MENU_RECORDS:
+				Consola.limpiarConsola();
+				menuRecords();
+				break;
+				
+			case MENU_TUTORIAL:
+				menuTutorial();
+				menuPrincipal();
+				break;
+				
+			case SALIR:
+				salida();
+				break;
 		}
 	}
 	
@@ -103,24 +113,28 @@ public class Juego {
 		Consola.limpiarConsola();
 		MenuRecords menu = new MenuRecords();
 		menu.mostrarMenuRecords();
-		int eleccionMenu = Consola.pedirNumero(1, 3);
+		int eleccionMenu = Consola.pedirNumero(MR_MIN, MR_MAX);
+		
 		switch(eleccionMenu) {
-		case 1:
-			Consola.limpiarConsola();
-			menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
-			Consola.apretarEnterParaContinuar();
-			menuRecords();
-			break;
-		case 2:
-			Consola.limpiarConsola();
-			menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
-			Consola.apretarEnterParaContinuar();
-			menuRecords();
-			break;
-		case 3:
-			Consola.limpiarConsola();
-			menuPrincipal();
-			break;
+		
+			case MENU_RECORDS_SINGLEPLAYER:
+				Consola.limpiarConsola();
+				menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
+				Consola.apretarEnterParaContinuar();
+				menuRecords();
+				break;
+				
+			case MENU_RECORDS_MULTIPLAYER:
+				Consola.limpiarConsola();
+				menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
+				Consola.apretarEnterParaContinuar();
+				menuRecords();
+				break;
+				
+			case MENU_RECORDS_VOLVER:
+				Consola.limpiarConsola();
+				menuPrincipal();
+				break;
 		}
 	}
 	

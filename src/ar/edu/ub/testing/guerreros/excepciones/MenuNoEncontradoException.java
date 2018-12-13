@@ -6,7 +6,7 @@ public class MenuNoEncontradoException extends NullPointerException{
 	private static final long serialVersionUID = 1L;
 	
 	public MenuNoEncontradoException() {
-		super("Menu No Encontrado");
+		super("Menu no encontrado");
 	}
 
 }

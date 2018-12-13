@@ -21,10 +21,24 @@ public class MutadorTest {
 	}
 	
 	@Test
+	public void testMutarAtaqueConCero() {
+		guerrero.getAtributos().setAtaque(0);
+		Mutador.MUTAR_ATAQUE.asignarPunto(guerrero);
+		assertEquals(1,guerrero.getAtributos().getAtaque());
+	}
+	
+	@Test
 	public void testMutarDefensa() {
 		guerrero.getAtributos().setDefensa(5);
 		Mutador.MUTAR_DEFENSA.asignarPunto(guerrero);
 		assertEquals(6,guerrero.getAtributos().getDefensa());
+	}
+	
+	@Test
+	public void testMutarDefensaConCero() {
+		guerrero.getAtributos().setDefensa(0);
+		Mutador.MUTAR_DEFENSA.asignarPunto(guerrero);
+		assertEquals(1,guerrero.getAtributos().getDefensa());
 	}
 	
 	@Test
@@ -35,10 +49,24 @@ public class MutadorTest {
 	}
 	
 	@Test
+	public void testMutarEnergiaConZero() {
+		guerrero.getAtributos().setEnergia(0);
+		Mutador.MUTAR_ENERGIA.asignarPunto(guerrero);
+		assertEquals(1,guerrero.getAtributos().getEnergia());
+	}
+	
+	@Test
 	public void testMutarPresicion() {
 		guerrero.getAtributos().setPresicion(5);
 		Mutador.MUTAR_PRESICION.asignarPunto(guerrero);
 		assertEquals(6,guerrero.getAtributos().getPresicion());
+	}
+	
+	@Test
+	public void testMutarPresicionConZero() {
+		guerrero.getAtributos().setPresicion(0);
+		Mutador.MUTAR_PRESICION.asignarPunto(guerrero);
+		assertEquals(1,guerrero.getAtributos().getPresicion());
 	}
 	
 	@Test
@@ -47,5 +75,13 @@ public class MutadorTest {
 		Mutador.MUTAR_VIDA.asignarPunto(guerrero);
 		assertEquals(6,guerrero.getAtributos().getVida());
 		assertEquals(6,guerrero.getAtributos().getVidaAux());
+	}
+	
+	@Test
+	public void testMutarVidaConZero() {
+		guerrero.getAtributos().setVida(0);
+		Mutador.MUTAR_VIDA.asignarPunto(guerrero);
+		assertEquals(1,guerrero.getAtributos().getVida());
+		assertEquals(1,guerrero.getAtributos().getVidaAux());
 	}
 }
