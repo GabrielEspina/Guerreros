@@ -7,14 +7,15 @@ import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
 public class HabilidadEnemigosPierdenTurno extends HabilidadActiva{
 
 	@Override
-	public Integer consumeEnergia() {
-		return 10;
+	public int consumeEnergia() {
+		return 25;
 	}
 
 
 	@Override
 	public String descripcion() {
 		return "Enemigos pierden un turno !";
+		
 	}
 
 

@@ -8,7 +8,7 @@ public class HabilidadDaniarEnemigoCincoTurnos extends HabilidadActiva{
 	private String msg = "";
 
 	@Override
-	public Integer consumeEnergia() {
+	public int consumeEnergia() {
 		return 8;
 	}
 

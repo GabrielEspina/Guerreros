@@ -24,8 +24,7 @@ public class Records implements Serializable {
 		
 		String ruta = "";
 		ArrayList<String> record = obtenerAtributosSP(entidades);
-		System.out.println("Entre");
-		if(!compararRecords(record,recordSP)) {
+		if(!compararRecordsSP(record,recordSP)) {
 			ruta = recordSP;
 	        File archivo = new File(ruta);
 	        BufferedWriter bw;
@@ -44,9 +43,9 @@ public class Records implements Serializable {
 	public static void guardarMP(EntidadesJuego entidades  ) throws IOException, ClassNotFoundException {
 		
 		String ruta = "";
-		ArrayList<String> record = obtenerAtributosSP(entidades);
+		ArrayList<String> record = obtenerAtributosMP(entidades);
 		
-		if(!compararRecords(record,recordMP)) {
+		if(!compararRecordsMP(record,recordMP)) {
 			ruta = recordMP;
 	        File archivo = new File(ruta);
 	        BufferedWriter bw;
@@ -94,16 +93,25 @@ public class Records implements Serializable {
 		return record;
 	}
 	
-	private static boolean compararRecords(ArrayList<String> record,String path) throws ClassNotFoundException, IOException {
-		ArrayList<String> comparador = cargar(path);
-		if(Integer.parseInt(comparador.get(0)) > Integer.parseInt(record.get(0))) {
+	private static boolean compararRecordsSP(ArrayList<String> record,String path) throws ClassNotFoundException, IOException {
+		ArrayList<String> comparador = cargarSP(path);
+		if(Integer.parseInt(comparador.get(0)) >= Integer.parseInt(record.get(0))) {
 			return true;	
 		}else {
 			return false;
 		}	
 	}
 	
-	public static ArrayList<String> cargar(String path  ) throws IOException, ClassNotFoundException {
+	private static boolean compararRecordsMP(ArrayList<String> record,String path) throws ClassNotFoundException, IOException {
+		ArrayList<String> comparador = cargarMP(path);
+		if(Integer.parseInt(comparador.get(0)) >= Integer.parseInt(record.get(0))) {
+			return true;	
+		}else {
+			return false;
+		}	
+	}
+	
+	public static ArrayList<String> cargarMP(String path  ) throws IOException, ClassNotFoundException {
 		
 		String fichero = path;
 		
@@ -115,7 +123,27 @@ public class Records implements Serializable {
 		ArrayList<String> record = new ArrayList<>();
 		while((cadena = b.readLine())!=null) {
 			String[] arraycadena = cadena.split(",");
-			for(int i=0;i < arraycadena.length;i++)
+			for(int i=0;i < 13 ;i++) 
+				record.add(arraycadena[i]);
+		}
+		b.close();
+		return record;	
+			
+		}
+		
+	public static ArrayList<String> cargarSP(String path  ) throws IOException, ClassNotFoundException {
+		
+		String fichero = path;
+		
+		String cadena;
+		FileReader f = new FileReader(fichero);
+		
+		BufferedReader b = new BufferedReader(f);
+		
+		ArrayList<String> record = new ArrayList<>();
+		while((cadena = b.readLine())!=null) {
+			String[] arraycadena = cadena.split(",");
+			for(int i=0;i < 7;i++)
 				record.add(arraycadena[i]);
 		}
 		

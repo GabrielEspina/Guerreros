@@ -182,12 +182,8 @@ public class PartidaMultiplayerCoop extends Partida {
 	}
 	
 	public void atacar(Guerrero atacante, Guerrero atacado){
-		int daño = atacante.getAtributos().getAtaque() - (atacado.getAtributos().getDefensa()/2);
-		if (daño < 0) {
-			daño = 0;
-		}
-		atacante.atacar(atacado);
-		vista.mostrarMensajeEnConsola(" " + atacante.getAtributos().getNombre() + " ataco a " + atacado.getAtributos().getNombre() + " por " + daño + " puntos de daño");
+		vista.mostrarMensajeEnConsola(atacante.atacar(atacado));
+		print();
 		
 	}
 	public void verAtributos() {

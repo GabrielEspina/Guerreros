@@ -39,4 +39,9 @@ public class Habilidad25PorcDobleDanio extends HabilidadPasiva{
 		
 	}
 
+	@Override
+	public int consumeEnergia() {
+		return 0;
+	}
+
 }

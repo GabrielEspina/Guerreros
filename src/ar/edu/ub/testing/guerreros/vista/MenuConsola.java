@@ -320,6 +320,8 @@ public class MenuConsola implements IMenu {
 		System.out.println(mostrarElemento(item.getDescripcion()));
 		System.out.println("X PRECIO:                           X");
 		System.out.println(mostrarElemento(Integer.toString(item.getPrecio())));
+		System.out.println("X COSTO DE ENERGIA:                 X");
+		System.out.println(mostrarElemento(Integer.toString(item.getEnergiaNecesaria())));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Confirmar           2)Cancelar X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -335,6 +337,8 @@ public class MenuConsola implements IMenu {
 		System.out.println(mostrarElemento(item.descripcion()));
 		System.out.println("X PRECIO:                           X");
 		System.out.println("X 15                                X");
+		System.out.println("X COSTO DE ENERGIA:                 X");
+		System.out.println(mostrarElemento(Integer.toString(item.consumeEnergia())));
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 1) Confirmar           2)Cancelar X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");

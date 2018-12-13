@@ -8,7 +8,7 @@ public class HabilidadEnemigoFallaAtaque extends HabilidadActiva{
 	private String msg = "";
 	
 	@Override
-	public Integer consumeEnergia() {
+	public int consumeEnergia() {
 		return 3;
 	}
 

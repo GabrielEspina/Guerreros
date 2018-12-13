@@ -119,14 +119,14 @@ public class Juego implements IJuego{
 		
 			case MENU_RECORDS_SINGLEPLAYER:
 				Consola.limpiarConsola();
-				menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
+				menu.mostrarRecordSingleplayer(Records.cargarSP("recordSP.txt"));
 				Consola.apretarEnterParaContinuar();
 				menuRecords();
 				break;
 				
 			case MENU_RECORDS_MULTIPLAYER:
 				Consola.limpiarConsola();
-				menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
+				menu.mostrarRecordMultiplayer(Records.cargarMP("recordMP.txt"));
 				Consola.apretarEnterParaContinuar();
 				menuRecords();
 				break;
