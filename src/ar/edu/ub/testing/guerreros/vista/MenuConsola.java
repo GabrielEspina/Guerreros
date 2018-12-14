@@ -284,6 +284,11 @@ public class MenuConsola implements IMenu {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("X 6) REGRESAR                       X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println("X RECOMENDACION:La ENERGIA es vital X");
+		System.out.println("X para realizar acciones en tu      X");
+		System.out.println("X turno, asegurate de asignar al    X");
+		System.out.println("X menos 10 puntos                   X");
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println("Seleccione atributo a mejorar:       ");
 
 		

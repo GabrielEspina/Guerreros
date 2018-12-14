@@ -16,7 +16,11 @@ public class AnilloDePresicionTest {
 		Guerrero guerrero = new GuerreroJugador();
 		guerrero.setAtributosSimple(1, 1, 1, 18, 1);
 		AnilloDePresicion anillo = new AnilloDePresicion(guerrero);
-		assertEquals(19,(guerrero.getAtributos().getPresicion() + anillo.calcularAumento(guerrero.getAtributos().getPresicion(), 5)));
+		guerrero.getItems()[0] = anillo;
+		guerrero.activarItemsPasivos();
+		assertEquals(20,(guerrero.getAtributos().getPresicion()));
+		guerrero.desactivarItemsPasivos();
+		assertEquals(18,(guerrero.getAtributos().getPresicion()));
 	}
 
 }

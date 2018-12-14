@@ -33,6 +33,10 @@ public abstract class Guerrero {
 		this.atributos = new Atributos();
 		this.cuerpo = new Cuerpo();
 		this.setItems(new Item[2]);
+		denfendiendo = false;
+		chanceParalizar = false;
+		chanceDobleDaño = false;
+		chanceEvadir = false;
 	}
 
 	public void dañar(int daño) {
@@ -80,57 +84,17 @@ public abstract class Guerrero {
 		}
 	}
 	public String atacar(Guerrero enemigo) {
-		if(!enemigo.murio()) {
-			if(!this.isFallaAtaque()) {
-				if(enemigo.isChanceEvadir()) {
-					int chanceDeEvadir = 1 + rand.nextInt((100 - 1) + 1);
-					if(!(chanceDeEvadir <= 20)) {
-						int daño = this.getAtributos().getAtaque();
-						if(isDenfendiendo()) {
-							if(daño <= 0) {
-								daño = 0;
-							}else {
-							daño = daño - (daño/3);
-							}
-						}
-						String msg = "";
-						int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
-						int chance = this.getAtributos().getPresicion();
-						if(chanceDobleDaño) {
-							chance += 25;
-						}
-						if (1 <= chanceCritico && chanceCritico <= chance ) {
-							daño = daño * 2;
-							msg = " Critico! ";
-						}
-						if(enemigo.isDenfendiendo()) {
-							if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
-								enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
-								msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
-							}else {
-								msg = "";
-								msg += " El ataque de " + this.getAtributos().getNombre() + " is desviado por la defensa de " + enemigo.getAtributos().getNombre();
-							}
-						}else {
-							enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
-							msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
-							if(chanceParalizar) {
-								int chanceParalizar = 1 + rand.nextInt((100 - 1) + 1);
-								if(chanceParalizar <= 15) {
-									enemigo.nockear(2);
-									msg += " y lo paraliza (2 turnos)";
-								}
-							}
-						}
-						
-						return msg;
-					}else {
-						return " " +  enemigo.getAtributos().getNombre() + " esquiva el ataque de " + this.getAtributos().getNombre(); 
-					}
-				}else {
+		if(!this.isFallaAtaque()) {
+			if(enemigo.isChanceEvadir()) {
+				int chanceDeEvadir = 1 + rand.nextInt((100 - 1) + 1);
+				if(!(chanceDeEvadir <= 20)) {
 					int daño = this.getAtributos().getAtaque();
 					if(isDenfendiendo()) {
+						if(daño <= 0) {
+							daño = 0;
+						}else {
 						daño = daño - (daño/3);
+						}
 					}
 					String msg = "";
 					int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
@@ -148,7 +112,7 @@ public abstract class Guerrero {
 							msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
 						}else {
 							msg = "";
-							msg += " El ataque de " + this.getAtributos().getNombre() + " es desviado por la defensa de " + enemigo.getAtributos().getNombre();
+							msg += " El ataque de " + this.getAtributos().getNombre() + " is desviado por la defensa de " + enemigo.getAtributos().getNombre();
 						}
 					}else {
 						enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
@@ -163,13 +127,49 @@ public abstract class Guerrero {
 					}
 					
 					return msg;
+				}else {
+					return " " +  enemigo.getAtributos().getNombre() + " esquiva el ataque de " + this.getAtributos().getNombre(); 
 				}
 			}else {
-				this.setFallaAtaque(false);
-				return " " + this.getAtributos().getNombre() + " falla su ataque!";
+				int daño = this.getAtributos().getAtaque();
+				if(isDenfendiendo()) {
+					daño = daño - (daño/3);
+				}
+				String msg = "";
+				int chanceCritico = 1 + rand.nextInt((100 - 1) + 1);
+				int chance = this.getAtributos().getPresicion();
+				if(chanceDobleDaño) {
+					chance += 25;
+				}
+				if (1 <= chanceCritico && chanceCritico <= chance ) {
+					daño = daño * 2;
+					msg = " Critico! ";
+				}
+				if(enemigo.isDenfendiendo()) {
+					if ((daño - enemigo.getAtributos().getDefensa()/2) > 0) {
+						enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - (daño - enemigo.getAtributos().getDefensa()/2));
+						msg += " " + this.getAtributos().getNombre() + " golpea la defensa de " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+					}else {
+						msg = "";
+						msg += " El ataque de " + this.getAtributos().getNombre() + " es desviado por la defensa de " + enemigo.getAtributos().getNombre();
+					}
+				}else {
+					enemigo.getAtributos().setVida(enemigo.getAtributos().getVida() - daño);
+					msg += " " + this.getAtributos().getNombre() + " golpea a " + enemigo.getAtributos().getNombre() + " por " + daño + "D";
+					if(chanceParalizar) {
+						int chanceParalizar = 1 + rand.nextInt((100 - 1) + 1);
+						if(chanceParalizar <= 15) {
+							enemigo.nockear(2);
+							msg += " y lo paraliza (2 turnos)";
+						}
+					}
+				}
+				
+				return msg;
 			}
 		}else {
-			return " " + this.getAtributos().getNombre() + " ataca el cadaver de " + enemigo.getAtributos().getNombre();
+			this.setFallaAtaque(false);
+			return " " + this.getAtributos().getNombre() + " falla su ataque!";
 		}
 	}
 	
