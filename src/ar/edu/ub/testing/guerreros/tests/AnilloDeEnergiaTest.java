@@ -15,7 +15,11 @@ public class AnilloDeEnergiaTest {
 		Guerrero guerrero = new GuerreroJugador();
 		guerrero.setAtributosSimple(1, 1, 18, 1, 1);
 		AnilloDeEnergia anillo = new AnilloDeEnergia(guerrero);
-		assertEquals(19,(guerrero.getAtributos().getEnergia() + anillo.calcularAumento(guerrero.getAtributos().getEnergia(), 5)));
+		guerrero.getItems()[0] = anillo;
+		guerrero.activarItemsPasivos();
+		assertEquals(20,(guerrero.getAtributos().getEnergia()));
+		guerrero.desactivarItemsPasivos();
+		assertEquals(18,(guerrero.getAtributos().getEnergia()));
 	}
 
 }

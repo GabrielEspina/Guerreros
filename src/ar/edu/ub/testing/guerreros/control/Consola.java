@@ -45,6 +45,14 @@ public class Consola {
 		return scan;
 	}
 	
+	public static void abrirScanner() {
+		scan =  new Scanner( System.in );
+	}
+	
+	public static void cerrarScanner() {
+		scan.close();
+	}
+	
 	public static void limpiarConsola() {
 		for (int i = 1; i < 100; i++) {
 			System.out.println(" ");

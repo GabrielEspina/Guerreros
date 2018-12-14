@@ -15,9 +15,14 @@ public class AnilloDeAtaqueTest {
 	@Test
 	public void testAnilloDeAtaque() {
 		Guerrero guerrero = new GuerreroJugador();
-		guerrero.setAtributosSimple(18, 1, 1, 1, 1);
+		guerrero.setAtributosSimple(18, 18, 1, 1, 1);
 		AnilloDeAtaque anillo = new AnilloDeAtaque(guerrero);
-		assertEquals(19,(guerrero.getAtributos().getAtaque() + anillo.calcularAumento(guerrero.getAtributos().getAtaque(), 5)));
+		guerrero.getItems()[0] = anillo;
+		guerrero.activarItemsPasivos();
+		assertEquals(19,(guerrero.getAtributos().getAtaque()));
+		guerrero.desactivarItemsPasivos();
+		assertEquals(18,(guerrero.getAtributos().getAtaque()));
 	}
+	
 	
 }

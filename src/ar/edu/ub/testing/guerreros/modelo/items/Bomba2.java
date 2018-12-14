@@ -23,7 +23,7 @@ public class Bomba2 extends ItemActivo{
 	@Override
 	public String ejecutarAccionActiva(EntidadesJuego entidades, int objetivo) {
 		this.setAtributoOriginal(getJugador().getAtributos().getAtaque());
-		this.getJugador().getAtributos().setAtaque(getJugador().getAtributos().getAtaque() - 5);
+		this.getJugador().getAtributos().setAtaque(getJugador().getAtributos().getAtaque() - 7);
 		this.getJugador().atacar(entidades.getGuerrerosEnemigos()[objetivo]);
 		atacarEnemigosCercanos(entidades,objetivo);
 		desactivarAccion();

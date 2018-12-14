@@ -1,6 +1,7 @@
 package ar.edu.ub.testing.guerreros.control;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
@@ -78,7 +79,14 @@ public class ControladorHumano {
 	public void menuAtacar(Guerrero jugador, GuerreroEnemigo[] enemigos) {
 		opciones.printPanelAtacar();
 		int eleccion = Consola.pedirNumero(1, enemigos.length);
+		if(!enemigos[eleccion - 1].murio()) {
 		atacar(jugador, enemigos[eleccion - 1]);
+		}else {
+			System.out.println("Ese enemigo ya esta derrotado");
+			wait(2);
+			vista.print(entidades);
+			menuAtacar(jugador,enemigos);
+		}
 	}
 	
 	public void menuUsarItems(Guerrero jugador, EntidadesJuego entidades) {
@@ -145,6 +153,14 @@ public class ControladorHumano {
 		}
 		vista.mostrarMensajeEnConsola( " " + humano.getAtributos().getNombre() + " descansa y recupera 4 puntos de energia" );
 		vista.print(entidades);
+	}
+	public void wait(int segundos) {
+		try {
+			//TimeUnit.SECONDS.sleep(segundos);
+			Thread.sleep(segundos * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
