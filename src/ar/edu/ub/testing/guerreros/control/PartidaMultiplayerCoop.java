@@ -109,13 +109,17 @@ public class PartidaMultiplayerCoop extends Partida {
 	public void turnoJugador() {
 		
 		if(turnoJugador == 2 ) {
-			new ControladorHumano(entidades.getJugador2(), entidades, vista);
-			print();
-			turnoJugador = 1;
+			if(!entidades.getJugador2().murio()) {
+				new ControladorHumano(entidades.getJugador2(), entidades, vista);
+				print();
+				turnoJugador = 1;
+			}
 		}else {
-			new ControladorHumano(entidades.getJugador(), entidades, vista);
-			print();
-			turnoJugador = 2;
+			if(!entidades.getJugador().murio()) {
+				new ControladorHumano(entidades.getJugador(), entidades, vista);
+				print();
+				turnoJugador = 2;
+			}
 		}
 	}
 
@@ -182,12 +186,8 @@ public class PartidaMultiplayerCoop extends Partida {
 	}
 	
 	public void atacar(Guerrero atacante, Guerrero atacado){
-		int daño = atacante.getAtributos().getAtaque() - (atacado.getAtributos().getDefensa()/2);
-		if (daño < 0) {
-			daño = 0;
-		}
-		atacante.atacar(atacado);
-		vista.mostrarMensajeEnConsola(" " + atacante.getAtributos().getNombre() + " ataco a " + atacado.getAtributos().getNombre() + " por " + daño + " puntos de daño");
+		vista.mostrarMensajeEnConsola(atacante.atacar(atacado));
+		print();
 		
 	}
 	public void verAtributos() {

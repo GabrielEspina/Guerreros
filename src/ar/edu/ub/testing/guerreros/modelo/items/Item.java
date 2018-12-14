@@ -14,6 +14,7 @@ public abstract class Item {
 	private int    precio;
 	private int    atributoOriginal;
 	private Guerrero jugador;
+	private int energiaNecesaria;
 	
 	public abstract void desactivarAccion();
 
@@ -48,6 +49,14 @@ public abstract class Item {
 
 	public void setJugador(Guerrero jugador) {
 		this.jugador = jugador;
+	}
+
+	public int getEnergiaNecesaria() {
+		return energiaNecesaria;
+	}
+
+	protected void setEnergiaNecesaria(int energiaNecesaria) {
+		this.energiaNecesaria = energiaNecesaria;
 	}
 	
 	

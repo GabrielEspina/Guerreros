@@ -5,5 +5,7 @@ public interface IHabilidad {
 	public String descripcion();
 	
 	public String nombre();
+	
+	public int consumeEnergia();
 
 }

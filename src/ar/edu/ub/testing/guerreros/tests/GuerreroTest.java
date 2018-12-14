@@ -23,6 +23,17 @@ class GuerreroTest {
 	}
 	
 	@Test
+	
+	void testGuerreroAtaque() {
+		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
+		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
+		guerreroDePrueba1.getAtributos().setVida(5);
+		guerreroDePrueba2.getAtributos().setAtaque(5);
+		guerreroDePrueba2.atacar(guerreroDePrueba1);
+		assertEquals(0,guerreroDePrueba1.getAtributos().getVida());
+	}
+	
+	@Test
 	void testGuerreroFallaAtaque() {
 		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
 		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
@@ -47,6 +58,7 @@ class GuerreroTest {
 			guerreroDePrueba1.atacar(guerreroDePrueba2);
 			if(guerreroDePrueba2.getAtributos().getVida() == 5) {
 				evadio = true;
+				i = 99;
 			}
 		}
 		
@@ -91,16 +103,29 @@ class GuerreroTest {
 	}
 	
 	@Test
+	void testGuerreroAtacaMientrasDefiende() {
+		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
+		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
+		guerreroDePrueba2.setDenfendiendo(true);
+		guerreroDePrueba2.getAtributos().setAtaque(9);
+		guerreroDePrueba1.getAtributos().setVida(10);
+		guerreroDePrueba2.atacar(guerreroDePrueba1);
+		assertEquals(4,guerreroDePrueba1.getAtributos().getVida());
+	}
+	
+	@Test
 	void testGuerreroChanceDeParalizar() {
 		GuerreroJugador guerreroDePrueba1 = new GuerreroJugador();
 		GuerreroJugador guerreroDePrueba2 = new GuerreroJugador();
 		guerreroDePrueba2.setChanceParalizar(true);
+		guerreroDePrueba1.getAtributos().setVida(100);
 		
 		boolean paralizo = false;
 		for (int i = 1; i <= 100; i++) {
 			guerreroDePrueba2.atacar(guerreroDePrueba1);
 			if(guerreroDePrueba1.isTurnoPausado()) {
 				paralizo = true;
+				i = 100;
 			}
 		}
 		

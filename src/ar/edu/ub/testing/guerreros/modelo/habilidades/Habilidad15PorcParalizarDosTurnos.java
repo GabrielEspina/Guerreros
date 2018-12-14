@@ -33,4 +33,9 @@ public class Habilidad15PorcParalizarDosTurnos extends HabilidadPasiva{
 		
 	}
 
+	@Override
+	public int consumeEnergia() {
+		return 0;
+	}
+
 }

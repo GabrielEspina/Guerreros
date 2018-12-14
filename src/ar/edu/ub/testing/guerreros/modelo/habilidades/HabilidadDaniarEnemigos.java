@@ -6,7 +6,7 @@ import ar.edu.ub.testing.guerreros.modelo.GuerreroEnemigo;
 public class HabilidadDaniarEnemigos extends HabilidadActiva{
 
 	@Override
-	public Integer consumeEnergia() {
+	public int consumeEnergia() {
 		return 6;
 	}
 

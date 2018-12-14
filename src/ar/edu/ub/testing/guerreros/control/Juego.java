@@ -52,8 +52,8 @@ public class Juego implements IJuego{
 	private void crearMenus() {
 		/*Por el momento solo se instancian en el mapa el menu principal
 		 * y un menu de seleccion*/
-		getMenus().put(1, new MenuPrincipal());
-		getMenus().put(2, new MenuSeleccion());
+		getMenus().put(MENU_PRINCIPAL, new MenuPrincipal());
+		getMenus().put(MENU_SELECCION, new MenuSeleccion());
 	}
 
 
@@ -119,14 +119,14 @@ public class Juego implements IJuego{
 		
 			case MENU_RECORDS_SINGLEPLAYER:
 				Consola.limpiarConsola();
-				menu.mostrarRecordSingleplayer(Records.cargar("recordSP.txt"));
+				menu.mostrarRecordSingleplayer(Records.cargarSP("recordSP.txt"));
 				Consola.apretarEnterParaContinuar();
 				menuRecords();
 				break;
 				
 			case MENU_RECORDS_MULTIPLAYER:
 				Consola.limpiarConsola();
-				menu.mostrarRecordMultiplayer(Records.cargar("recordMP.txt"));
+				menu.mostrarRecordMultiplayer(Records.cargarMP("recordMP.txt"));
 				Consola.apretarEnterParaContinuar();
 				menuRecords();
 				break;
@@ -142,37 +142,40 @@ public class Juego implements IJuego{
 		/*Se le envia un key al mapa para devolver un determinado menu e ir hasta el mismo
 		 * se le pide al usuario que elija una de las opciones (ENTRE 1 Y 4), y mediante un switch case
 		 * se determina el tipo de juego elegido*/
-		getMenus().get(2).ir();
-		int eleccionPartida = Consola.pedirNumero(1, 3);
+		getMenus().get(MENU_SELECCION).ir();
+		int eleccionPartida = Consola.pedirNumero(MS_MIN, MS_MAX);
 		switch(eleccionPartida) {
-		case 1:
-			setEntidades(getModoJuego().get(eleccionPartida).generarEntidades(getEntidades()));
-			newSinglePlayer();
-			Consola.limpiarConsola();
-			break;
-		case 2:
-			setEntidades(getModoJuego().get(eleccionPartida).generarEntidades(getEntidades()));
-			newMultiCoop();
-			Consola.limpiarConsola();
-			break;
-		case 3:
-			Consola.limpiarConsola();
-			menuPrincipal();
-			break;
-		}
+			case MENU_SELECCION_SINGLEPLAYER:
+				setEntidades(getModoJuego().get(eleccionPartida).generarEntidades(getEntidades()));
+				newSinglePlayer();
+				Consola.limpiarConsola();
+				break;
+			case MENU_SELECCION_MULTIPLAYER:
+				setEntidades(getModoJuego().get(eleccionPartida).generarEntidades(getEntidades()));
+				newMultiCoop();
+				Consola.limpiarConsola();
+				break;
+			case MENU_SELECCION_VOLVER:
+				Consola.limpiarConsola();
+				menuPrincipal();
+				break;
+			}
 	}
 	
 	public void menuTutorial() {
 		MenuTutorial menu = new MenuTutorial();
+		
 		Consola.limpiarConsola();
 		menu.printPagina1();
-		Consola.pedirNumero(1,1);
+		Consola.pedirNumero(MT_MIN,MT_MAX);
+		
 		Consola.limpiarConsola();
 		menu.printPagina2();
-		Consola.pedirNumero(1,1);
+		Consola.pedirNumero(MT_MIN,MT_MAX);
+		
 		Consola.limpiarConsola();
 		menu.printPagina3();
-		Consola.pedirNumero(1,1);
+		Consola.pedirNumero(MT_MIN,MT_MAX);
 	}
 
 	//---GETTERS Y SETTERS PROPIOS DE LA CLASE---//

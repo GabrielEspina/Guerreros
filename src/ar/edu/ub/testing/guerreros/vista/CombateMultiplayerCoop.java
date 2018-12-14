@@ -2,6 +2,7 @@ package ar.edu.ub.testing.guerreros.vista;
 
 import java.util.ArrayList;
 
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 
@@ -15,7 +16,9 @@ public class CombateMultiplayerCoop implements IVista{
 	private String[][]            bloqueCuatro = new String[4][64];
 	
 	public CombateMultiplayerCoop(EntidadesJuego entidades) {
+		try {
 		generarBloques(entidades);
+		}catch(EntidadesNoEncontradasException e) {}
 	}
 
 	@Override
@@ -66,15 +69,34 @@ public class CombateMultiplayerCoop implements IVista{
 		setGuerreroJugadorEnBloque(entidades.getJugador(),bloqueUno);
 		setGuerreroJugadorEnBloque(entidades.getJugador2(),bloqueDos);
 		setGuerreroEnemigoEnBloquePrimeraFila(entidades.getGuerrerosEnemigos()[0],bloqueUno);
+		setNumeroGuerreroPrimeraFila(bloqueUno,1);
 		setGuerreroEnemigoEnBloqueSegundaFila(entidades.getGuerrerosEnemigos()[1],bloqueUno);
+		setNumeroGuerreroSegundaFila(bloqueUno,2);
 		setGuerreroEnemigoEnBloquePrimeraFila(entidades.getGuerrerosEnemigos()[2],bloqueDos);
+		setNumeroGuerreroPrimeraFila(bloqueDos,3);
 		setGuerreroEnemigoEnBloqueSegundaFila(entidades.getGuerrerosEnemigos()[3],bloqueDos);
+		setNumeroGuerreroSegundaFila(bloqueDos,4);
 		setGuerreroEnemigoEnBloquePrimeraFila(entidades.getGuerrerosEnemigos()[4],bloqueTres);
+		setNumeroGuerreroPrimeraFila(bloqueTres,5);
 		setGuerreroEnemigoEnBloqueSegundaFila(entidades.getGuerrerosEnemigos()[5],bloqueTres);
+		setNumeroGuerreroSegundaFila(bloqueTres,6);
 		setGuerreroEnemigoEnBloquePrimeraFila(entidades.getGuerrerosEnemigos()[6],bloqueCuatro);
+		setNumeroGuerreroPrimeraFila(bloqueCuatro,7);
 		setGuerreroEnemigoEnBloqueSegundaFila(entidades.getGuerrerosEnemigos()[7],bloqueCuatro);
+		setNumeroGuerreroSegundaFila(bloqueCuatro,8);
 	}
 	
+	public void setNumeroGuerreroPrimeraFila(String[][] bloque, int numero) {
+		bloque[3][54] = "(" + numero + ")";
+		bloque[3][55] = null;
+		bloque[3][56] = null;
+	}
+	
+	public void setNumeroGuerreroSegundaFila(String[][] bloque, int numero) {
+		bloque[3][59] = "(" + numero + ")";
+		bloque[3][60] = null;
+		bloque[3][61] = null;
+	}
 	public void setGuerreroJugadorEnBloque(Guerrero g, String[][] bloque) {
 		bloque[0][3] = g.getCuerpo().getCabeza();
 		bloque[1][2] = g.getCuerpo().getTorso();

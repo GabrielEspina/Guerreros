@@ -35,4 +35,9 @@ public class Habilidad20PorcEvadirAtaque extends HabilidadPasiva{
 		guerrero.setChanceEvadir(false);
 	}
 
+	@Override
+	public int consumeEnergia() {
+		return 0;
+	}
+
 }

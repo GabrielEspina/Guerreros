@@ -2,6 +2,7 @@ package ar.edu.ub.testing.guerreros.vista;
 
 import java.util.ArrayList;
 
+import ar.edu.ub.testing.guerreros.excepciones.EntidadesNoEncontradasException;
 import ar.edu.ub.testing.guerreros.modelo.EntidadesJuego;
 import ar.edu.ub.testing.guerreros.modelo.Guerrero;
 
@@ -14,7 +15,9 @@ public class CombateSingleplayer implements IVista{
 	private String[][]            bloqueCuatro = new String[4][64];
 	
 	public CombateSingleplayer(EntidadesJuego entidades) {
+		try {
 		generarBloques(entidades);
+		}catch(EntidadesNoEncontradasException e) {}
 	}
 	
 	
@@ -38,9 +41,19 @@ public class CombateSingleplayer implements IVista{
 	public void setEntidadesEnBloques(EntidadesJuego entidades) {
 		setGuerreroJugadorEnBloque(entidades.getJugador(),bloqueUno);
 		setGuerreroEnemigoEnBloque(entidades.getGuerrerosEnemigos()[0],bloqueUno);
+		setNumeroGuerreroPrimeraFila(bloqueUno,1);
 		setGuerreroEnemigoEnBloque(entidades.getGuerrerosEnemigos()[1],bloqueDos);
+		setNumeroGuerreroPrimeraFila(bloqueDos,2);
 		setGuerreroEnemigoEnBloque(entidades.getGuerrerosEnemigos()[2],bloqueTres);
+		setNumeroGuerreroPrimeraFila(bloqueTres,3);
 		setGuerreroEnemigoEnBloque(entidades.getGuerrerosEnemigos()[3],bloqueCuatro);
+		setNumeroGuerreroPrimeraFila(bloqueCuatro,4);
+	}
+	
+	public void setNumeroGuerreroPrimeraFila(String[][] bloque, int numero) {
+		bloque[3][59] = "[" + numero + "]";
+		bloque[3][60] = null;
+		bloque[3][61] = null;
 	}
 	
 	public ArrayList<String[][]> getBloques() {
