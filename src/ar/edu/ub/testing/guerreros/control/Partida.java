@@ -386,7 +386,8 @@ public abstract class Partida implements IPartida {
 	
 	public void wait(int segundos) {
 		try {
-			TimeUnit.SECONDS.sleep(segundos);
+			//TimeUnit.SECONDS.sleep(segundos);
+			Thread.sleep(segundos * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

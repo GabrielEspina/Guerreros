@@ -38,6 +38,7 @@ public class MenuRecords {
 		System.out.println("X        RECORD MULTIPLAYER         X");
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(printElemento(atributos.get(0),"NIVEL= "));
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		System.out.println(printElemento(atributos.get(1),"NOMBRE= "));
 		System.out.println(printElemento(atributos.get(2),"ATAQUE= "));
 		System.out.println(printElemento(atributos.get(3),"DEFENSA= "));
